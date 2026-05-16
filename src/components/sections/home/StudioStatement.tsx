@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import ServiceIcon from '../../ui/ServiceIcon';
@@ -75,8 +75,6 @@ const studioServices = [
 export default function StudioStatement() {
   const [hoverSlug, setHoverSlug] = useState<string | null>(null);
   const [pinnedSlug, setPinnedSlug] = useState<string | null>(null);
-  const [carouselIdx, setCarouselIdx] = useState(0);
-  const touchStartX = useRef<number | null>(null);
 
   const isActive = (slug: string) => hoverSlug === slug || pinnedSlug === slug;
 
@@ -84,39 +82,11 @@ export default function StudioStatement() {
   const handleMouseLeave = () => setHoverSlug(null);
 
   const handleClick = (slug: string) => {
-    // On touch devices (no hover), toggle pinned state for accordion
     const isHoverDevice = window.matchMedia('(hover: hover)').matches;
     if (!isHoverDevice) {
       setPinnedSlug((prev) => (prev === slug ? null : slug));
     }
   };
-
-  // Auto-rotate carousel
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCarouselIdx((prev) => (prev + 1) % studioServices.length);
-    }, 3500);
-    return () => clearInterval(interval);
-  }, []);
-
-  const onTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX;
-  };
-
-  const onTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartX.current === null) return;
-    const diff = touchStartX.current - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 40) {
-      if (diff > 0) {
-        setCarouselIdx((prev) => (prev + 1) % studioServices.length);
-      } else {
-        setCarouselIdx((prev) => (prev - 1 + studioServices.length) % studioServices.length);
-      }
-    }
-    touchStartX.current = null;
-  };
-
-  const currentService = studioServices[carouselIdx];
 
   return (
     <section className="bg-konten-cream text-konten-black py-32 px-6 md:px-12">
@@ -133,69 +103,8 @@ export default function StudioStatement() {
           </p>
         </div>
 
-        {/* Mobile carousel (below md) */}
-        <div
-          className="md:hidden"
-          onTouchStart={onTouchStart}
-          onTouchEnd={onTouchEnd}
-        >
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={carouselIdx}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.3 }}
-              className="border-[1.5px] border-konten-black p-6 flex flex-col gap-5"
-            >
-              {/* Service name + icon */}
-              <div className="flex items-center justify-between">
-                <h3 className="font-spartan font-black text-konten-black uppercase text-[1.6rem] leading-none tracking-tight">
-                  {currentService.name}
-                </h3>
-                <div className="text-konten-blue flex-shrink-0 ml-4">
-                  <ServiceIcon slug={currentService.slug} size={48} />
-                </div>
-              </div>
-
-              {/* Bullet list */}
-              <ul className="flex flex-col gap-3">
-                {currentService.items.map((item) => (
-                  <li
-                    key={item}
-                    className="font-inter text-[15px] text-konten-black flex items-center gap-3"
-                  >
-                    <span className="w-[7px] h-[7px] rounded-full bg-konten-blue flex-shrink-0" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-
-              {/* Learn more CTA */}
-              <Link to={`/for-you#${currentService.slug}`} className="self-start">
-                <PillButton variant="filled" tone="blue">
-                  Learn more →
-                </PillButton>
-              </Link>
-            </motion.div>
-          </AnimatePresence>
-
-          {/* Dot indicators */}
-          <div className="flex justify-center gap-2 mt-6">
-            {studioServices.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setCarouselIdx(i)}
-                className={`w-2 h-2 rounded-full transition-colors duration-200 ${
-                  i === carouselIdx ? 'bg-konten-black' : 'bg-konten-black/30'
-                }`}
-              />
-            ))}
-          </div>
-        </div>
-
-        {/* Desktop accordion (md and above) */}
-        <div className="hidden md:block border-t-[1.5px] border-konten-black">
+        {/* Service accordion */}
+        <div className="border-t-[1.5px] border-konten-black">
           {studioServices.map((service) => {
             const active = isActive(service.slug);
             const hasItems = service.items.length > 0;
@@ -216,7 +125,6 @@ export default function StudioStatement() {
                     {service.name}
                   </h3>
                   <div className="flex items-center gap-3 flex-shrink-0 ml-4">
-                    {/* Arrow indicator */}
                     <motion.span
                       className="font-inter text-konten-black/30 text-[20px] hidden sm:block"
                       animate={{ rotate: active ? 180 : 0 }}
@@ -242,7 +150,6 @@ export default function StudioStatement() {
                       className="overflow-hidden"
                     >
                       <div className="pb-8 pl-4 md:pl-8 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
-                        {/* Service items */}
                         <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-16 gap-y-3">
                           {service.items.map((item, i) => (
                             <motion.li
@@ -262,7 +169,6 @@ export default function StudioStatement() {
                           ))}
                         </ul>
 
-                        {/* Learn more CTA */}
                         <Link
                           to={`/for-you#${service.slug}`}
                           onClick={(e) => e.stopPropagation()}
