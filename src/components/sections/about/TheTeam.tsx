@@ -1,28 +1,42 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { team } from '../../../data/team';
 import Polaroid from '../../ui/Polaroid';
 import Clapperboard from '../../ui/Clapperboard';
 
 export default function TheTeam() {
   const rotations = [-2, 1, -3, 2, -1, 3];
-  const [mobileIdx, setMobileIdx] = useState(0);
-  const touchStartX = useRef<number | null>(null);
+
+  // Mobile carousel state
+  const [mobileIdx, setMobileIdx]               = useState(0);
+  const [overlayVisible, setOverlayVisible]     = useState(false);
+  const touchStartX                             = useRef<number | null>(null);
+  const didSwipe                                = useRef(false);
+
+  // Hide overlay whenever the visible card changes (swipe or dot tap)
+  useEffect(() => {
+    setOverlayVisible(false);
+  }, [mobileIdx]);
 
   const onTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
+    didSwipe.current = false;
   };
 
   const onTouchEnd = (e: React.TouchEvent) => {
     if (touchStartX.current === null) return;
     const diff = touchStartX.current - e.changedTouches[0].clientX;
     if (Math.abs(diff) > 40) {
-      if (diff > 0) {
-        setMobileIdx((prev) => (prev + 1) % team.length);
-      } else {
-        setMobileIdx((prev) => (prev - 1 + team.length) % team.length);
-      }
+      didSwipe.current = true;
+      setMobileIdx((prev) =>
+        diff > 0 ? (prev + 1) % team.length : (prev - 1 + team.length) % team.length
+      );
     }
     touchStartX.current = null;
+  };
+
+  const handleCardTap = () => {
+    if (didSwipe.current) return;
+    setOverlayVisible((v) => !v);
   };
 
   const mobileMember = team[mobileIdx];
@@ -45,36 +59,47 @@ export default function TheTeam() {
           </p>
         </div>
 
-        {/* Mobile carousel (below md) */}
+        {/* ── Mobile carousel (below md) ──────────────────────────── */}
         <div
-          className="md:hidden flex flex-col items-center"
+          className="md:hidden"
           onTouchStart={onTouchStart}
           onTouchEnd={onTouchEnd}
         >
-          {/* Polaroid */}
-          <div className="mb-6">
-            <Polaroid rotation={rotations[mobileIdx]}>
-              <div className="relative w-full h-full bg-gradient-to-br from-konten-blue/40 to-konten-black/30 flex items-center justify-center">
-                <span className="font-spartan font-black text-konten-cream/40 text-[3rem]">
-                  0{mobileIdx + 1}
-                </span>
-              </div>
-            </Polaroid>
+          {/* Card — identical structure to desktop */}
+          <div className="flex flex-col cursor-pointer" onClick={handleCardTap}>
+            <div className="mb-6">
+              <Polaroid rotation={rotations[mobileIdx]}>
+                <div className="relative w-full h-full bg-gradient-to-br from-konten-blue/40 to-konten-black/30 flex items-center justify-center">
+                  {/* Placeholder number */}
+                  <span className="font-spartan font-black text-konten-cream/40 text-[3rem]">
+                    0{mobileIdx + 1}
+                  </span>
+                  {/* Tap-to-reveal overlay — mirrors desktop hover overlay */}
+                  <div
+                    className={`absolute inset-0 bg-konten-black/75 transition-opacity duration-300 flex flex-col items-center justify-center p-5 text-center ${
+                      overlayVisible ? 'opacity-100' : 'opacity-0'
+                    }`}
+                  >
+                    <p className="text-eyebrow text-konten-cream mb-3">
+                      {mobileMember.role}
+                    </p>
+                    <p className="font-inter text-[12px] leading-relaxed text-konten-cream">
+                      {mobileMember.bio}
+                    </p>
+                  </div>
+                </div>
+              </Polaroid>
+            </div>
+
+            {/* Name only — same as desktop */}
+            <h3 className="font-spartan font-black text-konten-cream uppercase text-[1.75rem] tracking-tight leading-none">
+              {mobileMember.name}
+            </h3>
           </div>
 
-          {/* Name */}
-          <h3 className="font-spartan font-black text-konten-cream uppercase text-[1.75rem] tracking-tight leading-none mb-2 text-center">
-            {mobileMember.name}
-          </h3>
-
-          {/* Role */}
-          <p className="text-eyebrow text-konten-blue mb-4 text-center">
-            {mobileMember.role}
-          </p>
-
-          {/* Bio — always visible on mobile */}
-          <p className="font-inter text-[13px] leading-relaxed text-konten-cream text-center max-w-[280px]">
-            {mobileMember.bio}
+          {/* Hint */}
+          <p className="font-inter text-[11px] text-konten-cream/40 mt-3">
+            Tap photo to reveal · Swipe to browse
           </p>
 
           {/* Dot indicators */}
@@ -91,7 +116,7 @@ export default function TheTeam() {
           </div>
         </div>
 
-        {/* Desktop grid (md and above) */}
+        {/* ── Desktop grid (md and above) — unchanged ─────────────── */}
         <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-16">
           {team.map((member, i) => (
             <div key={member.role} className="flex flex-col group cursor-default">
@@ -99,16 +124,11 @@ export default function TheTeam() {
               {/* Polaroid — scales up on hover */}
               <div className="mb-6 transition-transform duration-500 ease-in-out group-hover:scale-[1.04] origin-center">
                 <Polaroid rotation={rotations[i]}>
-
-                  {/* Image area with hover overlay */}
                   <div className="relative w-full h-full bg-gradient-to-br from-konten-blue/40 to-konten-black/30 flex items-center justify-center">
-
-                    {/* Placeholder number */}
                     <span className="font-spartan font-black text-konten-cream/40 text-[3rem]">
                       0{i + 1}
                     </span>
-
-                    {/* Hover overlay — role + bio */}
+                    {/* Hover overlay */}
                     <div className="absolute inset-0 bg-konten-black/75 opacity-0 group-hover:opacity-100 transition-opacity duration-400 flex flex-col items-center justify-center p-5 text-center">
                       <p className="text-eyebrow text-konten-cream mb-3">
                         {member.role}
@@ -117,7 +137,6 @@ export default function TheTeam() {
                         {member.bio}
                       </p>
                     </div>
-
                   </div>
                 </Polaroid>
               </div>
