@@ -15,7 +15,6 @@
   --color-konten-black: #0A0A0A;
 
   /* Font families */
-  --font-spartan font-black:   'Anton', sans-serif;
   --font-inter:   'League Spartan', sans-serif;
   --font-spartan: 'League Spartan', sans-serif;
   --font-mono:    'League Spartan', sans-serif;
@@ -42,10 +41,6 @@
 }
 
 /* ─── Custom utilities (v4 syntax) ──────────────────────────────── */
-@utility font-spartan font-black {
-  font-family: var(--font-spartan font-black);
-}
-
 @utility font-inter {
   font-family: var(--font-spartan);
 }
@@ -71,7 +66,7 @@
   font-size: var(--text-display-sm);
   line-height: var(--leading-heading);
   letter-spacing: var(--tracking-tight);
-  font-family: var(--font-spartan font-black);
+  font-family: var(--font-spartan);
   text-transform: uppercase;
 }
 
@@ -79,7 +74,7 @@
   font-size: var(--text-display-md);
   line-height: var(--leading-display);
   letter-spacing: var(--tracking-tight);
-  font-family: var(--font-spartan font-black);
+  font-family: var(--font-spartan);
   text-transform: uppercase;
 }
 
@@ -87,7 +82,7 @@
   font-size: var(--text-display-lg);
   line-height: var(--leading-none);
   letter-spacing: var(--tracking-tighter);
-  font-family: var(--font-spartan font-black);
+  font-family: var(--font-spartan);
   text-transform: uppercase;
 }
 
@@ -95,7 +90,7 @@
   font-size: var(--text-display-xl);
   line-height: var(--leading-none);
   letter-spacing: var(--tracking-tighter);
-  font-family: var(--font-spartan font-black);
+  font-family: var(--font-spartan);
   text-transform: uppercase;
 }
 
