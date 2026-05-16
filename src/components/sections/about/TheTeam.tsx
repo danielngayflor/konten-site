@@ -1,9 +1,31 @@
+import { useState, useRef } from 'react';
 import { team } from '../../../data/team';
 import Polaroid from '../../ui/Polaroid';
 import Clapperboard from '../../ui/Clapperboard';
 
 export default function TheTeam() {
   const rotations = [-2, 1, -3, 2, -1, 3];
+  const [mobileIdx, setMobileIdx] = useState(0);
+  const touchStartX = useRef<number | null>(null);
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) {
+      if (diff > 0) {
+        setMobileIdx((prev) => (prev + 1) % team.length);
+      } else {
+        setMobileIdx((prev) => (prev - 1 + team.length) % team.length);
+      }
+    }
+    touchStartX.current = null;
+  };
+
+  const mobileMember = team[mobileIdx];
 
   return (
     <section className="bg-konten-black text-konten-cream py-32 md:py-40 px-6 md:px-12">
@@ -23,8 +45,54 @@ export default function TheTeam() {
           </p>
         </div>
 
-        {/* 6 team cards in 2x3 grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-16">
+        {/* Mobile carousel (below md) */}
+        <div
+          className="md:hidden flex flex-col items-center"
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
+        >
+          {/* Polaroid */}
+          <div className="mb-6">
+            <Polaroid rotation={rotations[mobileIdx]}>
+              <div className="relative w-full h-full bg-gradient-to-br from-konten-blue/40 to-konten-black/30 flex items-center justify-center">
+                <span className="font-spartan font-black text-konten-cream/40 text-[3rem]">
+                  0{mobileIdx + 1}
+                </span>
+              </div>
+            </Polaroid>
+          </div>
+
+          {/* Name */}
+          <h3 className="font-spartan font-black text-konten-cream uppercase text-[1.75rem] tracking-tight leading-none mb-2 text-center">
+            {mobileMember.name}
+          </h3>
+
+          {/* Role */}
+          <p className="text-eyebrow text-konten-blue mb-4 text-center">
+            {mobileMember.role}
+          </p>
+
+          {/* Bio — always visible on mobile */}
+          <p className="font-inter text-[13px] leading-relaxed text-konten-cream text-center max-w-[280px]">
+            {mobileMember.bio}
+          </p>
+
+          {/* Dot indicators */}
+          <div className="flex justify-center gap-2 mt-6">
+            {team.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setMobileIdx(i)}
+                className={`w-2 h-2 rounded-full transition-colors duration-200 ${
+                  i === mobileIdx ? 'bg-konten-cream' : 'bg-konten-cream/30'
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Desktop grid (md and above) */}
+        <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-16">
           {team.map((member, i) => (
             <div key={member.role} className="flex flex-col group cursor-default">
 
