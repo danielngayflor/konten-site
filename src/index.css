@@ -1,0 +1,224 @@
+/* src/index.css */
+
+/* ─── Fonts ──────────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=League+Spartan:wght@300;400;500;600;700;900&display=swap');
+
+/* ─── Tailwind v4 ────────────────────────────────────────────────── */
+@import "tailwindcss";
+
+/* ─── Design tokens ─────────────────────────────────────────────── */
+@theme {
+
+  /* Colors */
+  --color-konten-blue:  #00249C;
+  --color-konten-cream: #FDFBD4;
+  --color-konten-black: #0A0A0A;
+
+  /* Font families */
+  --font-spartan font-black:   'Anton', sans-serif;
+  --font-inter:   'League Spartan', sans-serif;
+  --font-spartan: 'League Spartan', sans-serif;
+  --font-mono:    'League Spartan', sans-serif;
+
+  /* Font sizes — fluid display scale */
+  --text-eyebrow:      0.75rem;
+  --text-body:         1rem;
+  --text-body-lg:      1.25rem;
+  --text-display-sm:   clamp(2rem, 5vw, 4rem);
+  --text-display-md:   clamp(3rem, 8vw, 7rem);
+  --text-display-lg:   clamp(4rem, 12vw, 11rem);
+  --text-display-xl:   clamp(5rem, 16vw, 14rem);
+
+  /* Letter spacing */
+  --tracking-eyebrow:  0.15em;
+  --tracking-tight:   -0.005em;
+  --tracking-tighter: -0.01em;
+
+  /* Line heights — generous on stacked display headlines for readability */
+  --leading-none:      1.0;
+  --leading-display:   1.05;
+  --leading-heading:   1.1;
+  --leading-body:      1.6;
+}
+
+/* ─── Custom utilities (v4 syntax) ──────────────────────────────── */
+@utility font-spartan font-black {
+  font-family: var(--font-spartan font-black);
+}
+
+@utility font-inter {
+  font-family: var(--font-spartan);
+}
+
+@utility font-spartan {
+  font-family: var(--font-spartan);
+}
+
+@utility font-mono {
+  font-family: var(--font-spartan);
+}
+
+@utility text-eyebrow {
+  font-size: var(--text-eyebrow);
+  letter-spacing: var(--tracking-eyebrow);
+  line-height: 1;
+  text-transform: uppercase;
+  font-family: var(--font-spartan);
+  font-weight: 500;
+}
+
+@utility text-display-sm {
+  font-size: var(--text-display-sm);
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-tight);
+  font-family: var(--font-spartan font-black);
+  text-transform: uppercase;
+}
+
+@utility text-display-md {
+  font-size: var(--text-display-md);
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-tight);
+  font-family: var(--font-spartan font-black);
+  text-transform: uppercase;
+}
+
+@utility text-display-lg {
+  font-size: var(--text-display-lg);
+  line-height: var(--leading-none);
+  letter-spacing: var(--tracking-tighter);
+  font-family: var(--font-spartan font-black);
+  text-transform: uppercase;
+}
+
+@utility text-display-xl {
+  font-size: var(--text-display-xl);
+  line-height: var(--leading-none);
+  letter-spacing: var(--tracking-tighter);
+  font-family: var(--font-spartan font-black);
+  text-transform: uppercase;
+}
+
+/* ─── Base styles ────────────────────────────────────────────────── */
+@layer base {
+  html {
+    font-family: var(--font-spartan);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--color-konten-cream);
+    color: var(--color-konten-black);
+  }
+}
+
+/* ─── Collage element animations ─────────────────────────────────── */
+/* Scale + rotation are passed via CSS vars so the floating animation
+   can compose with them without overriding. */
+@keyframes konten-float {
+  0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)) scale(var(--scl, 1)); }
+  50%      { transform: translateY(-12px) rotate(calc(var(--rot, 0deg) + 1deg)) scale(var(--scl, 1)); }
+}
+
+@keyframes konten-float-slow {
+  0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)) scale(var(--scl, 1)); }
+  50%      { transform: translateY(-8px) rotate(calc(var(--rot, 0deg) - 1deg)) scale(var(--scl, 1)); }
+}
+
+@keyframes konten-pulse {
+  0%, 100% { transform: rotate(var(--rot, 0deg)) scale(var(--scl, 1)); }
+  50%      { transform: rotate(var(--rot, 0deg)) scale(calc(var(--scl, 1) * 1.06)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .konten-anim-float,
+  .konten-anim-float-slow,
+  .konten-anim-pulse {
+    animation: none !important;
+  }
+}
+
+/* ─── Section textures: grain + grid + drifting light ────────────── */
+
+/* Animatable custom properties for the light blob centre */
+@property --lx {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 30%;
+}
+@property --ly {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 40%;
+}
+
+/* Light slowly orbits each section — staggered per colour mode */
+@keyframes light-drift {
+  0%   { --lx: 28%; --ly: 28%; }
+  25%  { --lx: 68%; --ly: 18%; }
+  50%  { --lx: 72%; --ly: 70%; }
+  75%  { --lx: 30%; --ly: 74%; }
+  100% { --lx: 28%; --ly: 28%; }
+}
+
+/* Grid drifts diagonally — tiles at 48px so the loop is seamless */
+@keyframes grid-scroll {
+  from { background-position: 0 0, 0 0, 0px 0px,   0px 0px; }
+  to   { background-position: 0 0, 0 0, 48px 48px, 48px 48px; }
+}
+
+/* ── Black sections ──────────────────────────────────────────────── */
+section.bg-konten-black {
+  background-image:
+    radial-gradient(ellipse 55% 45% at var(--lx) var(--ly),
+      rgba(255,255,255,0.045) 0%, transparent 68%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0.021 0.041 0.008 0 0'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23f)'/%3E%3C/svg%3E"),
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 100% 100%, 250px 250px, 48px 48px, 48px 48px;
+  background-repeat: no-repeat, repeat, repeat, repeat;
+  background-position: 0 0, 0 0, 0px 0px, 0px 0px;
+  animation: light-drift 20s ease-in-out infinite, grid-scroll 14s linear infinite;
+}
+
+/* ── Blue sections (hero landings + footer) ─────────────────────── */
+section.bg-konten-blue,
+footer.bg-konten-blue {
+  background-image:
+    radial-gradient(ellipse 55% 45% at var(--lx) var(--ly),
+      rgba(255,255,255,0.07) 0%, transparent 68%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0.021 0.041 0.008 0 0'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23f)'/%3E%3C/svg%3E"),
+    linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 100% 100%, 250px 250px, 48px 48px, 48px 48px;
+  background-repeat: no-repeat, repeat, repeat, repeat;
+  background-position: 0 0, 0 0, 0px 0px, 0px 0px;
+  animation: light-drift 25s ease-in-out infinite, grid-scroll 14s linear infinite;
+  animation-delay: -8s, -5s;
+}
+
+/* ── Cream sections ──────────────────────────────────────────────── */
+section.bg-konten-cream {
+  background-image:
+    radial-gradient(ellipse 55% 45% at var(--lx) var(--ly),
+      rgba(0,36,156,0.05) 0%, transparent 68%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.018 0.035 0.007 0 0'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23f)'/%3E%3C/svg%3E"),
+    linear-gradient(rgba(10,10,10,0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(10,10,10,0.055) 1px, transparent 1px);
+  background-size: 100% 100%, 250px 250px, 48px 48px, 48px 48px;
+  background-repeat: no-repeat, repeat, repeat, repeat;
+  background-position: 0 0, 0 0, 0px 0px, 0px 0px;
+  animation: light-drift 22s ease-in-out infinite, grid-scroll 14s linear infinite;
+  animation-delay: -14s, -9s;
+}
+
+/* Honour prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  section.bg-konten-black,
+  section.bg-konten-cream,
+  section.bg-konten-blue,
+  footer.bg-konten-blue {
+    animation: none;
+  }
+}
