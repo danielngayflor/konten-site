@@ -15,7 +15,7 @@ There are no tests configured. Production build runs the TypeScript project refe
 
 ## Source of truth
 
-`~/Downloads/KONTEN_BUILD_SPEC_v4.md` is the design and content brief that drives this site (Konten LR — a four-page marketing site for a creative agency in Monrovia, Liberia). When asked to add or change pages/sections, copy, or visual rules, treat the spec as authoritative and prefer matching its section numbering (e.g. "section 8.3" = the Studio Statement on the home page).
+`~/Downloads/KONTEN_BUILD_SPEC_v4.md` is the design and content brief that drives this site (Konten LR — a creative agency in Monrovia, Liberia). When asked to add or change pages/sections, copy, or visual rules, treat the spec as authoritative and prefer matching its section numbering (e.g. "section 8.3" = the Studio Statement on the home page).
 
 ## Tailwind v4 setup — DO NOT add config files
 
@@ -37,15 +37,23 @@ Each route in `src/pages/*.tsx` is a thin shell that composes section components
 
 ```
 App.tsx (Router + Nav + routes + Closer + LegalFooter)
-└── pages/Services.tsx (composes header + map over services + discovery form)
-    └── components/sections/services/ServiceSpread.tsx (driven by data/services.ts)
+├── pages/Home.tsx
+├── pages/About.tsx
+├── pages/Services.tsx → sections/services/ServiceSpread.tsx (driven by data/services.ts)
+├── pages/Work.tsx → sections/work/WorkGallery.tsx (filter pills + polaroid grid)
+├── pages/WorkDetail.tsx (slug lookup from workPlaceholders; renders hero, fact file, brief, gallery/platform, stats, CTA)
+├── pages/Resources.tsx → sections/resources/ResourceGrid.tsx (driven by data/resources.ts)
+└── pages/ResourceDetail.tsx (slug lookup from resources)
 ```
+
+`<Closer>` is suppressed on `/services` (the Services page has its own bottom CTA).
 
 ### Data-driven content
 
 - `data/services.ts` — 6 services. Each `Service` carries copy, an `iconSlug`, and a `sectionBg` ('cream' | 'black') that controls background alternation. The `collageElements` field still exists on the type but is no longer rendered by `ServiceSpread` — it was removed.
 - `data/values.ts`, `data/team.ts` — feed the About page's value cards and team grid.
-- `data/workPlaceholders.ts` — feeds both the Work index page (alternating spreads) and the `/work/:slug` detail page (looked up by `slug`).
+- `data/workPlaceholders.ts` — feeds both the Work index page gallery and the `/work/:slug` detail page (looked up by `slug`). The `WorkProject` type includes optional `siteUrl` (triggers "THE PLATFORM." section with iframe/screenshot embed), `siteScreenshotUrl` (static fallback image when a site blocks iframes via `X-Frame-Options`), and `iconSlug` (explicit icon override on the gallery card — only shows icon treatment when this field is set).
+- `data/resources.ts` — feeds the `/freebies` page and `/freebies/:slug` detail page. Each `Resource` has a `slug`, `type` ('article' | 'cheat-sheet' | 'white-paper'), and a `body` array of typed blocks (`paragraph`, `heading`, `list`, `callout`).
 
 ### Section background system
 
@@ -85,10 +93,10 @@ Available stickers in `public/stickers/`: `always-on.png`, `b-roll.png`, `camera
 
 ## Styling conventions
 
-- Hero/headline type uses **Anton** (single weight, condensed, all caps) at fluid `clamp(...)` sizes. Use `text-display-lg` / `text-display-xl` utilities or write `text-[clamp(...)]` inline.
-- Body type is **Inter**. Eyebrows are `text-eyebrow` (uppercase Inter 500, wide tracking) — usually paired with a small Clapperboard.
+- Hero/headline type uses **League Spartan** (mapped to `font-spartan`, weight 900, all caps) at fluid `clamp(...)` sizes. Use `text-display-lg` / `text-display-xl` utilities or write `text-[clamp(...)]` inline.
+- Body type is also League Spartan (mapped to `font-inter` for historic reasons — the CSS variable alias is intentional). Eyebrows are `text-eyebrow` (uppercase 500 weight, wide tracking) — usually paired with a small Clapperboard.
 - Two-column "spreads" use `lg:grid-cols-2` with `lg:[direction:rtl]` on the parent + `lg:[direction:ltr]` on each child to flip text/collage sides without reordering DOM. See `ServiceSpread` and `ProjectSpread`.
-- Buttons are pill-shaped (`rounded-full`). Use `<PillButton>` and pass `variant` (outline/filled) and `tone` (dark/light).
+- Buttons are pill-shaped (`rounded-full`). Use `<PillButton>` and pass `variant` (outline/filled) and `tone` (dark/light). **Do not wrap `<PillButton>` in an `<a>` tag** — it renders a `<button>` internally, which makes nesting invalid. For a link that looks like a pill button, write a plain `<a>` with equivalent classes instead.
 
 ## What's not built yet (per spec section 15)
 
@@ -97,3 +105,13 @@ Available stickers in `public/stickers/`: `always-on.png`, `b-roll.png`, `camera
 - **Step 12 — Polish pass**: `<ScrollReveal>` placements, `<SectionTransition>` placements per spec section 13.1, pulse animations on decorative clapperboards, mobile breakpoint pass.
 
 When picking up work, check the build order in spec section 15 to see what stage the project is at.
+
+## Screenshot service for external sites
+
+Sites that block iframe embedding via `X-Frame-Options: SAMEORIGIN` (e.g. `ardliberia.org`) use the WordPress mshots service as a static screenshot fallback:
+
+```
+https://s.wordpress.com/mshots/v1/{URL-encoded-site-url}?w=1200
+```
+
+Set this on the project's `siteScreenshotUrl` field. The `WorkDetail` platform section automatically uses a `<img>` (linked to the live URL) instead of an `<iframe>` when this field is present.
