@@ -75,6 +75,7 @@ export default function SelectedWorkPreview() {
           className="md:hidden"
           onTouchStart={onTouchStart}
           onTouchEnd={onTouchEnd}
+          style={{ touchAction: 'pan-y' }}
         >
           <AnimatePresence mode="wait">
             <motion.div

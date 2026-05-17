@@ -4,7 +4,8 @@ export type ResourceBlock =
   | { kind: 'paragraph'; text: string }
   | { kind: 'heading'; text: string }
   | { kind: 'list'; items: string[] }
-  | { kind: 'callout'; text: string };
+  | { kind: 'callout'; text: string }
+  | { kind: 'image'; src: string; alt: string };
 
 export interface Resource {
   slug: string;
@@ -15,6 +16,11 @@ export interface Resource {
   publishedAt: string;
   readTime: string;
   body: ResourceBlock[];
+  downloadFile?: {
+    path: string;
+    fileName: string;
+    label: string;
+  };
 }
 
 export const TYPE_LABELS: Record<ResourceType, string> = {
@@ -26,10 +32,10 @@ export const TYPE_LABELS: Record<ResourceType, string> = {
 export const resources: Resource[] = [
   {
     slug: 'content-strategy-for-ngos',
-    title: 'Content Strategy for NGOs in West Africa',
+    title: 'Content Strategy for NGOs',
     type: 'article',
     summary: 'How non-profits in Liberia and across West Africa can build a communications system that holds donor trust, mobilises local support, and survives when one institutional funder pulls out.',
-    coverImage: 'https://images.unsplash.com/photo-1631047085941-a29e9730a7e6?w=1400&q=80&auto=format&fit=crop',
+    coverImage: '/images/articles/ngo-meeting.jpg',
     publishedAt: 'May 2026',
     readTime: '12 min read',
     body: [
@@ -51,6 +57,7 @@ export const resources: Resource[] = [
         'Peers and press. Local journalists, sector colleagues, future hires. They\'re watching for the orgs that move beyond press-release English into actual stories.',
       ]},
       { kind: 'paragraph', text: 'Map these audiences before you write a single caption. Decide which one a piece of content is for, and assume the others won\'t care. Content that tries to speak to everyone speaks to no one.' },
+      { kind: 'image', src: '/images/articles/community-gathering.jpg', alt: 'West African community gathered together, woman in headscarf smiling' },
 
       { kind: 'heading', text: 'The three content pillars for impact orgs' },
       { kind: 'paragraph', text: 'A pillar system gives you a rhythm. You never run out of ideas because each pillar feeds the next, and you can audit the mix at the end of each month to see if you\'re balanced.' },
@@ -73,6 +80,7 @@ export const resources: Resource[] = [
       { kind: 'paragraph', text: 'The principle behind all of this: build for how people actually consume content where you work, not how a Western donor imagines they do.' },
 
       { kind: 'heading', text: 'The dignity rule' },
+      { kind: 'image', src: '/images/articles/women-sifting-grain.jpg', alt: 'African women sorting grain at a market in West Africa' },
       { kind: 'paragraph', text: 'There is no content strategy worth building if it doesn\'t pass an ethics test, and this is the section most strategy decks skip.' },
       { kind: 'list', items: [
         'Consent is not a release form. It\'s a conversation. The person in your photograph needs to understand where the image will appear, who will see it, and what it will be used to raise.',
@@ -105,29 +113,115 @@ export const resources: Resource[] = [
   },
   {
     slug: 'social-media-brief-template',
-    title: 'Social Media Brief Template',
+    title: 'Steal Our Social Media Brief Template',
     type: 'cheat-sheet',
-    summary: 'A one-page brief that aligns your team before every campaign. Stop briefing in WhatsApp voice notes.',
-    coverImage: 'https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?w=1400&q=80&auto=format&fit=crop',
+    summary: 'Five years of scope-creep lessons folded into one doc. A walkthrough of every field that matters — and the exact template we send clients on day one.',
+    coverImage: '/images/articles/social-media-brief-cover.png',
     publishedAt: 'April 2026',
-    readTime: '2 min read',
+    readTime: '9 min read',
+    downloadFile: {
+      path: '/downloads/konten-social-media-brief-template.docx',
+      fileName: 'konten-social-media-brief-template.docx',
+      label: 'Konten Social Media Brief Template',
+    },
     body: [
-      { kind: 'paragraph', text: 'A social media brief removes ambiguity before a shoot or campaign starts. Use this template to align your team, your client, and your creative direction on one page.' },
-      { kind: 'heading', text: 'The brief, field by field' },
+      { kind: 'paragraph', text: 'There\'s a specific kind of pain in this job that I want to talk about.' },
+      { kind: 'paragraph', text: 'You wrap a shoot. You feel good. You sit down to edit and the client sends a note that says: "Actually we wanted this to feel more upbeat. And can the logo be bigger? And we forgot to mention — this needs to work for LinkedIn too." Three weeks later, you\'re on round five, the campaign is two weeks late, nobody is happy, and you can trace every single problem back to one missing conversation that should have happened on day one.' },
+      { kind: 'paragraph', text: 'That conversation is the brief.' },
+      { kind: 'paragraph', text: 'I\'ve been making content for other people for five years now. Documentary work, brand campaigns, recap videos, the whole spread. And the single biggest unlock I\'ve found — bigger than any camera, any editing trick, any pricing strategy — is having a brief signed off before I touch anything.' },
+      { kind: 'paragraph', text: 'This is a walkthrough of how I do it, why each field matters, and what good answers look like. Follow along and grab the actual template we send to clients on day one at the bottom of this page.' },
+
+      { kind: 'heading', text: 'What a brief actually is' },
+      { kind: 'paragraph', text: 'A social media brief is one document that everyone signs off on before production starts. It locks four things in writing: what we\'re making, who it\'s for, what success looks like, and what happens when things change.' },
+      { kind: 'paragraph', text: 'It is not a creative deck. It is not a strategy doc. It is not a contract — though it lives close to one. Think of it as the boring older sibling of the creative concept. The creative is what makes the work sing. The brief is what makes sure the work doesn\'t get re-cut six times because nobody agreed on what "warm" meant.' },
+      { kind: 'paragraph', text: 'A few things a good brief does that nothing else does:' },
       { kind: 'list', items: [
-        'Campaign name & dates — be specific. "May launch" is not a date.',
-        'Objective — one sentence. What does success look like by the end of this campaign?',
-        'Primary audience — who are we talking to? Age, platform, what they care about.',
-        'Platforms — where will this live? Each platform needs its own format.',
-        'Tone & style — 3 adjectives max. "Bold, warm, direct" is a complete answer.',
-        'Deliverables — exact formats, dimensions, quantities.',
-        'Must-include — logos, disclaimers, hashtags, handles.',
-        'Must-avoid — anything that has caused problems in past campaigns.',
-        'Sign-off owner — who approves final content before it goes live?',
+        'It surfaces disagreement early, when fixing it is cheap. The number of times I\'ve had a client say "oh, we don\'t actually need it in 9:16" on a 30-minute brief call — that\'s a shoot I didn\'t waste two days on. The number of times we\'ve caught "actually our CEO has to approve everything" before I started editing — that\'s a week of revisions I didn\'t have to absorb.',
+        'It gives both sides a single source of truth. When someone says "but we said we wanted X," there\'s a document. The document is right or it isn\'t. Nobody has to remember what got said on a WhatsApp call three weeks ago.',
+        'It protects the relationship. Scope creep doesn\'t break partnerships because clients are bad people. It breaks partnerships because nobody drew the line, so nobody knows when they\'ve crossed it. You\'re not saying no to extra work — you\'re saying yes to clear boundaries upfront.',
       ]},
-      { kind: 'callout', text: 'A brief that takes 20 minutes to write saves 3 rounds of revisions. Build it as a shared Google Doc so client and team can comment before production starts.' },
-      { kind: 'heading', text: 'How Konten uses this' },
-      { kind: 'paragraph', text: 'Every project we take on starts with a brief. We send a fillable version to the client on day one. By the time the kickoff call happens, we already agree on what we\'re making — so we can spend the meeting talking about ideas, not logistics.' },
+      { kind: 'callout', text: 'The cost of skipping this: vague briefs are the leading cause of scope creep, rushed work, blown budgets, and team burnout. The cost of doing it: 20 minutes to fill in, maybe an hour of back-and-forth to align. That\'s the trade.' },
+
+      { kind: 'heading', text: 'Walking through the fields' },
+      { kind: 'paragraph', text: 'The template has nine sections. I\'ll walk through each one — what it\'s really asking, what a strong answer looks like, and what to watch out for.' },
+
+      { kind: 'heading', text: '01 — The basics' },
+      { kind: 'paragraph', text: 'Campaign name, client, start date, go-live date, budget, brief owner.' },
+      { kind: 'paragraph', text: '"May launch" is not a date. "Q2" is not a date. May 14, 2026 is a date. Every other timeline in the brief works backwards from go-live. If go-live is fuzzy, everything is fuzzy.' },
+      { kind: 'paragraph', text: 'The brief owner field is the one people skip. Don\'t. This is the person responsible for keeping the brief alive — making sure it gets filled in, that the right people sign off, that updates get reflected if something changes. Without an owner, the document goes stale within a week and you\'re back to email chains.' },
+
+      { kind: 'heading', text: '02 — The objective' },
+      { kind: 'paragraph', text: 'One sentence. What does success look like by the end of this campaign?' },
+      { kind: 'paragraph', text: 'If you can\'t say it in one sentence, the campaign isn\'t focused enough to start yet. Every fuzzy objective produces fuzzy work, and fuzzy work produces rounds and rounds of revisions chasing a target nobody clearly defined.' },
+      { kind: 'paragraph', text: 'Good one-sentence objectives:' },
+      { kind: 'list', items: [
+        '"Drive 200 sign-ups to the AGS 2027 early-interest list before applications open."',
+        '"Get The Last Wave\'s surf school onto the radar of three to five international travel publications."',
+        '"Convert 8% of our Instagram followers into WhatsApp Broadcast subscribers."',
+      ]},
+      { kind: 'paragraph', text: 'Bad one-sentence objectives:' },
+      { kind: 'list', items: [
+        '"Raise awareness of our brand." (Awareness of what, with whom, to do what?)',
+        '"Make really good content." (Good according to whom?)',
+        '"Get more engagement." (More than what? Engagement that does what?)',
+      ]},
+      { kind: 'paragraph', text: 'Then two more questions underneath: why does this campaign exist (the business reason), and how will we measure it (two to three KPIs, max). If the objective is sign-ups, the KPI is sign-ups — not impressions.' },
+
+      { kind: 'heading', text: '03 — The audience' },
+      { kind: 'paragraph', text: 'Most briefs fall apart here. People list three audiences and weight them equally. That\'s not an audience — that\'s a hedge.' },
+      { kind: 'paragraph', text: 'Pick one. If a piece of the campaign lands with a secondary group, that\'s a bonus, but you don\'t design for everyone or you design for no one.' },
+      { kind: 'paragraph', text: 'Then the field that changes everything: what does this audience already believe or feel about the topic? If you don\'t know what\'s in their head before they see your content, you can\'t tell whether your content shifted anything. And if it didn\'t shift anything, you didn\'t really do the work — you just decorated the room.' },
+      { kind: 'paragraph', text: 'The "where they are" field matters more than people realize, especially in our market. If your audience is in Liberia, Ghana, or Sierra Leone, you can\'t build a campaign around Instagram and call it a strategy — Instagram penetration in Liberia is around 2% of the population. WhatsApp is where the conversation happens. The brief should force you to confront that on day one, not after you\'ve shot.' },
+
+      { kind: 'heading', text: '04 — Platforms and deliverables' },
+      { kind: 'paragraph', text: 'This is the field where money gets saved or burned.' },
+      { kind: 'paragraph', text: 'The template gives you a checklist of platforms with their current native specs — Instagram Reels at 9:16, feed carousels at 4:5, TikTok at 9:16, YouTube Shorts at 9:16, LinkedIn at 4:5 or 9:16, and so on. Tick what\'s actually in scope. Cross-platform reuse is great, but the moment you say "this also needs to work as a LinkedIn video," you\'ve changed the shoot.' },
+      { kind: 'paragraph', text: 'Then the field that separates pros from amateurs: exact deliverables. Not "social content." Not "video assets." This:' },
+      { kind: 'list', items: [
+        '3× 30-second Reels in 9:16, 1080×1920',
+        '5× static carousel slides at 1080×1350 each',
+        '1× behind-the-scenes Story set (5–7 frames)',
+        '1× horizontal trailer cut at 1920×1080 for the website',
+      ]},
+      { kind: 'paragraph', text: 'You should be able to count the deliverables on your fingers. If your client can\'t, neither of you knows what\'s actually being made. This single field has saved me more arguments than any other in the brief.' },
+
+      { kind: 'heading', text: '05 — Tone, style, and non-negotiables' },
+      { kind: 'paragraph', text: 'Three adjectives. Maximum. "Bold, warm, direct" is a complete answer. "Authoritative, friendly, professional, playful, sophisticated, accessible" is a sign nobody has decided what this brand actually sounds like.' },
+      { kind: 'paragraph', text: 'Reference examples are where this section earns its keep. Two or three links to content the client would be proud to sit next to, with a sentence on what they like about each. References tell you more about taste than any list of adjectives, and they reveal disagreements early.' },
+      { kind: 'paragraph', text: 'Then must-include and must-avoid. Must-include is the boring but essential stuff: logos, handles, hashtags, disclaimers, partner credits. Must-avoid is the field that pays for itself. Topics, words, colors, image styles, things that have caused problems in past campaigns. Over-list here. It\'s easier to remove a constraint later than to add one mid-edit.' },
+
+      { kind: 'heading', text: '06 — Timeline and milestones' },
+      { kind: 'paragraph', text: 'The template has a table with the standard milestones for a video/social shoot: brief signed off, script locked, shoot days, first draft, round 1 feedback, round 2 feedback, final delivery, go-live. Real dates next to each one. An owner next to each one.' },
+      { kind: 'paragraph', text: 'Work backwards from go-live. Most timelines explode because nobody did this math at the start — they just agreed to a launch date and hoped.' },
+      { kind: 'callout', text: 'One detail worth pre-agreeing: what counts as a feedback round? My rule: one consolidated set of notes within 48 hours of receiving a draft equals one round. Spell this out in the brief and you won\'t have to spell it out later under pressure.' },
+
+      { kind: 'heading', text: '07 — Approvals and revision rounds' },
+      { kind: 'paragraph', text: 'The sign-off owner is one name. The person whose "yes" means it goes live. Not "the team." Not "marketing." A name.' },
+      { kind: 'paragraph', text: 'This is where partnerships break most often. The CEO weighs in at the last minute. The board chair has thoughts. Marketing approves, then comms unapproves. Every one of these problems is a sign-off owner problem, and every one can be prevented by getting a name in this box on day one.' },
+      { kind: 'paragraph', text: 'Then revision rounds. Two is a healthy default for creator-led work. Three for client campaigns. Beyond that, you\'re in change-order territory. The brief states this so neither side has to bring it up awkwardly when it happens.' },
+      { kind: 'paragraph', text: 'And the field most templates skip: what happens if scope grows mid-project. The honest answer is usually "additional deliverables or revision rounds are quoted separately and signed before work continues." Saying this on day one, when nobody is upset yet, is much easier than saying it in week four when feelings are involved.' },
+
+      { kind: 'heading', text: '08 — Risks and contingency' },
+      { kind: 'paragraph', text: 'Name the top three risks and a plan for each.' },
+      { kind: 'paragraph', text: 'For a Liberia shoot, mine usually look something like: weather for outdoor scenes (backup indoor location locked in), key talent unavailable (one alternate identified per role), internet outage on launch day (delivery files pre-uploaded to the client\'s drive 24 hours before). Three risks, three answers, on one page.' },
+      { kind: 'paragraph', text: 'The point isn\'t to predict everything. The point is to surface the obvious risks now so they don\'t ambush you later. If a partner pulling out would kill the campaign, you should know that on day one, not when it happens.' },
+
+      { kind: 'heading', text: '09 — Sign-off' },
+      { kind: 'paragraph', text: 'Two signatures. Client and creator. Names, roles, dates.' },
+      { kind: 'paragraph', text: 'The act of signing matters. A brief that nobody signed is a wish list. A brief that both parties signed is a working agreement. The work that follows is built on top of it.' },
+
+      { kind: 'heading', text: 'Three things that kill briefs' },
+      { kind: 'paragraph', text: 'Even good briefs go bad. The three I see most:' },
+      { kind: 'list', items: [
+        'Filling it in as a formality. The brief works because you actually thought about each field. If you copy-paste "engaged millennials" into the audience box because that\'s what was in the last campaign, the brief becomes a prop. Take the 20 minutes seriously.',
+        'Writing it after the work has started. People skip the brief on a "quick" project, get halfway in, then write it retroactively. The brief has no power if it\'s not blocking the start of work. Write it first. Sign it. Then begin.',
+        'Not updating it when things change. If the client adds a deliverable, update the brief. If you don\'t, the version of the project in everyone\'s heads slowly drifts apart — you end up with two parallel campaigns. Both of them lose.',
+      ]},
+
+      { kind: 'heading', text: 'How Konten uses it' },
+      { kind: 'paragraph', text: 'Every project starts here. I send the fillable template to the client on day one. By the time we get on the kickoff call, half the fields are already drafted. We spend the meeting talking about ideas, not logistics — because the logistics have a home, on a page, with someone\'s name next to each one.' },
+      { kind: 'paragraph', text: 'About 70% of the value of the brief is the conversation it forces you to have. The other 30% is having something to point at when memory fails, scope drifts, or new stakeholders walk in halfway through. Both are worth the 20 minutes.' },
+      { kind: 'callout', text: 'The template below is the one we actually use. Drop it into Google Drive and fill it in with your client in real time. Brand it however you want. Change anything you don\'t need. Just don\'t skip filling it in. If it saves you three rounds of revisions on your next project, we\'re even.' },
     ],
   },
   {

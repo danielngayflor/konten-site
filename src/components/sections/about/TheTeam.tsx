@@ -64,6 +64,7 @@ export default function TheTeam() {
           className="md:hidden"
           onTouchStart={onTouchStart}
           onTouchEnd={onTouchEnd}
+          style={{ touchAction: 'pan-y' }}
         >
           {/* Card — identical structure to desktop */}
           <div className="flex flex-col cursor-pointer" onClick={handleCardTap}>

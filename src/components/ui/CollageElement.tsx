@@ -540,7 +540,7 @@ export default function CollageElement({
         style={{
           position: 'absolute',
           ...position,
-          y: prefersReduced ? 0 : y,
+          y: (prefersReduced || isMobile) ? 0 : y,
           width: resolvedSize,
           height: resolvedSize,
           ['--rot' as never]: `${rotation}deg`,

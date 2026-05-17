@@ -90,6 +90,7 @@ export default function FreebiesPromo() {
           className="md:hidden mb-12"
           onTouchStart={onTouchStart}
           onTouchEnd={onTouchEnd}
+          style={{ touchAction: 'pan-y' }}
         >
           <AnimatePresence mode="wait">
             <motion.div

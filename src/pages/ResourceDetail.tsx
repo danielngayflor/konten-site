@@ -1,11 +1,79 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link, useParams } from 'react-router-dom';
-import { resources, TYPE_LABELS, type ResourceBlock } from '../data/resources';
+import { resources, TYPE_LABELS, type ResourceBlock, type Resource } from '../data/resources';
 import Clapperboard from '../components/ui/Clapperboard';
 import PillButton from '../components/ui/PillButton';
 import CollageElement from '../components/ui/CollageElement';
 
 const EASE = [0.25, 0, 0, 1] as const;
+
+function DownloadGate({ file }: { file: NonNullable<Resource['downloadFile']> }) {
+  const [email, setEmail] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setError('Please enter a valid email address.');
+      return;
+    }
+    console.log('Download gate — email captured:', email);
+    setSubmitted(true);
+    setError('');
+  };
+
+  return (
+    <div className="bg-konten-blue text-konten-cream px-8 py-10">
+      <div className="flex items-center gap-2 mb-3">
+        <Clapperboard size={13} />
+        <span className="text-eyebrow text-konten-cream/70">Free download</span>
+      </div>
+      <h3 className="font-spartan font-black text-konten-cream uppercase leading-none tracking-tighter text-[clamp(1.6rem,3.5vw,2.4rem)] mb-4">
+        {file.label}
+      </h3>
+      {!submitted ? (
+        <form onSubmit={handleSubmit}>
+          <p className="font-inter text-[16px] md:text-[17px] text-konten-cream/75 mb-5">
+            Drop your email and the template is yours — free, forever, no strings.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => { setEmail(e.target.value); setError(''); }}
+              placeholder="your@email.com"
+              className="flex-1 bg-konten-cream/10 border border-konten-cream/30 text-konten-cream placeholder:text-konten-cream/35 font-inter text-[16px] px-5 py-3 rounded-full outline-none focus:border-konten-cream transition-colors"
+            />
+            <button
+              type="submit"
+              className="bg-konten-cream text-konten-blue font-spartan font-black uppercase tracking-tight text-[14px] px-8 py-3 rounded-full hover:bg-konten-cream/90 transition-colors whitespace-nowrap cursor-pointer"
+            >
+              Get the template →
+            </button>
+          </div>
+          {error && (
+            <p className="font-inter text-[13px] text-konten-cream/60 mt-3">{error}</p>
+          )}
+        </form>
+      ) : (
+        <div>
+          <p className="font-inter text-[16px] md:text-[17px] text-konten-cream/75 mb-5">
+            You're all set — click below to download.
+          </p>
+          <a
+            href={file.path}
+            download={file.fileName}
+            className="inline-flex items-center gap-2 bg-konten-cream text-konten-blue font-spartan font-black uppercase tracking-tight text-[14px] px-8 py-3 rounded-full hover:bg-konten-cream/90 transition-colors"
+          >
+            Download .docx ↓
+          </a>
+        </div>
+      )}
+    </div>
+  );
+}
 
 function renderBlock(block: ResourceBlock, index: number) {
   switch (block.kind) {
@@ -38,6 +106,16 @@ function renderBlock(block: ResourceBlock, index: number) {
           <p className="font-inter text-[17px] md:text-[19px] leading-body text-konten-black italic">
             {block.text}
           </p>
+        </div>
+      );
+    case 'image':
+      return (
+        <div key={index} className="w-full my-2 overflow-hidden rounded-sm">
+          <img
+            src={block.src}
+            alt={block.alt}
+            className="w-full h-auto object-cover"
+          />
         </div>
       );
   }
@@ -123,6 +201,13 @@ export default function ResourceDetail() {
       <section className="bg-konten-cream text-konten-black py-20 md:py-32 px-6 md:px-12">
         <div className="max-w-3xl mx-auto space-y-8">
           {resource.body.map((block, i) => renderBlock(block, i))}
+
+          {/* ── Download gate (only if resource has a file) ── */}
+          {resource.downloadFile && (
+            <div className="mt-12">
+              <DownloadGate file={resource.downloadFile} />
+            </div>
+          )}
         </div>
       </section>
 

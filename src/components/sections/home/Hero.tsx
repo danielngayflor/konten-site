@@ -13,7 +13,7 @@ export default function Hero() {
   return (
     <section className="relative bg-konten-blue text-konten-cream overflow-hidden">
       {/* Main hero area */}
-      <div className="relative min-h-[calc(100vh-72px)] flex flex-col items-center justify-center px-6 py-24">
+      <div className="relative min-h-[calc(100dvh-60px)] sm:min-h-[calc(100dvh-72px)] flex flex-col items-center justify-center px-6 py-24">
         {/* Two collage elements — Capture (cinema-camera) + Audio (vinyl-record).
             Anchored in the bottom corners so they never collide with the centered
             headline at any breakpoint. Hidden on mobile. */}

@@ -101,6 +101,7 @@ export default function OurValues() {
           className="md:hidden"
           onTouchStart={onTouchStart}
           onTouchEnd={onTouchEnd}
+          style={{ touchAction: 'pan-y' }}
         >
           <div onClick={() => handleMobileFlip(mobileValue.name)}>
             <FlipCard value={mobileValue} />

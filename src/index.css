@@ -100,11 +100,13 @@
     font-family: var(--font-spartan);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
   }
 
   body {
     background-color: var(--color-konten-cream);
     color: var(--color-konten-black);
+    overflow-x: hidden;
   }
 }
 
