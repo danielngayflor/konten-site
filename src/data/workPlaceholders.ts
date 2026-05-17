@@ -116,10 +116,10 @@ export const workPlaceholders: WorkProject[] = [
     serviceSlug: 'media-coverage',
     serviceName: 'MEDIA COVERAGE & DOCUMENTARY',
     description:
-      "Ten days of media coverage and event design for one of Africa's most important adolescent-girls convenings.",
+      "Four days of media coverage and event design for one of Africa's most important adolescent-girls convenings.",
     descriptionParagraphs: [
       "The Adolescent Girls Summit is one of the most important convenings on the continent for adolescent girls' leadership, SRHE, technology, and gender equality. Global Fund for Children was hosting the third edition, and the storytelling brief was unambiguous: every frame had to earn its place in the case being made to funders, partners, and the stakeholders who'd decide if AGS keeps growing.",
-      'We brought a moodboard before we brought a camera. Once GFC approved the visual direction, we spent ten days on the ground — interviews with adolescents and partner organisations, hours of b-roll, daily recap videos turned around in-country, and a deep image bank from every session. Alongside the coverage, we handled event design: banners, merch, on-screen animations. Magic, on schedule, for ten days.',
+      'We brought a moodboard before we brought a camera. Once GFC approved the visual direction, we spent four days on the ground — interviews with adolescents and partner organisations, hours of b-roll, daily recap videos turned around in-country, and a deep image bank from every session. Alongside the coverage, we handled event design: banners, merch, on-screen animations. Magic, on schedule, for four days.',
     ],
     goals: [
       'Deliver storytelling strong enough to justify continued investment in AGS to funders and partners',

@@ -55,17 +55,17 @@ export default function FreebiesPromo() {
 
       {/* Card content */}
       <div className="flex flex-col flex-1 px-5 pt-4 pb-5 gap-3">
-        <span className="inline-flex items-center gap-1.5 w-fit px-3 py-1 bg-konten-blue text-konten-cream font-inter font-500 text-[10px] uppercase tracking-wide rounded-full">
+        <span className="inline-flex items-center gap-1.5 w-fit px-3 py-1 bg-konten-blue text-konten-cream font-inter font-500 text-[12px] uppercase tracking-wide rounded-full">
           <Clapperboard size={10} />
           {TYPE_LABELS[r.type]}
         </span>
         <h3 className="font-spartan font-black text-konten-black uppercase leading-none tracking-tighter text-[clamp(1.2rem,2vw,1.6rem)]">
           {r.title}
         </h3>
-        <p className="font-inter text-[13px] leading-body text-konten-black/60 flex-1 line-clamp-2">
+        <p className="font-inter text-[15px] leading-body text-konten-black/60 flex-1 line-clamp-2">
           {r.summary}
         </p>
-        <span className="font-inter font-500 text-[12px] text-konten-black/50 group-hover:text-konten-black transition-colors">
+        <span className="font-inter font-500 text-[14px] text-konten-black/50 group-hover:text-konten-black transition-colors">
           {r.readTime} · Read →
         </span>
       </div>

@@ -37,22 +37,22 @@ export default function Nav() {
         <div className="flex items-center gap-8">
           <div className="flex items-center gap-8 font-inter font-500 text-[14px] uppercase tracking-wide">
             <Link
-              to="/about"
+              to="/services-for-you"
               className="text-konten-black hover:underline transition-all"
             >
-              Our Story
+              Services For You
             </Link>
             <Link
-              to="/services"
-              className="text-konten-black hover:underline transition-all"
-            >
-              For You
-            </Link>
-            <Link
-              to="/work"
+              to="/stories-weve-told"
               className="text-konten-black hover:underline transition-all"
             >
               Stories We've Told
+            </Link>
+            <Link
+              to="/our-story"
+              className="text-konten-black hover:underline transition-all"
+            >
+              Our Story
             </Link>
             <Link
               to="/freebies"
@@ -98,25 +98,25 @@ export default function Nav() {
         <div className="fixed inset-0 z-40 bg-konten-cream pt-[60px] flex flex-col px-6 py-8">
           <div className="flex flex-col gap-6 font-inter font-500 text-[16px] uppercase">
             <Link
-              to="/about"
+              to="/services-for-you"
               onClick={() => setMobileMenuOpen(false)}
               className="text-konten-black"
             >
-              Our Story
+              Services For You
             </Link>
             <Link
-              to="/services"
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-konten-black"
-            >
-              For You
-            </Link>
-            <Link
-              to="/work"
+              to="/stories-weve-told"
               onClick={() => setMobileMenuOpen(false)}
               className="text-konten-black"
             >
               Stories We've Told
+            </Link>
+            <Link
+              to="/our-story"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-konten-black"
+            >
+              Our Story
             </Link>
             <Link
               to="/freebies"

@@ -142,7 +142,7 @@ export default function Closer() {
 
           {/* Contact info — one line */}
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1 font-inter text-[14px] md:text-[15px]">
-            <span>thekontenlr@gmail.com</span>
+            <span>contact@konten.agency</span>
             <span className="text-konten-cream/40">·</span>
             <span>+231 886 888 438</span>
             <span className="text-konten-cream/40">·</span>

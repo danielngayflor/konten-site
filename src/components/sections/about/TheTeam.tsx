@@ -83,7 +83,7 @@ export default function TheTeam() {
                     <p className="text-eyebrow text-konten-cream mb-3">
                       {mobileMember.role}
                     </p>
-                    <p className="font-inter text-[12px] leading-relaxed text-konten-cream">
+                    <p className="font-inter text-[14px] leading-relaxed text-konten-cream">
                       {mobileMember.bio}
                     </p>
                   </div>
@@ -98,7 +98,7 @@ export default function TheTeam() {
           </div>
 
           {/* Hint */}
-          <p className="font-inter text-[11px] text-konten-cream/40 mt-3">
+          <p className="font-inter text-[13px] text-konten-cream/40 mt-3">
             Tap photo to reveal · Swipe to browse
           </p>
 
@@ -133,7 +133,7 @@ export default function TheTeam() {
                       <p className="text-eyebrow text-konten-cream mb-3">
                         {member.role}
                       </p>
-                      <p className="font-inter text-[12px] md:text-[13px] leading-relaxed text-konten-cream">
+                      <p className="font-inter text-[14px] md:text-[15px] leading-relaxed text-konten-cream">
                         {member.bio}
                       </p>
                     </div>

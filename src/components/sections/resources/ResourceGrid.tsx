@@ -61,7 +61,7 @@ export default function ResourceGrid() {
 
               {/* Type pill */}
               <div className="px-6 pt-5 pb-0">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-konten-blue text-konten-cream font-inter font-500 text-[11px] uppercase tracking-wide rounded-full">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-konten-blue text-konten-cream font-inter font-500 text-[13px] uppercase tracking-wide rounded-full">
                   <Clapperboard size={11} />
                   {TYPE_LABELS[resource.type]}
                 </span>
@@ -72,14 +72,14 @@ export default function ResourceGrid() {
                 <h3 className="font-spartan font-black text-konten-black uppercase leading-none tracking-tighter text-[clamp(1.5rem,2.5vw,2rem)]">
                   {resource.title}
                 </h3>
-                <p className="font-inter text-[15px] leading-body text-konten-black/70 flex-1">
+                <p className="font-inter text-[17px] leading-body text-konten-black/70 flex-1">
                   {resource.summary}
                 </p>
                 <div className="flex items-center justify-between pt-2 border-t border-konten-black/10">
-                  <span className="font-inter text-[12px] text-konten-black/50 uppercase tracking-wide">
+                  <span className="font-inter text-[14px] text-konten-black/50 uppercase tracking-wide">
                     {resource.readTime} · {resource.publishedAt}
                   </span>
-                  <span className="font-inter font-500 text-[13px] text-konten-black group-hover:translate-x-1 transition-transform duration-200">
+                  <span className="font-inter font-500 text-[15px] text-konten-black group-hover:translate-x-1 transition-transform duration-200">
                     Read →
                   </span>
                 </div>

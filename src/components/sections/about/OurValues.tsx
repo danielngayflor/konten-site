@@ -78,7 +78,7 @@ export default function OurValues() {
             transform: 'rotateY(180deg)',
           }}
         >
-          <p className="font-inter text-konten-cream text-[15px] md:text-[16px] leading-[1.7] text-center">
+          <p className="font-inter text-konten-cream text-[16px] md:text-[18px] leading-[1.7] text-center">
             {value.description}
           </p>
         </div>
@@ -107,7 +107,7 @@ export default function OurValues() {
           </div>
 
           {/* Hint text */}
-          <p className="text-center font-inter text-[12px] text-konten-cream/50 mt-4">
+          <p className="text-center font-inter text-[13px] text-konten-cream/50 mt-4">
             Tap to flip · Swipe to browse
           </p>
 

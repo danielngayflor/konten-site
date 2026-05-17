@@ -20,7 +20,7 @@
   --font-mono:    'League Spartan', sans-serif;
 
   /* Font sizes — fluid display scale */
-  --text-eyebrow:      0.75rem;
+  --text-eyebrow:      0.875rem;
   --text-body:         1rem;
   --text-body-lg:      1.25rem;
   --text-display-sm:   clamp(2rem, 5vw, 4rem);

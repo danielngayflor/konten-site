@@ -141,19 +141,19 @@ export default function WorkGallery({ projects }: WorkGalleryProps) {
                                  translate-y-full group-hover:translate-y-0
                                  transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
                     >
-                      <p className="font-inter font-medium text-[9px] uppercase tracking-widest text-konten-cream/65 mb-3 flex items-center gap-1.5">
+                      <p className="font-inter font-medium text-[11px] uppercase tracking-widest text-konten-cream/65 mb-3 flex items-center gap-1.5">
                         {project.serviceName} <Clapperboard size={9} />
                       </p>
                       <h3 className="font-spartan font-black text-konten-cream uppercase leading-none tracking-tighter text-[clamp(1.3rem,2.2vw,1.7rem)] mb-2">
                         {project.title}
                       </h3>
-                      <p className="font-inter text-konten-cream/50 text-[10px] uppercase tracking-widest mb-3">
+                      <p className="font-inter text-konten-cream/50 text-[12px] uppercase tracking-widest mb-3">
                         {project.client} · {project.year}
                       </p>
-                      <p className="font-inter text-konten-cream/80 text-[12px] leading-snug mb-5 line-clamp-3">
+                      <p className="font-inter text-konten-cream/80 text-[14px] leading-snug mb-5 line-clamp-3">
                         {project.description}
                       </p>
-                      <span className="inline-flex items-center gap-1 self-start font-inter text-konten-cream text-[11px] font-medium tracking-wide border-b border-konten-cream/40 pb-0.5">
+                      <span className="inline-flex items-center gap-1 self-start font-inter text-konten-cream text-[13px] font-medium tracking-wide border-b border-konten-cream/40 pb-0.5">
                         View project →
                       </span>
                     </div>
@@ -189,7 +189,7 @@ function FilterPill({
   return (
     <button
       onClick={onClick}
-      className={`px-4 py-1.5 rounded-full font-inter text-[11px] font-medium uppercase tracking-widest
+      className={`px-4 py-1.5 rounded-full font-inter text-[13px] font-medium uppercase tracking-widest
                   transition-colors duration-200 cursor-pointer ${
                     active
                       ? 'bg-konten-cream text-konten-black'

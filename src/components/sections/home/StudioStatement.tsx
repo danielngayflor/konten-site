@@ -161,7 +161,7 @@ export default function StudioStatement() {
                                 duration: 0.25,
                                 ease: 'easeOut',
                               }}
-                              className="font-inter text-[16px] md:text-[18px] text-konten-black flex items-center gap-3"
+                              className="font-inter text-[17px] md:text-[19px] text-konten-black flex items-center gap-3"
                             >
                               <span className="w-[7px] h-[7px] rounded-full bg-konten-blue flex-shrink-0" />
                               {item}
@@ -170,7 +170,7 @@ export default function StudioStatement() {
                         </ul>
 
                         <Link
-                          to={`/for-you#${service.slug}`}
+                          to={`/services-for-you#${service.slug}`}
                           onClick={(e) => e.stopPropagation()}
                           className="flex-shrink-0"
                         >
@@ -189,7 +189,7 @@ export default function StudioStatement() {
 
         {/* Bottom CTA */}
         <div className="flex justify-center mt-16">
-          <Link to="/for-you">
+          <Link to="/services-for-you">
             <PillButton variant="outline" tone="dark">
               Work with Konten →
             </PillButton>

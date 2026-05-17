@@ -74,7 +74,7 @@ export default function Hero() {
             <PillButton variant="filled" tone="light" onClick={scrollToContact}>
               Start a project →
             </PillButton>
-            <Link to="/work">
+            <Link to="/stories-weve-told">
               <PillButton variant="outline" tone="light">
                 See our work
               </PillButton>

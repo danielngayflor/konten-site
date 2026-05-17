@@ -20,15 +20,15 @@ function AppLayout() {
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/work" element={<Work />} />
-          <Route path="/work/:slug" element={<WorkDetail />} />
+          <Route path="/our-story" element={<About />} />
+          <Route path="/services-for-you" element={<Services />} />
+          <Route path="/stories-weve-told" element={<Work />} />
+          <Route path="/stories-weve-told/:slug" element={<WorkDetail />} />
           <Route path="/freebies" element={<Resources />} />
           <Route path="/freebies/:slug" element={<ResourceDetail />} />
         </Routes>
       </main>
-      {pathname !== '/services' && <Closer />}
+      {pathname !== '/services-for-you' && <Closer />}
       <LegalFooter />
     </>
   );

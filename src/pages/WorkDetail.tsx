@@ -117,7 +117,7 @@ export default function WorkDetail() {
           <div>
             <p className="text-eyebrow text-konten-blue mb-2">SERVICE</p>
             <Link
-              to="/services"
+              to="/services-for-you"
               className="font-spartan font-black text-[1.6rem] uppercase tracking-tight leading-tight hover:text-konten-blue transition-colors block"
             >
               {project.serviceName}
