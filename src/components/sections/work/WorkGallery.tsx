@@ -97,7 +97,7 @@ export default function WorkGallery({ projects }: WorkGalleryProps) {
             return (
               <Link
                 key={project.slug}
-                to={`/work/${project.slug}`}
+                to={`/stories-weve-told/${project.slug}`}
                 className="relative z-0 hover:z-10 group block"
               >
                 {/* Film metadata strip — above the frame, matches homepage pattern */}
