@@ -5,23 +5,33 @@ import { resources, TYPE_LABELS, type ResourceBlock, type Resource } from '../da
 import Clapperboard from '../components/ui/Clapperboard';
 import PillButton from '../components/ui/PillButton';
 import CollageElement from '../components/ui/CollageElement';
+import { submitForm } from '../lib/supabase';
 
 const EASE = [0.25, 0, 0, 1] as const;
 
 function DownloadGate({ file }: { file: NonNullable<Resource['downloadFile']> }) {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setError('Please enter a valid email address.');
       return;
     }
-    console.log('Download gate — email captured:', email);
-    setSubmitted(true);
+    setLoading(true);
     setError('');
+    try {
+      await submitForm('download', { email, resourceSlug: file.fileName });
+      setSubmitted(true);
+    } catch (err) {
+      console.error(err);
+      setError('Something went wrong. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -48,9 +58,10 @@ function DownloadGate({ file }: { file: NonNullable<Resource['downloadFile']> })
             />
             <button
               type="submit"
-              className="bg-konten-cream text-konten-blue font-spartan font-black uppercase tracking-tight text-[14px] px-8 py-3 rounded-full hover:bg-konten-cream/90 transition-colors whitespace-nowrap cursor-pointer"
+              disabled={loading}
+              className="bg-konten-cream text-konten-blue font-spartan font-black uppercase tracking-tight text-[14px] px-8 py-3 rounded-full hover:bg-konten-cream/90 transition-colors whitespace-nowrap cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Get the template →
+              {loading ? 'One sec…' : 'Get the template →'}
             </button>
           </div>
           {error && (

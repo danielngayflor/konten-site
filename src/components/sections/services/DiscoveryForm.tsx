@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Clapperboard from '../../ui/Clapperboard';
+import { submitForm } from '../../../lib/supabase';
 
 function InstagramIcon({ size = 22 }: { size?: number }) {
   return (
@@ -76,6 +77,8 @@ const timeOfDayOptions = [
 
 export default function DiscoveryForm() {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   const [formData, setFormData] = useState({
     fullName: '',
     organisation: '',
@@ -88,12 +91,21 @@ export default function DiscoveryForm() {
     projectDescription: '',
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Wire up to Supabase (Step 10)
-    console.log('Discovery request submitted:', formData);
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 4000);
+    setLoading(true);
+    setError('');
+    try {
+      await submitForm('discovery', formData);
+      setSubmitted(true);
+      setFormData({ fullName: '', organisation: '', email: '', phone: '', serviceOfInterest: '', projectType: '', preferredDate: '', timeOfDay: 'any', projectDescription: '' });
+      setTimeout(() => setSubmitted(false), 5000);
+    } catch (err) {
+      console.error(err);
+      setError('Something went wrong. Please email us at contact@konten.agency');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleChange = (
@@ -272,13 +284,17 @@ export default function DiscoveryForm() {
             />
           </div>
 
-          <div className="md:col-span-2 mt-4">
+          <div className="md:col-span-2 mt-4 space-y-3">
             <button
               type="submit"
-              className="w-full bg-konten-cream text-konten-blue font-inter font-500 text-[14px] uppercase tracking-wide py-4 rounded-full hover:opacity-85 transition-opacity"
+              disabled={loading}
+              className="w-full bg-konten-cream text-konten-blue font-inter font-500 text-[14px] uppercase tracking-wide py-4 rounded-full hover:opacity-85 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Submit request →
+              {loading ? 'Sending…' : 'Submit request →'}
             </button>
+            {error && (
+              <p className="font-inter text-[13px] text-konten-cream/60 text-center">{error}</p>
+            )}
           </div>
         </form>
       </div>
