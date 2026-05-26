@@ -141,10 +141,40 @@ export const workPlaceholders: WorkProject[] = [
     sectionBg: 'black',
   },
 
+  {
+    slug: 'sos-building-futures',
+    projectNumber: '04',
+    title: 'BUILDING FUTURES',
+    client: "SOS Children's Villages Liberia",
+    serviceSlug: 'media-coverage',
+    serviceName: 'MEDIA COVERAGE & DOCUMENTARY',
+    description:
+      "A full organisational documentary spanning 40+ years of presence — Village life, youth programmes, and a mobile health unit that has reached 7,000+ families.",
+    descriptionParagraphs: [
+      "SOS Children's Villages Liberia has been in the country for over 40 years. They needed a film that could hold the full weight of that presence — not a highlight reel, not a donor promo, but a documentary showing the real breadth of their work: caregiver family life inside the SOS Village, education and vocational training for young people, family strengthening programmes supporting vulnerable households in the community, and the Hospital on Wheels initiative — a mobile community health outreach project that has reached over 7,000 families across Liberia with lifesaving health education, maternal care, and community health services.",
+      'Titled "Building Futures, Restoring Hope," the production required multi-scene filming across the SOS Village compound and surrounding community settings. We conducted professional on-camera interviews with clinical staff — a Head Nurse and Midwife speaking to health outcomes and community impact — alongside caregiver and youth testimonies and a senior leadership interview with the National Director. Drone aerials of the village and surrounding community provided the visual scale the organisation needed. All footage was captured to broadcast quality and delivered for organisational, fundraising, and advocacy use.',
+    ],
+    goals: [
+      'Document the full breadth of SOS programming — Village life, education, family strengthening, and Hospital on Wheels',
+      'Conduct broadcast-quality on-camera interviews with clinical staff, caregivers, youth, and the National Director',
+      'Capture drone aerials of the SOS Village compound and surrounding community',
+      'Deliver a film suitable for organisational, fundraising, and advocacy use',
+    ],
+    year: '2025',
+    location: 'Monrovia, Liberia',
+    heroVideo: 'https://mega.nz/embed/atgxFT4J#nBiDkpPY3wM-C-B5ujuuEw-iJoJgJ4OnCosNPCe-5Yo',
+    stats: [
+      { value: '7,000+', label: 'Families reached by Hospital on Wheels' },
+      { value: '40+', label: 'Years of SOS presence in Liberia' },
+    ],
+    metadataStrip: "SOS CHILDREN'S VILLAGES · MONROVIA · 2025",
+    sectionBg: 'cream',
+  },
+
   /* ── Social & Story ───────────────────────────────────────────────── */
   {
     slug: 'jackies-resort-social-launch',
-    projectNumber: '04',
+    projectNumber: '05',
     title: "JACKIE'S RESORT",
     client: "Jackie's Resort",
     serviceSlug: 'social-and-story',
@@ -178,7 +208,7 @@ export const workPlaceholders: WorkProject[] = [
   },
   {
     slug: 'monvies-collection-product-story',
-    projectNumber: '05',
+    projectNumber: '06',
     title: "MONVIE'S",
     client: "Monvie's Collection",
     serviceSlug: 'social-and-story',
@@ -210,7 +240,7 @@ export const workPlaceholders: WorkProject[] = [
   /* ── Brand & Comms ────────────────────────────────────────────────── */
   {
     slug: 'ard-brand-comms',
-    projectNumber: '06',
+    projectNumber: '07',
     title: 'GOING DIGITAL',
     client: 'Alliance for Rural Democracy',
     serviceSlug: 'brand-and-comms',
@@ -235,7 +265,7 @@ export const workPlaceholders: WorkProject[] = [
   /* ── Web & Digital ────────────────────────────────────────────────── */
   {
     slug: 'ard-web-digital',
-    projectNumber: '07',
+    projectNumber: '08',
     title: 'ARD WEBSITE',
     client: 'Alliance for Rural Democracy',
     serviceSlug: 'web-and-digital',
@@ -260,7 +290,7 @@ export const workPlaceholders: WorkProject[] = [
   },
   {
     slug: 'nrwp-digital-home',
-    projectNumber: '08',
+    projectNumber: '09',
     title: 'NRWP WEBSITE',
     client: 'Natural Resource Women Platform',
     serviceSlug: 'web-and-digital',
@@ -287,7 +317,7 @@ export const workPlaceholders: WorkProject[] = [
   /* ── Training & Capacity ──────────────────────────────────────────── */
   {
     slug: 'ard-training',
-    projectNumber: '09',
+    projectNumber: '10',
     title: 'ARD TRAINING',
     client: 'Alliance for Rural Democracy',
     serviceSlug: 'training-and-capacity',
@@ -310,7 +340,7 @@ export const workPlaceholders: WorkProject[] = [
   },
   {
     slug: 'nrwp-training',
-    projectNumber: '10',
+    projectNumber: '11',
     title: 'NRWP TRAINING',
     client: 'Natural Resource Women Platform',
     serviceSlug: 'training-and-capacity',
@@ -335,7 +365,7 @@ export const workPlaceholders: WorkProject[] = [
   /* ── Creator Studio ───────────────────────────────────────────────── */
   {
     slug: 'gen-z-investor-personal-brand',
-    projectNumber: '11',
+    projectNumber: '12',
     title: 'GEN Z INVESTOR',
     client: 'Gen Z Investor',
     serviceSlug: 'creator-studio',
