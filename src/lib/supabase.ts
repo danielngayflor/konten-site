@@ -1,17 +1,16 @@
-import { createClient } from '@supabase/supabase-js';
-
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
-
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
-
-/** Calls the `form-submit` Edge Function which inserts to the DB and sends a Resend email. */
+/** POST form data to the Vercel API route which sends it via SMTP. */
 export async function submitForm(
-  type: 'contact' | 'discovery' | 'download',
+  type: 'contact' | 'discovery' | 'download' | 'newsletter',
   data: Record<string, string>
 ): Promise<void> {
-  const { error } = await supabase.functions.invoke('form-submit', {
-    body: { type, data },
+  const res = await fetch('/api/submit-form', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ type, data }),
   });
-  if (error) throw error;
+
+  if (!res.ok) {
+    const json = await res.json().catch(() => ({})) as { error?: string };
+    throw new Error(json.error ?? 'Form submission failed');
+  }
 }

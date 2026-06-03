@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { submitForm } from '../../lib/supabase';
 
 function InstagramIcon({ size = 24 }: { size?: number }) {
   return (
@@ -46,12 +47,22 @@ function YouTubeIcon({ size = 24 }: { size?: number }) {
 
 export default function Closer() {
   const [emailInput, setEmailInput] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Wire up email signup to Supabase
-    console.log('Email signup:', emailInput);
-    setEmailInput('');
+    setLoading(true);
+    try {
+      await submitForm('newsletter', { email: emailInput });
+      setSubmitted(true);
+      setEmailInput('');
+      setTimeout(() => setSubmitted(false), 5000);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const socials = [
@@ -122,22 +133,30 @@ export default function Closer() {
             <p className="font-spartan font-black text-[clamp(1.4rem,2.5vw,1.9rem)] uppercase leading-tight mb-5">
               Sign up for stories worth telling
             </p>
-            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
-              <input
-                type="email"
-                placeholder="your@email.com"
-                value={emailInput}
-                onChange={(e) => setEmailInput(e.target.value)}
-                className="flex-1 bg-transparent border-b-[1.5px] border-konten-cream text-konten-cream placeholder-konten-cream/50 font-inter py-3 focus:outline-none transition-opacity"
-                required
-              />
-              <button
-                type="submit"
-                className="px-8 py-[10px] bg-konten-cream text-konten-blue font-inter font-500 text-[12px] uppercase rounded-full hover:opacity-85 transition-opacity whitespace-nowrap"
-              >
-                Submit
-              </button>
-            </form>
+            {submitted ? (
+              <p className="font-inter text-[15px] text-konten-cream/75">
+                You're on the list. We'll be in touch. 🎬
+              </p>
+            ) : (
+              <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
+                <input
+                  type="email"
+                  placeholder="your@email.com"
+                  value={emailInput}
+                  onChange={(e) => setEmailInput(e.target.value)}
+                  className="flex-1 bg-transparent border-b-[1.5px] border-konten-cream text-konten-cream placeholder-konten-cream/50 font-inter py-3 focus:outline-none transition-opacity"
+                  required
+                  disabled={loading}
+                />
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="px-8 py-[10px] bg-konten-cream text-konten-blue font-inter font-500 text-[12px] uppercase rounded-full hover:opacity-85 transition-opacity whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {loading ? 'Sending…' : 'Submit'}
+                </button>
+              </form>
+            )}
           </div>
 
           {/* Contact info — one line */}
