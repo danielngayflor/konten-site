@@ -156,14 +156,21 @@ export default function ServiceAccordionRow({ service }: ServiceAccordionRowProp
                   <div className="flex flex-wrap gap-4" onClick={(e) => e.stopPropagation()}>
                     <button
                       className="px-8 py-[12px] bg-konten-blue text-konten-cream font-inter font-500 text-[12px] uppercase tracking-wide rounded-full hover:opacity-85 transition-opacity"
-                      onClick={() =>
-                        document.getElementById('discovery')?.scrollIntoView({ behavior: 'smooth' })
-                      }
+                      onClick={() => {
+                        // Pin the accordion open so mouseleave during scroll
+                        // doesn't collapse it and shift the layout mid-animation
+                        setPinned(true);
+                        const el = document.getElementById('discovery');
+                        if (!el) return;
+                        const navHeight = window.innerWidth < 640 ? 60 : 72;
+                        const top = el.getBoundingClientRect().top + window.scrollY - navHeight;
+                        window.scrollTo({ top, behavior: 'smooth' });
+                      }}
                     >
                       Book this service →
                     </button>
                     <Link
-                      to={`/work?service=${service.slug}`}
+                      to={`/stories-weve-told?service=${service.slug}`}
                       onClick={(e) => e.stopPropagation()}
                       className={`px-8 py-[12px] border-[1.5px] font-inter font-500 text-[12px] uppercase tracking-wide rounded-full transition-all inline-block ${outlineBtn}`}
                     >

@@ -149,7 +149,7 @@ export const workPlaceholders: WorkProject[] = [
     serviceSlug: 'media-coverage',
     serviceName: 'MEDIA COVERAGE & DOCUMENTARY',
     description:
-      "A full organisational documentary spanning 40+ years of presence — Village life, youth programmes, and a mobile health unit that has reached 7,000+ families.",
+      "A full organisational documentary spanning all aspects of SOS Children's Village work in Liberia — Family strengthening, youth programmes, and a mobile health unit that has reached 7,000+ families.",
     descriptionParagraphs: [
       "SOS Children's Villages Liberia has been in the country for over 40 years. They needed a film that could hold the full weight of that presence — not a highlight reel, not a donor promo, but a documentary showing the real breadth of their work: caregiver family life inside the SOS Village, education and vocational training for young people, family strengthening programmes supporting vulnerable households in the community, and the Hospital on Wheels initiative — a mobile community health outreach project that has reached over 7,000 families across Liberia with lifesaving health education, maternal care, and community health services.",
       'Titled "Building Futures, Restoring Hope," the production required multi-scene filming across the SOS Village compound and surrounding community settings. We conducted professional on-camera interviews with clinical staff — a Head Nurse and Midwife speaking to health outcomes and community impact — alongside caregiver and youth testimonies and a senior leadership interview with the National Director. Drone aerials of the village and surrounding community provided the visual scale the organisation needed. All footage was captured to broadcast quality and delivered for organisational, fundraising, and advocacy use.',
@@ -162,6 +162,7 @@ export const workPlaceholders: WorkProject[] = [
     ],
     year: '2025',
     location: 'Monrovia, Liberia',
+    coverImage: '/images/work/sos/cover.png',
     heroVideo: 'https://mega.nz/embed/atgxFT4J#nBiDkpPY3wM-C-B5ujuuEw-iJoJgJ4OnCosNPCe-5Yo',
     stats: [
       { value: '7,000+', label: 'Families reached by Hospital on Wheels' },
