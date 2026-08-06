@@ -89,7 +89,8 @@ export default function WhatWeDo() {
   const pausedRef = useRef(false);
   const startRef  = useRef<number>(Date.now());
   const rafRef    = useRef<number>(0);
-  const tabRefs   = useRef<(HTMLButtonElement | null)[]>([]);
+  const tabRefs    = useRef<(HTMLButtonElement | null)[]>([]);
+  const tabBarRef  = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     startRef.current = Date.now();
@@ -111,13 +112,17 @@ export default function WhatWeDo() {
     return () => cancelAnimationFrame(rafRef.current);
   }, [active]);
 
-  // Scroll active tab into view whenever it changes
+  // Scroll active tab into view within the tab bar only — never scroll the page
   useEffect(() => {
-    tabRefs.current[active]?.scrollIntoView({
-      behavior: 'smooth',
-      inline: 'center',
-      block: 'nearest',
-    });
+    const bar = tabBarRef.current;
+    const btn = tabRefs.current[active];
+    if (!bar || !btn) return;
+    const barLeft   = bar.scrollLeft;
+    const barWidth  = bar.offsetWidth;
+    const btnLeft   = btn.offsetLeft;
+    const btnWidth  = btn.offsetWidth;
+    const target    = btnLeft - barWidth / 2 + btnWidth / 2;
+    bar.scrollTo({ left: target, behavior: 'smooth' });
   }, [active]);
 
   const handleTabClick = useCallback((i: number) => {
@@ -142,7 +147,7 @@ export default function WhatWeDo() {
       {/* ── Tab bar ── */}
       <div className="border-b border-border-gray">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="flex items-end gap-1 overflow-x-auto scrollbar-hide">
+          <div ref={tabBarRef} className="flex items-end gap-1 overflow-x-auto scrollbar-hide">
             {services.map((s, i) => {
               const isActive = active === i;
               return (

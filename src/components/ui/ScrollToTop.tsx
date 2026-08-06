@@ -1,5 +1,10 @@
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+
+// Disable browser native scroll restoration so it doesn't fight React Router
+if (typeof window !== 'undefined' && 'scrollRestoration' in window.history) {
+  window.history.scrollRestoration = 'manual';
+}
 
 /**
  * Scrolls the window to the top on every route change,
@@ -8,11 +13,15 @@ import { useLocation } from 'react-router-dom';
 export default function ScrollToTop() {
   const { pathname, hash } = useLocation();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!hash) {
-      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      // Double-fire: once immediately (blocks browser restoration) and once
+      // after the first paint (catches any post-render scroll side-effects).
+      window.scrollTo(0, 0);
+      const raf = requestAnimationFrame(() => window.scrollTo(0, 0));
+      return () => cancelAnimationFrame(raf);
     }
-  }, [pathname, hash]);
+  }, [pathname]);
 
   return null;
 }

@@ -208,7 +208,7 @@ export default function WorkDetail() {
                         allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
                       />
                     ) : img.src ? (
-                      <img src={img.src} alt={img.alt ?? project.title} className="w-full h-full object-cover" />
+                      <img src={img.src} alt={img.alt ?? project.title} loading="lazy" className="w-full h-full object-cover" />
                     ) : (
                       <div className="w-full h-full bg-dark-gray" />
                     )}
