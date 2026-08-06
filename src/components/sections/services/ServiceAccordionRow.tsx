@@ -104,7 +104,7 @@ export default function ServiceAccordionRow({ service }: ServiceAccordionRowProp
 
                     {/* Left: intro + who/how */}
                     <div>
-                      <p className={`font-inter text-[16px] md:text-[18px] leading-body mb-8 ${text}`}>
+                      <p className={`font-inter text-body-lg leading-body mb-8 ${text}`}>
                         {service.intro}
                       </p>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
@@ -112,7 +112,7 @@ export default function ServiceAccordionRow({ service }: ServiceAccordionRowProp
                           <h5 className={`text-eyebrow ${accent} mb-2 inline-flex items-center gap-2`}>
                             WHO IT'S FOR <Clapperboard size={11} />
                           </h5>
-                          <p className={`font-inter text-[15px] leading-body ${text}`}>
+                          <p className={`font-inter text-body-lg leading-body ${text}`}>
                             {service.whoItsFor}
                           </p>
                         </div>
@@ -120,7 +120,7 @@ export default function ServiceAccordionRow({ service }: ServiceAccordionRowProp
                           <h5 className={`text-eyebrow ${accent} mb-2 inline-flex items-center gap-2`}>
                             HOW WE ENGAGE <Clapperboard size={11} />
                           </h5>
-                          <p className={`font-inter text-[15px] leading-body ${text}`}>
+                          <p className={`font-inter text-body-lg leading-body ${text}`}>
                             {service.howWeEngage}
                           </p>
                         </div>
@@ -139,7 +139,7 @@ export default function ServiceAccordionRow({ service }: ServiceAccordionRowProp
                             initial={{ opacity: 0, x: -10 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: i * 0.05, duration: 0.25 }}
-                            className={`flex items-start gap-3 font-inter text-[15px] md:text-[17px] ${text}`}
+                            className={`flex items-start gap-3 font-inter text-body-lg ${text}`}
                           >
                             <span className="w-[6px] h-[6px] rounded-full bg-konten-blue flex-shrink-0 mt-[6px]" />
                             <span>
@@ -170,7 +170,7 @@ export default function ServiceAccordionRow({ service }: ServiceAccordionRowProp
                       Book this service →
                     </button>
                     <Link
-                      to={`/stories-weve-told?service=${service.slug}`}
+                      to={`/featured-projects?service=${service.slug}`}
                       onClick={(e) => e.stopPropagation()}
                       className={`px-8 py-[12px] border-[1.5px] font-inter font-500 text-[12px] uppercase tracking-wide rounded-full transition-all inline-block ${outlineBtn}`}
                     >

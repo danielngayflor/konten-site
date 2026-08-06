@@ -19,7 +19,16 @@ export default function Nav() {
   return (
     <>
       {/* Desktop + Tablet Nav */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-konten-cream border-b-[1.5px] border-konten-black h-[72px] hidden sm:flex items-center justify-between px-8">
+      <nav
+        className="fixed top-0 left-0 right-0 z-50 h-[62px] hidden sm:flex items-center justify-between px-8"
+        style={{
+          backgroundColor: 'rgba(10,10,10,0.80)',
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
+          borderBottom: '1px solid rgba(255,255,255,0.06)',
+          boxShadow: 'rgba(255,255,255,0.02) 0px 1px 0px 0px, rgba(0,0,0,0.6) 0px 8px 24px -16px',
+        }}
+      >
         {/* Left: Logo */}
         <Link
           to="/"
@@ -29,114 +38,91 @@ export default function Nav() {
           <img
             src="/konten-logo.svg"
             alt="Konten LR"
-            className="h-12 w-auto"
+            className="h-10 w-auto"
+            style={{ filter: 'brightness(0) invert(1)' }}
           />
         </Link>
 
         {/* Right: Links + Button */}
         <div className="flex items-center gap-8">
-          <div className="flex items-center gap-8 font-inter font-500 text-[14px] uppercase tracking-wide">
-            <Link
-              to="/services-for-you"
-              className="text-konten-black hover:underline transition-all"
-            >
-              Services For You
+          <div className="flex items-center gap-8 font-spartan font-600 text-[13px] uppercase tracking-widest">
+            <Link to="/services" className="text-white/70 hover:text-white transition-colors duration-200">
+              Services
             </Link>
-            <Link
-              to="/stories-weve-told"
-              className="text-konten-black hover:underline transition-all"
-            >
-              Stories We've Told
+            <Link to="/featured-projects" className="text-white/70 hover:text-white transition-colors duration-200">
+              Featured Projects
             </Link>
-            <Link
-              to="/our-story"
-              className="text-konten-black hover:underline transition-all"
-            >
+            <Link to="/our-story" className="text-white/70 hover:text-white transition-colors duration-200">
               Our Story
             </Link>
-            <Link
-              to="/freebies"
-              className="text-konten-black hover:underline transition-all"
-            >
+            <Link to="/freebies" className="text-white/70 hover:text-white transition-colors duration-200">
               Freebies
             </Link>
           </div>
 
-          {/* CTA Button */}
           <button
             onClick={goToContact}
-            className="px-8 py-[10px] border-[1.5px] border-konten-black text-konten-black font-inter font-500 text-[12px] uppercase rounded-full hover:bg-konten-blue hover:text-konten-cream hover:border-konten-blue transition-all duration-200"
+            className="px-6 py-[9px] bg-konten-blue-bright text-white font-spartan font-700 text-[12px] uppercase tracking-widest rounded-full hover:bg-konten-blue-hover transition-colors duration-200"
           >
-            Start a project →
+            Tell Your Story →
           </button>
         </div>
       </nav>
 
-      {/* Mobile Nav Hamburger */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-konten-cream border-b-[1.5px] border-konten-black h-[60px] sm:hidden flex items-center justify-between px-6">
-        <Link
-          to="/"
-          className="flex items-center"
-          aria-label="Konten LR home"
-        >
+      {/* Mobile Nav */}
+      <nav
+        className="fixed top-0 left-0 right-0 z-50 h-[56px] sm:hidden flex items-center justify-between px-5"
+        style={{
+          backgroundColor: 'rgba(10,10,10,0.90)',
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
+          borderBottom: '1px solid rgba(255,255,255,0.06)',
+        }}
+      >
+        <Link to="/" className="flex items-center" aria-label="Konten LR home">
           <img
             src="/konten-logo.svg"
             alt="Konten LR"
-            className="h-10 w-auto"
+            className="h-8 w-auto"
+            style={{ filter: 'brightness(0) invert(1)' }}
           />
         </Link>
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="text-konten-black"
-        >
-          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="text-white">
+          {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
       </nav>
 
       {/* Mobile Menu Overlay */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-konten-cream pt-[60px] flex flex-col px-6 py-8">
-          <div className="flex flex-col gap-6 font-inter font-500 text-[16px] uppercase">
-            <Link
-              to="/services-for-you"
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-konten-black"
-            >
-              Services For You
+        <div
+          className="fixed inset-0 z-40 pt-[56px] flex flex-col px-6 py-10"
+          style={{ backgroundColor: '#0A0A0A' }}
+        >
+          <div className="flex flex-col gap-7 font-spartan font-700 text-[22px] uppercase tracking-wide">
+            <Link to="/services" onClick={() => setMobileMenuOpen(false)} className="text-white">
+              Services
             </Link>
-            <Link
-              to="/stories-weve-told"
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-konten-black"
-            >
-              Stories We've Told
+            <Link to="/featured-projects" onClick={() => setMobileMenuOpen(false)} className="text-white">
+              Featured Projects
             </Link>
-            <Link
-              to="/our-story"
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-konten-black"
-            >
+            <Link to="/our-story" onClick={() => setMobileMenuOpen(false)} className="text-white">
               Our Story
             </Link>
-            <Link
-              to="/freebies"
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-konten-black"
-            >
+            <Link to="/freebies" onClick={() => setMobileMenuOpen(false)} className="text-white">
               Freebies
             </Link>
           </div>
           <button
             onClick={(e) => goToContact(e)}
-            className="mt-8 w-full px-8 py-[12px] bg-konten-black text-konten-cream font-inter font-500 text-[14px] uppercase rounded-full hover:opacity-85 transition-opacity"
+            className="mt-10 w-full px-8 py-4 bg-konten-blue-bright text-white font-spartan font-700 text-[13px] uppercase tracking-widest rounded-full"
           >
-            Start a project →
+            Tell Your Story →
           </button>
         </div>
       )}
 
-      {/* Spacer for fixed nav */}
-      <div className="h-[60px] sm:h-[72px]"></div>
+      {/* Spacer */}
+      <div className="h-[56px] sm:h-[62px]" />
     </>
   );
 }

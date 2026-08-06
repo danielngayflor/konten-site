@@ -62,7 +62,7 @@ export default function FreebiesPromo() {
         <h3 className="font-spartan font-black text-konten-black uppercase leading-none tracking-tighter text-[clamp(1.2rem,2vw,1.6rem)]">
           {r.title}
         </h3>
-        <p className="font-inter text-[15px] leading-body text-konten-black/60 flex-1 line-clamp-2">
+        <p className="font-inter text-body-lg leading-body text-konten-black/60 flex-1 line-clamp-2">
           {r.summary}
         </p>
         <span className="font-inter font-500 text-[14px] text-konten-black/50 group-hover:text-konten-black transition-colors">

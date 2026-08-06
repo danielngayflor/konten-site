@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Nav from './components/layout/Nav';
 import Closer from './components/layout/Closer';
 import LegalFooter from './components/layout/LegalFooter';
@@ -13,7 +13,6 @@ import Resources from './pages/Resources';
 import ResourceDetail from './pages/ResourceDetail';
 
 function AppLayout() {
-  const { pathname } = useLocation();
   return (
     <>
       <Nav />
@@ -21,14 +20,14 @@ function AppLayout() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/our-story" element={<About />} />
-          <Route path="/services-for-you" element={<Services />} />
-          <Route path="/stories-weve-told" element={<Work />} />
-          <Route path="/stories-weve-told/:slug" element={<WorkDetail />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/featured-projects" element={<Work />} />
+          <Route path="/featured-projects/:slug" element={<WorkDetail />} />
           <Route path="/freebies" element={<Resources />} />
           <Route path="/freebies/:slug" element={<ResourceDetail />} />
         </Routes>
       </main>
-      {pathname !== '/services-for-you' && <Closer />}
+      <Closer />
       <LegalFooter />
     </>
   );

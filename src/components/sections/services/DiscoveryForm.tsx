@@ -133,7 +133,7 @@ export default function DiscoveryForm() {
             <br />
             SESSION.
           </h2>
-          <p className="font-inter text-[16px] md:text-[18px] leading-body text-konten-cream max-w-[500px] mb-12">
+          <p className="font-inter text-body-lg leading-body text-konten-cream max-w-[500px] mb-12">
             Tell us a bit about your project. We'll get back within 48 hours
             to set up a free 30-minute discovery call — no obligation, no
             pitch deck. Just a real conversation about what you need and how

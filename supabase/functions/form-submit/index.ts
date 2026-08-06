@@ -104,7 +104,7 @@ serve(async (req) => {
       },
       body: JSON.stringify({
         from: 'Konten Site <noreply@konten.agency>',
-        to: ['contact@konten.agency'],
+        to: ['sales@konten.agency'],
         subject,
         html,
       }),

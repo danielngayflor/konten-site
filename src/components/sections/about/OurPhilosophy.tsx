@@ -18,7 +18,7 @@ export default function OurPhilosophy() {
         </h2>
 
         {/* Body — centred, directly under the heading */}
-        <p className="font-inter text-[18px] md:text-[20px] leading-body text-konten-black max-w-[640px] mx-auto">
+        <p className="font-inter text-body-lg leading-body text-konten-black max-w-[640px] mx-auto">
           This isn't just a tagline. It's how we work. The digital landscape
           doesn't sleep, and neither does the need for content that cuts
           through. We stay ahead — of trends, of tools, of what audiences

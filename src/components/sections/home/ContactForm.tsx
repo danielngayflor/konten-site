@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import Clapperboard from '../../ui/Clapperboard';
 import { submitForm } from '../../../lib/supabase';
 
 const serviceOptions = [
@@ -50,24 +49,27 @@ export default function ContactForm() {
   };
 
   const fieldClass =
-    'w-full bg-transparent border-b-[1.5px] border-konten-cream/40 text-konten-cream placeholder-konten-cream/40 font-inter py-3 focus:outline-none focus:border-konten-cream transition-colors';
+    'w-full bg-transparent border-b border-white/20 text-white placeholder-white/30 font-body text-[15px] py-3 focus:outline-none focus:border-white/50 transition-colors leading-[1.55]';
   const labelClass =
-    'text-eyebrow text-konten-cream/70 block mb-1';
+    'text-eyebrow text-white/40 block mb-2';
 
   return (
     <section
       id="contact"
-      className="bg-konten-black text-konten-cream py-32 px-6 md:px-12"
+      className="bg-charcoal text-white py-32 px-6 md:px-12"
     >
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-[clamp(2rem,7.5vw,6.5rem)] font-spartan font-black text-konten-cream uppercase leading-none tracking-tighter mb-8">
-            START YOUR STORY.
+          <p className="font-body text-white/50 text-[13px] uppercase tracking-[0.18em] mb-6">
+            Anyone can point a camera at something now. What's rare is knowing what to point it at, when, and why.
+          </p>
+          <h2 className="font-display leading-[1.05] tracking-tight mb-8 text-[clamp(2.5rem,6vw,6rem)]">
+            Tell Your Story.
           </h2>
-          <p className="font-inter text-konten-cream/90 text-[16px] md:text-[18px] leading-body max-w-[560px] mx-auto">
-            Got a project in mind? Tell us what you're building and we'll show
-            you what's possible. No decks, no fluff — just a real conversation.
+          <p className="font-body text-body-lg text-white/60 leading-[1.65] max-w-[520px] mx-auto">
+            Got a project in mind? Tell us what you're working on and we'll
+            show you what's possible.
           </p>
         </div>
 
@@ -133,7 +135,7 @@ export default function ContactForm() {
               required
             >
               {serviceOptions.map((opt) => (
-                <option key={opt.value} value={opt.value} className="bg-konten-black text-konten-cream">
+                <option key={opt.value} value={opt.value} className="bg-[#141414] text-white">
                   {opt.label}
                 </option>
               ))}
@@ -157,20 +159,19 @@ export default function ContactForm() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-konten-cream text-konten-black font-inter font-500 text-[14px] uppercase tracking-wide py-4 rounded-full hover:opacity-85 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-konten-blue-bright text-white font-spartan font-700 text-[13px] uppercase tracking-widest py-4 rounded-full hover:bg-konten-blue-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loading ? 'Sending…' : 'Send it →'}
+              {loading ? 'Sending…' : 'Start a conversation →'}
             </button>
             {error && (
-              <p className="font-inter text-[13px] text-konten-cream/60 text-center">{error}</p>
+              <p className="font-body text-[13px] text-white/40 text-center mt-2">{error}</p>
             )}
           </div>
         </form>
 
         {/* Toast */}
         {submitted && (
-          <div className="fixed bottom-8 left-1/2 -translate-x-1/2 bg-konten-cream text-konten-black px-8 py-4 rounded-full font-inter font-500 text-[14px] flex items-center gap-2 shadow-lg z-50">
-            <Clapperboard size={16} className="text-konten-blue" />
+          <div className="fixed bottom-8 left-1/2 -translate-x-1/2 bg-white text-konten-black px-8 py-4 rounded-full font-spartan font-700 text-[13px] uppercase tracking-widest flex items-center gap-2 shadow-lg z-50">
             Got it. We'll be in touch.
           </div>
         )}

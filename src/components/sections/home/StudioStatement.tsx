@@ -94,7 +94,7 @@ export default function StudioStatement() {
 
         {/* Intro copy */}
         <div className="mb-20 max-w-[620px]">
-          <p className="font-inter text-[18px] md:text-[20px] leading-[1.7] text-konten-black">
+          <p className="font-inter text-body-lg leading-[1.7] text-konten-black">
             Konten is a creative agency specialising in video production, brand
             storytelling, social content, web development and creative
             direction. We work with brands, NGOs, startups, and creators who
@@ -170,7 +170,7 @@ export default function StudioStatement() {
                         </ul>
 
                         <Link
-                          to={`/services-for-you#${service.slug}`}
+                          to={`/services#${service.slug}`}
                           onClick={(e) => e.stopPropagation()}
                           className="flex-shrink-0"
                         >
@@ -189,7 +189,7 @@ export default function StudioStatement() {
 
         {/* Bottom CTA */}
         <div className="flex justify-center mt-16">
-          <Link to="/services-for-you">
+          <Link to="/services">
             <PillButton variant="outline" tone="dark">
               Work with Konten →
             </PillButton>

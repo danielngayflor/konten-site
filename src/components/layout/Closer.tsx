@@ -74,68 +74,21 @@ export default function Closer() {
   ];
 
   return (
-    <footer className="relative w-full bg-konten-blue text-konten-cream pt-[120px] pb-[80px] px-8 overflow-hidden">
-
-      {/* Grain filter for logo sticker */}
-      <svg width="0" height="0" style={{ position: 'absolute', overflow: 'hidden' }} aria-hidden="true">
-        <defs>
-          <filter id="footer-logo-grain" x="0%" y="0%" width="100%" height="100%" colorInterpolationFilters="sRGB">
-            <feTurbulence type="fractalNoise" baseFrequency="0.5" numOctaves="2" stitchTiles="stitch" result="noise" />
-            <feColorMatrix type="saturate" values="0" in="noise" result="grayNoise" />
-            <feComponentTransfer in="grayNoise" result="dimNoise">
-              <feFuncR type="linear" slope="0.18" intercept="0.41" />
-              <feFuncG type="linear" slope="0.18" intercept="0.41" />
-              <feFuncB type="linear" slope="0.18" intercept="0.41" />
-            </feComponentTransfer>
-            <feComposite in="dimNoise" in2="SourceGraphic" operator="in" result="maskedNoise" />
-            <feBlend in="SourceGraphic" in2="maskedNoise" mode="soft-light" result="grained" />
-            <feComposite in="grained" in2="SourceGraphic" operator="in" />
-          </filter>
-        </defs>
-      </svg>
-
-      {/* Konten logo sticker — bottom-right corner */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          bottom: '6%',
-          right: '3%',
-          width: 'clamp(100px, 10vw, 150px)',
-          aspectRatio: '1',
-          transform: 'rotate(8deg)',
-          pointerEvents: 'none',
-          filter: 'url(#footer-logo-grain) drop-shadow(1px 3px 6px rgba(0,0,0,0.22))',
-        }}
-      >
-        <img src="/stickers/logo.png" alt="" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-      </div>
+    <footer className="relative w-full bg-konten-black text-white pt-[120px] pb-[80px] px-8 overflow-hidden border-t border-border-gray">
 
       <div className="max-w-7xl mx-auto">
-
-        {/* Full-width headline */}
-        <h2 className="text-[clamp(2rem,7.5vw,6.5rem)] font-spartan font-black leading-none tracking-tighter mb-16">
-          TELL YOUR
-          <br />
-          STORY.
-        </h2>
 
         {/* Lower section — single left-aligned column */}
         <div className="flex flex-col gap-8 max-w-2xl">
 
-          {/* Enquire button */}
-          <button className="w-fit px-8 py-[12px] border-[1.5px] border-konten-cream text-konten-cream font-inter font-500 text-[12px] uppercase rounded-full hover:bg-konten-cream hover:text-konten-blue transition-all duration-200">
-            Enquire now →
-          </button>
-
           {/* Newsletter */}
           <div>
-            <p className="font-spartan font-black text-[clamp(1.4rem,2.5vw,1.9rem)] uppercase leading-tight mb-5">
+            <p className="font-spartan font-black text-[clamp(1.2rem,2.2vw,1.7rem)] uppercase leading-tight mb-5 tracking-tight text-white">
               Sign up for stories worth telling
             </p>
             {submitted ? (
-              <p className="font-inter text-[15px] text-konten-cream/75">
-                You're on the list. We'll be in touch. 🎬
+              <p className="font-inter text-[15px] text-white/60">
+                You're on the list. We'll be in touch.
               </p>
             ) : (
               <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
@@ -144,14 +97,14 @@ export default function Closer() {
                   placeholder="your@email.com"
                   value={emailInput}
                   onChange={(e) => setEmailInput(e.target.value)}
-                  className="flex-1 bg-transparent border-b-[1.5px] border-konten-cream text-konten-cream placeholder-konten-cream/50 font-inter py-3 focus:outline-none transition-opacity"
+                  className="flex-1 bg-transparent border-b-[1.5px] border-white/20 text-white placeholder-white/30 font-inter py-3 focus:outline-none focus:border-white/50 transition-colors"
                   required
                   disabled={loading}
                 />
                 <button
                   type="submit"
                   disabled={loading}
-                  className="px-8 py-[10px] bg-konten-cream text-konten-blue font-inter font-500 text-[12px] uppercase rounded-full hover:opacity-85 transition-opacity whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-8 py-[10px] bg-konten-blue-bright text-white font-spartan font-700 text-[12px] uppercase tracking-widest rounded-full hover:bg-konten-blue-hover transition-colors whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {loading ? 'Sending…' : 'Submit'}
                 </button>
@@ -160,13 +113,13 @@ export default function Closer() {
           </div>
 
           {/* Contact info — one line */}
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 font-inter text-[14px] md:text-[15px]">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 font-body text-mid-gray text-[14px] md:text-[15px]">
             <span>sales@konten.agency</span>
-            <span className="text-konten-cream/40">·</span>
+            <span className="text-white/20">·</span>
             <span>+231 776 049 390</span>
-            <span className="text-konten-cream/40">·</span>
+            <span className="text-white/20">·</span>
             <span>+231 880 532 429</span>
-            <span className="text-konten-cream/40">·</span>
+            <span className="text-white/20">·</span>
             <span>Monrovia, Liberia</span>
           </div>
 

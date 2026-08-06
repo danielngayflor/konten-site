@@ -1,19 +1,17 @@
-import PageHeader from '../components/sections/about/PageHeader';
-import TheStory from '../components/sections/about/TheStory';
-import OurPhilosophy from '../components/sections/about/OurPhilosophy';
+import Opening from '../components/sections/about/Opening';
+import WhyWeExist from '../components/sections/about/WhyWeExist';
+import Belief from '../components/sections/about/Belief';
 import OurValues from '../components/sections/about/OurValues';
-import HowWeWork from '../components/sections/about/HowWeWork';
-import TheTeam from '../components/sections/about/TheTeam';
+import OurStoryCloser from '../components/sections/about/OurStoryCloser';
 
 export default function About() {
   return (
     <>
-      <PageHeader />
-      <TheStory />
-      <OurPhilosophy />
+      <Opening />
+      <WhyWeExist />
+      <Belief />
       <OurValues />
-      <HowWeWork />
-      <TheTeam />
+      <OurStoryCloser />
     </>
   );
 }

@@ -72,7 +72,7 @@ export default function ResourceGrid() {
                 <h3 className="font-spartan font-black text-konten-black uppercase leading-none tracking-tighter text-[clamp(1.5rem,2.5vw,2rem)]">
                   {resource.title}
                 </h3>
-                <p className="font-inter text-[17px] leading-body text-konten-black/70 flex-1">
+                <p className="font-inter text-body-lg leading-body text-konten-black/70 flex-1">
                   {resource.summary}
                 </p>
                 <div className="flex items-center justify-between pt-2 border-t border-konten-black/10">

@@ -72,7 +72,7 @@ export default function ProjectSpread({ project, index }: ProjectSpreadProps) {
               {project.client} · {project.year}
             </p>
             <p
-              className={`font-inter text-[16px] md:text-[18px] leading-body mb-10 max-w-[480px] ${subheadColor}`}
+              className={`font-inter text-body-lg leading-body mb-10 max-w-[480px] ${subheadColor}`}
             >
               {project.description}
             </p>

@@ -1,7 +1,11 @@
 /* src/index.css */
 
 /* ─── Fonts ──────────────────────────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=League+Spartan:wght@300;400;500;600;700;900&display=swap');
+/* League Spartan (headings + body/UI) via Google Fonts               */
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;500;600;700;900&display=swap');
+
+/* New Spirit — editorial serif display. Purchase from Monotype and   */
+/* serve via @font-face; Georgia is the approved fallback until then. */
 
 /* ─── Tailwind v4 ────────────────────────────────────────────────── */
 @import "tailwindcss";
@@ -9,48 +13,72 @@
 /* ─── Design tokens ─────────────────────────────────────────────── */
 @theme {
 
-  /* Colors */
-  --color-konten-blue:  #00249C;
-  --color-konten-cream: #FDFBD4;
-  --color-konten-black: #0A0A0A;
+  /* ── Brand colors ─────────────────────────────────────────────── */
+  /* Konten Blue (#00249C) — light surfaces only (fails on dark).    */
+  --color-konten-blue:        #00249C;
+  /* Blue Bright — same hue, lightened for WCAG AA on dark surfaces. */
+  --color-konten-blue-bright: #4D76FF;
+  --color-konten-blue-hover:  #3362FF;
+  /* Cream — rare warm accent on dark; 18.8:1 on near-black.         */
+  --color-konten-cream:       #FDFBD4;
 
-  /* Font families */
-  --font-inter:   'League Spartan', sans-serif;
+  /* ── Dark neutral scale ───────────────────────────────────────── */
+  --color-konten-black:       #0A0A0A;   /* base page bg             */
+  --color-charcoal:           #141414;   /* alternating section bg   */
+  --color-dark-gray:          #1C1C1C;   /* card / container         */
+  --color-border-gray:        #2A2A2A;   /* borders, dividers        */
+  --color-mid-gray:           #A6A6A6;   /* secondary text on dark   */
+
+  /* ── Font families ───────────────────────────────────────────── */
+  /* Display: New Spirit — editorial serif for the one big line/section */
+  --font-display: 'New Spirit', Georgia, serif;
+  /* Primary: League Spartan — headlines, logo, key brand moments    */
   --font-spartan: 'League Spartan', sans-serif;
+  /* Body / UI: League Spartan — long-form text, labels, captions    */
+  --font-body:    'League Spartan', sans-serif;
+  --font-inter:   'League Spartan', sans-serif;
   --font-mono:    'League Spartan', sans-serif;
 
-  /* Font sizes — fluid display scale */
-  --text-eyebrow:      0.875rem;
+  /* ── Font sizes — fluid display scale ────────────────────────── */
+  --text-eyebrow:      0.75rem;
   --text-body:         1rem;
-  --text-body-lg:      1.25rem;
+  --text-body-lg:      clamp(1.1rem, 2vw, 1.35rem);
   --text-display-sm:   clamp(2rem, 5vw, 4rem);
   --text-display-md:   clamp(3rem, 8vw, 7rem);
   --text-display-lg:   clamp(4rem, 12vw, 11rem);
   --text-display-xl:   clamp(5rem, 16vw, 14rem);
 
-  /* Letter spacing */
-  --tracking-eyebrow:  0.15em;
+  /* ── Letter spacing ──────────────────────────────────────────── */
+  --tracking-eyebrow:  0.18em;
   --tracking-tight:   -0.005em;
   --tracking-tighter: -0.01em;
 
-  /* Line heights — generous on stacked display headlines for readability */
+  /* ── Line heights ────────────────────────────────────────────── */
   --leading-none:      1.0;
   --leading-display:   1.05;
   --leading-heading:   1.1;
-  --leading-body:      1.6;
+  --leading-body:      1.55;
 }
 
 /* ─── Custom utilities (v4 syntax) ──────────────────────────────── */
-@utility font-inter {
-  font-family: var(--font-spartan);
+@utility font-display {
+  font-family: var(--font-display);
 }
 
 @utility font-spartan {
   font-family: var(--font-spartan);
 }
 
+@utility font-body {
+  font-family: var(--font-body);
+}
+
+@utility font-inter {
+  font-family: var(--font-body);
+}
+
 @utility font-mono {
-  font-family: var(--font-spartan);
+  font-family: var(--font-body);
 }
 
 @utility text-eyebrow {
@@ -59,7 +87,11 @@
   line-height: 1;
   text-transform: uppercase;
   font-family: var(--font-spartan);
-  font-weight: 500;
+  font-weight: 600;
+}
+
+@utility text-body-lg {
+  font-size: var(--text-body-lg);
 }
 
 @utility text-display-sm {
@@ -97,22 +129,20 @@
 /* ─── Base styles ────────────────────────────────────────────────── */
 @layer base {
   html {
-    font-family: var(--font-spartan);
+    font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
   }
 
   body {
-    background-color: var(--color-konten-cream);
-    color: var(--color-konten-black);
+    background-color: var(--color-konten-black);
+    color: #ffffff;
     overflow-x: hidden;
   }
 }
 
 /* ─── Collage element animations ─────────────────────────────────── */
-/* Scale + rotation are passed via CSS vars so the floating animation
-   can compose with them without overriding. */
 @keyframes konten-float {
   0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)) scale(var(--scl, 1)); }
   50%      { transform: translateY(-12px) rotate(calc(var(--rot, 0deg) + 1deg)) scale(var(--scl, 1)); }
@@ -138,7 +168,6 @@
 
 /* ─── Section textures: grain + grid + drifting light ────────────── */
 
-/* Animatable custom properties for the light blob centre */
 @property --lx {
   syntax: '<percentage>';
   inherits: false;
@@ -150,7 +179,6 @@
   initial-value: 40%;
 }
 
-/* Light slowly orbits each section — staggered per colour mode */
 @keyframes light-drift {
   0%   { --lx: 28%; --ly: 28%; }
   25%  { --lx: 68%; --ly: 18%; }
@@ -159,29 +187,43 @@
   100% { --lx: 28%; --ly: 28%; }
 }
 
-/* Grid drifts diagonally — tiles at 48px so the loop is seamless */
 @keyframes grid-scroll {
   from { background-position: 0 0, 0 0, 0px 0px,   0px 0px; }
   to   { background-position: 0 0, 0 0, 48px 48px, 48px 48px; }
 }
 
-/* ── Black sections ──────────────────────────────────────────────── */
+/* ── Near-black sections (#0A0A0A) ──────────────────────────────── */
 section.bg-konten-black {
   background-image:
     radial-gradient(ellipse 55% 45% at var(--lx) var(--ly),
-      rgba(255,255,255,0.045) 0%, transparent 68%),
+      rgba(77,118,255,0.06) 0%, transparent 68%),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0.021 0.041 0.008 0 0'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23f)'/%3E%3C/svg%3E"),
-    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
   background-size: 100% 100%, 250px 250px, 48px 48px, 48px 48px;
   background-repeat: no-repeat, repeat, repeat, repeat;
   background-position: 0 0, 0 0, 0px 0px, 0px 0px;
   animation: light-drift 20s ease-in-out infinite, grid-scroll 14s linear infinite;
 }
 
-/* ── Blue sections (hero landings + footer) ─────────────────────── */
+/* ── Charcoal sections (#141414) ────────────────────────────────── */
+section.bg-charcoal {
+  background-image:
+    radial-gradient(ellipse 55% 45% at var(--lx) var(--ly),
+      rgba(77,118,255,0.05) 0%, transparent 68%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0.021 0.041 0.008 0 0'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23f)'/%3E%3C/svg%3E"),
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 100% 100%, 250px 250px, 48px 48px, 48px 48px;
+  background-repeat: no-repeat, repeat, repeat, repeat;
+  background-position: 0 0, 0 0, 0px 0px, 0px 0px;
+  animation: light-drift 24s ease-in-out infinite, grid-scroll 14s linear infinite;
+  animation-delay: -6s, -3s;
+}
+
+/* ── Blue sections + dark footer ───────────────────────────────── */
 section.bg-konten-blue,
-footer.bg-konten-blue {
+footer.bg-konten-black {
   background-image:
     radial-gradient(ellipse 55% 45% at var(--lx) var(--ly),
       rgba(255,255,255,0.07) 0%, transparent 68%),
@@ -195,27 +237,23 @@ footer.bg-konten-blue {
   animation-delay: -8s, -5s;
 }
 
-/* ── Cream sections ──────────────────────────────────────────────── */
-section.bg-konten-cream {
-  background-image:
-    radial-gradient(ellipse 55% 45% at var(--lx) var(--ly),
-      rgba(0,36,156,0.05) 0%, transparent 68%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.018 0.035 0.007 0 0'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23f)'/%3E%3C/svg%3E"),
-    linear-gradient(rgba(10,10,10,0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(10,10,10,0.055) 1px, transparent 1px);
-  background-size: 100% 100%, 250px 250px, 48px 48px, 48px 48px;
-  background-repeat: no-repeat, repeat, repeat, repeat;
-  background-position: 0 0, 0 0, 0px 0px, 0px 0px;
-  animation: light-drift 22s ease-in-out infinite, grid-scroll 14s linear infinite;
-  animation-delay: -14s, -9s;
+@utility scrollbar-hide {
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
 }
+
+@keyframes wd-enter {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.wd-enter { animation: wd-enter 0.35s ease forwards; }
 
 /* Honour prefers-reduced-motion */
 @media (prefers-reduced-motion: reduce) {
   section.bg-konten-black,
-  section.bg-konten-cream,
+  section.bg-charcoal,
   section.bg-konten-blue,
-  footer.bg-konten-blue {
+  footer.bg-konten-black {
     animation: none;
   }
 }

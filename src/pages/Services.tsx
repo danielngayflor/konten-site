@@ -1,16 +1,13 @@
-import PageHeader from '../components/sections/services/PageHeader';
-import ServiceAccordionRow from '../components/sections/services/ServiceAccordionRow';
-import DiscoveryForm from '../components/sections/services/DiscoveryForm';
-import { services } from '../data/services';
+import ForYouHero from '../components/sections/for-you/ForYouHero';
+import FlagshipServices from '../components/sections/for-you/FlagshipServices';
+import AlsoAvailable from '../components/sections/for-you/AlsoAvailable';
 
 export default function Services() {
   return (
     <>
-      <PageHeader />
-      {services.map((service) => (
-        <ServiceAccordionRow key={service.slug} service={service} />
-      ))}
-      <DiscoveryForm />
+      <ForYouHero />
+      <FlagshipServices />
+      <AlsoAvailable />
     </>
   );
 }

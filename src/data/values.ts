@@ -17,7 +17,7 @@ export const values: Value[] = [
   {
     name: 'ACCESSIBILITY',
     description:
-      "Professional storytelling shouldn't be a privilege. We've built Konten to make world-class creative work available to the brands, organisations, and creators who need it most — without the big agency price tag.",
+      "Professional storytelling shouldn't be limited to whoever is easiest to reach. We work in all 15 counties, not just the ones closest to Monrovia — because organisations doing real work deserve real storytelling, wherever they are.",
   },
   {
     name: 'COMMUNITY',
@@ -27,11 +27,11 @@ export const values: Value[] = [
   {
     name: 'CREATIVITY',
     description:
-      "Out-of-the-box thinking isn't a nice-to-have. It's the job. We approach every brief as an invitation to make something that hasn't been made before — something that surprises even the people who commissioned it.",
+      "The obvious idea is available to everyone now. We're paid for the idea after that one — the angle that only makes sense once you've actually understood the brief.",
   },
   {
     name: 'PROACTIVENESS',
     description:
-      "We don't wait for trends to arrive. We're already working with them. Staying two steps ahead — of the industry, of platforms, of audience behavior — is how we keep our clients ahead too.",
+      "Trends move fast. We don't wait for a client to ask us to catch up to one. Staying two steps ahead — of platforms, of audience behaviour, of the industry — is how we keep our clients ahead too.",
   },
 ];

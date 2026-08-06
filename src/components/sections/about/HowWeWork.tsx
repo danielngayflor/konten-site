@@ -83,7 +83,7 @@ export default function HowWeWork() {
           <h2 className="font-spartan font-black text-konten-black uppercase leading-none tracking-tighter text-[clamp(2rem,7.5vw,6.5rem)] mb-6 whitespace-nowrap">
             STRATEGY FIRST. ALWAYS.
           </h2>
-          <p className="font-inter text-[18px] md:text-[20px] leading-body text-konten-black">
+          <p className="font-inter text-body-lg leading-body text-konten-black">
             Great content isn't an accident. It's the result of asking the right questions before anyone picks up a camera.
           </p>
         </motion.div>
@@ -133,7 +133,7 @@ export default function HowWeWork() {
                       {step.name}
                     </motion.h3>
                     <motion.p
-                      className="font-inter text-[16px] md:text-[18px] leading-body text-konten-black max-w-[480px]"
+                      className="font-inter text-body-lg leading-body text-konten-black max-w-[480px]"
                       variants={bodyAnim}
                     >
                       {step.body}

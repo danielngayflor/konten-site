@@ -78,7 +78,7 @@ export default function ServiceSpread({
               </h3>
 
               <p
-                className={`font-inter text-[16px] md:text-[18px] leading-body mb-10 ${
+                className={`font-inter text-body-lg leading-body mb-10 ${
                   isCream ? 'text-konten-black' : 'text-konten-cream'
                 }`}
               >
@@ -103,7 +103,7 @@ export default function ServiceSpread({
                       className={`${iconColor} mt-1 flex-shrink-0`}
                     />
                     <span
-                      className={`font-inter text-[15px] md:text-[16px] leading-body ${
+                      className={`font-inter text-body-lg leading-body ${
                         isCream ? 'text-konten-black' : 'text-konten-cream'
                       }`}
                     >

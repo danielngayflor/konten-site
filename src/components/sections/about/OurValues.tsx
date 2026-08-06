@@ -48,7 +48,7 @@ export default function OurValues() {
 
   const FlipCard = ({ value }: { value: typeof values[number] }) => (
     <div
-      className={`h-[260px] cursor-pointer rounded-2xl overflow-hidden border-[6px] transition-colors duration-700 ${flipped[value.name] ? 'border-konten-cream' : 'border-konten-blue'}`}
+      className={`h-[260px] cursor-pointer rounded-2xl overflow-hidden border border-border-gray transition-colors duration-700 ${flipped[value.name] ? 'border-konten-blue-bright/50' : 'border-border-gray'}`}
       style={{ perspective: '1200px' }}
       onMouseEnter={() => handleMouseEnter(value.name)}
       onMouseLeave={() => handleMouseLeave(value.name)}
@@ -62,23 +62,23 @@ export default function OurValues() {
       >
         {/* Front — value name */}
         <div
-          className="absolute inset-0 bg-konten-cream flex items-center justify-center p-8"
+          className="absolute inset-0 bg-dark-gray flex items-center justify-center p-8"
           style={{ backfaceVisibility: 'hidden' }}
         >
-          <h3 className="font-spartan font-black text-konten-black uppercase leading-none tracking-tighter text-[clamp(1.4rem,2.8vw,2.4rem)] text-center break-words hyphens-auto">
+          <h3 className="font-spartan font-black text-white uppercase leading-none tracking-tighter text-[clamp(1.4rem,2.8vw,2.4rem)] text-center break-words hyphens-auto">
             {value.name}
           </h3>
         </div>
 
         {/* Back — description */}
         <div
-          className="absolute inset-0 bg-konten-blue flex items-center justify-center p-8"
+          className="absolute inset-0 bg-konten-blue-bright flex items-center justify-center p-8"
           style={{
             backfaceVisibility: 'hidden',
             transform: 'rotateY(180deg)',
           }}
         >
-          <p className="font-inter text-konten-cream text-[16px] md:text-[18px] leading-[1.7] text-center">
+          <p className="font-body text-body-lg text-white leading-[1.65] text-center">
             {value.description}
           </p>
         </div>
@@ -87,13 +87,11 @@ export default function OurValues() {
   );
 
   return (
-    <section className="bg-konten-black text-konten-cream py-32 md:py-40 px-6 md:px-12">
+    <section className="bg-charcoal text-white py-32 md:py-40 px-6 md:px-12">
       <div className="max-w-7xl mx-auto">
 
-        <div className="text-center mb-20">
-          <p className="font-inter text-[clamp(0.625rem,2vw,2.25rem)] text-konten-cream/70">
-            To stay true to our belief, these values show up in how we work
-          </p>
+        <div className="mb-20 border-b border-border-gray pb-8">
+          <p className="text-eyebrow text-mid-gray">Our Values</p>
         </div>
 
         {/* Mobile carousel (below md) */}
@@ -108,7 +106,7 @@ export default function OurValues() {
           </div>
 
           {/* Hint text */}
-          <p className="text-center font-inter text-[13px] text-konten-cream/50 mt-4">
+          <p className="text-center font-body text-[13px] text-white/40 mt-4">
             Tap to flip · Swipe to browse
           </p>
 
@@ -119,7 +117,7 @@ export default function OurValues() {
                 key={i}
                 onClick={() => setMobileIdx(i)}
                 className={`w-2 h-2 rounded-full transition-colors duration-200 ${
-                  i === mobileIdx ? 'bg-konten-cream' : 'bg-konten-cream/30'
+                  i === mobileIdx ? 'bg-white' : 'bg-white/20'
                 }`}
               />
             ))}

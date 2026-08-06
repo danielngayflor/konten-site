@@ -1,200 +1,214 @@
-import { useState, useEffect, useRef } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import Polaroid from '../../ui/Polaroid';
-import FilmMetadata from '../../ui/FilmMetadata';
-import PillButton from '../../ui/PillButton';
 import { workPlaceholders } from '../../../data/workPlaceholders';
 
-const BATCH_SIZE    = 3;
 const TOTAL         = workPlaceholders.length;
-const TOTAL_BATCHES = Math.ceil(TOTAL / BATCH_SIZE);
-const ROTATIONS     = [-2, 1, -3] as const;
-const INTERVAL_MS   = 5500;
+const MAX_CARD_W    = 440;
+const AUTO_MS       = 3500;
+const TRANSITION_MS = 550;
+const SIDE_SCALE    = +(1 / 1.5).toFixed(4); // 0.6667
 
-/** Returns exactly BATCH_SIZE projects, wrapping around if needed. */
-function getBatch(batchIndex: number) {
-  return Array.from({ length: BATCH_SIZE }, (_, i) =>
-    workPlaceholders[(batchIndex * BATCH_SIZE + i) % TOTAL]
-  );
+function mod(n: number, m: number) {
+  return ((n % m) + m) % m;
+}
+
+function getSlot(cardIdx: number, active: number): number {
+  let s = mod(cardIdx - active, TOTAL);
+  if (s > Math.floor(TOTAL / 2)) s -= TOTAL;
+  return Math.max(-2, Math.min(2, s));
+}
+
+function slotTransform(slot: number, cardW: number): string {
+  const sideOffset = cardW / 2;
+  switch (slot) {
+    case  0: return `translateX(0px) scale(1)`;
+    case -1: return `translateX(-${sideOffset}px) scale(${SIDE_SCALE})`;
+    case  1: return `translateX(${sideOffset}px) scale(${SIDE_SCALE})`;
+    case -2: return `translateX(-${cardW * 2}px) scale(${SIDE_SCALE})`;
+    default:  return `translateX(${cardW * 2}px) scale(${SIDE_SCALE})`;
+  }
+}
+
+// Z-index is driven by `zActive` — updated at the midpoint of the transition
+// (when both cards are at ~equal scale) so the swap is imperceptible.
+function slotZIndex(slot: number): number {
+  if (slot === 0)  return 2;
+  if (slot === -1 || slot === 1) return 1;
+  return 0;
+}
+
+function slotOpacity(slot: number): number {
+  return Math.abs(slot) <= 1 ? 1 : 0;
 }
 
 export default function SelectedWorkPreview() {
-  // Desktop: rotates batches of 3
-  const [batch, setBatch] = useState(0);
+  const [active,  setActive]  = useState(0);
+  const [zActive, setZActive] = useState(0);
+  const [cardW,   setCardW]   = useState(MAX_CARD_W);
+  const activeRef        = useRef(0);
+  const transitioningRef = useRef(false);
+  const hoveredRef       = useRef(false);
+  const containerRef     = useRef<HTMLDivElement>(null);
+
+  // Resize: cap card width to container width minus padding
+  useEffect(() => {
+    const measure = () => {
+      if (!containerRef.current) return;
+      const w = containerRef.current.offsetWidth;
+      setCardW(Math.min(MAX_CARD_W, w - 48));
+    };
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, []);
+
+  const go = useCallback((dir: 1 | -1) => {
+    if (transitioningRef.current) return;
+    const next = mod(activeRef.current + dir, TOTAL);
+    transitioningRef.current = true;
+    activeRef.current = next;
+    setActive(next);                                                     // transform fires now
+    setTimeout(() => setZActive(next), Math.round(TRANSITION_MS * 0.5)); // z-index at midpoint
+    setTimeout(() => { transitioningRef.current = false; }, TRANSITION_MS);
+  }, []);
+
+  const goTo = useCallback((idx: number) => {
+    if (transitioningRef.current || idx === activeRef.current) return;
+    transitioningRef.current = true;
+    activeRef.current = idx;
+    setActive(idx);
+    setTimeout(() => setZActive(idx), Math.round(TRANSITION_MS * 0.5));
+    setTimeout(() => { transitioningRef.current = false; }, TRANSITION_MS);
+  }, []);
 
   useEffect(() => {
     const id = setInterval(() => {
-      setBatch((b) => (b + 1) % TOTAL_BATCHES);
-    }, INTERVAL_MS);
+      if (!hoveredRef.current) go(1);
+    }, AUTO_MS);
     return () => clearInterval(id);
-  }, []);
-
-  // Mobile: rotates one project at a time
-  const [mobileIdx, setMobileIdx] = useState(0);
-  const touchStartX = useRef<number | null>(null);
-
-  useEffect(() => {
-    const id = setInterval(() => {
-      setMobileIdx((i) => (i + 1) % TOTAL);
-    }, INTERVAL_MS);
-    return () => clearInterval(id);
-  }, []);
-
-  const onTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX;
-  };
-
-  const onTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartX.current === null) return;
-    const diff = touchStartX.current - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 40) {
-      setMobileIdx((i) =>
-        diff > 0 ? (i + 1) % TOTAL : (i - 1 + TOTAL) % TOTAL
-      );
-    }
-    touchStartX.current = null;
-  };
-
-  const projects = getBatch(batch);
-  const mobileProject = workPlaceholders[mobileIdx];
+  }, [go]);
 
   return (
-    <section className="bg-konten-black text-konten-cream py-32 px-6 md:px-12">
-      <div className="max-w-7xl mx-auto">
+    <section className="bg-charcoal text-white py-24">
 
-        {/* Heading */}
-        <div className="text-center mb-20">
-          <h2 className="text-[clamp(2rem,7.5vw,6.5rem)] font-spartan font-black text-konten-cream uppercase leading-none tracking-tighter">
-            STORIES WE'VE TOLD.
-          </h2>
-        </div>
+      {/* Heading */}
+      <div className="text-center mb-16 px-6">
+        <h2 className="font-spartan font-black text-white uppercase leading-none tracking-tighter text-[clamp(2rem,7.5vw,6.5rem)]">
+          STORIES WE'VE TOLD.
+        </h2>
+      </div>
 
-        {/* ── Mobile: one story at a time ──────────────────────────── */}
+      {/* ── Carousel ── */}
+      <div
+        ref={containerRef}
+        className="relative overflow-hidden"
+        onMouseEnter={() => { hoveredRef.current = true;  }}
+        onMouseLeave={() => { hoveredRef.current = false; }}
+      >
         <div
-          className="md:hidden"
-          onTouchStart={onTouchStart}
-          onTouchEnd={onTouchEnd}
-          style={{ touchAction: 'pan-y' }}
+          className="relative mx-auto"
+          style={{ height: cardW, width: '100%' }}
         >
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={mobileIdx}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.45, ease: 'easeOut' }}
-            >
-              <Link
-                to={`/stories-weve-told/${mobileProject.slug}`}
-                className="flex flex-col group"
+          {workPlaceholders.map((project, i) => {
+            const slot  = getSlot(i, active);
+            const zSlot = getSlot(i, zActive);
+
+            return (
+              <div
+                key={project.slug}
+                style={{
+                  position:   'absolute',
+                  left:       '50%',
+                  top:        0,
+                  width:      cardW,
+                  height:     cardW,
+                  marginLeft: -(cardW / 2),
+                  transform:  slotTransform(slot, cardW),
+                  zIndex:     slotZIndex(zSlot),
+                  opacity:    slotOpacity(slot),
+                  pointerEvents: slot === 0 ? 'auto' : 'none',
+                  transition: `transform ${TRANSITION_MS}ms ease-in-out`,
+                }}
               >
-                <FilmMetadata
-                  text={mobileProject.metadataStrip}
-                  className="mb-3 text-konten-cream/55"
-                />
-                <Polaroid
-                  rotation={ROTATIONS[0]}
-                  caption={`${mobileProject.title} · ${mobileProject.client}`}
+                <Link
+                  to={`/featured-projects/${project.slug}`}
+                  className="block w-full h-full rounded-xl overflow-hidden relative"
+                  tabIndex={slot === 0 ? 0 : -1}
+                  onClick={e => { if (slot !== 0) e.preventDefault(); }}
                 >
-                  {mobileProject.coverImage ? (
+                  {project.coverImage ? (
                     <img
-                      src={mobileProject.coverImage}
-                      alt={mobileProject.title}
+                      src={project.coverImage}
+                      alt={project.title}
                       className="w-full h-full object-cover"
                     />
                   ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-konten-blue/40 to-konten-black/30" />
+                    <div className="w-full h-full bg-konten-blue" />
                   )}
-                </Polaroid>
-              </Link>
-            </motion.div>
-          </AnimatePresence>
-
-          {/* Dot indicators */}
-          <div className="flex justify-center items-center gap-2 mt-8 mb-14">
-            {workPlaceholders.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setMobileIdx(i)}
-                aria-label={`Go to story ${i + 1}`}
-                className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
-                  i === mobileIdx
-                    ? 'w-7 bg-konten-cream'
-                    : 'w-1.5 bg-konten-cream/30 hover:bg-konten-cream/55'
-                }`}
-              />
-            ))}
-          </div>
-        </div>
-
-        {/* ── Desktop: rotating batch of 3 polaroids ───────────────── */}
-        <div className="hidden md:block">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={batch}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.45, ease: 'easeOut' }}
-              className="grid grid-cols-3 gap-12 mb-10"
-            >
-              {projects.map((project, i) => (
-                <Link
-                  key={project.slug}
-                  to={`/stories-weve-told/${project.slug}`}
-                  className="flex flex-col group"
-                >
-                  <FilmMetadata
-                    text={project.metadataStrip}
-                    className="mb-3 text-konten-cream/55"
-                  />
-                  <Polaroid
-                    rotation={ROTATIONS[i]}
-                    caption={`${project.title} · ${project.client}`}
-                  >
-                    {project.coverImage ? (
-                      <img
-                        src={project.coverImage}
-                        alt={project.title}
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-konten-blue/40 to-konten-black/30" />
-                    )}
-                  </Polaroid>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent flex flex-col justify-end p-7">
+                    <p className="font-inter text-[10px] uppercase tracking-[0.18em] text-white/55 mb-1.5">
+                      {project.serviceName}
+                    </p>
+                    <h3 className="font-spartan font-black text-white uppercase text-[1.35rem] leading-tight tracking-tight">
+                      {project.title}
+                    </h3>
+                    <p className="font-inter text-white/65 text-[13px] mt-1">
+                      {project.client}
+                    </p>
+                  </div>
                 </Link>
-              ))}
-            </motion.div>
-          </AnimatePresence>
-
-          {/* Batch indicators */}
-          <div className="flex justify-center items-center gap-2 mb-14">
-            {Array.from({ length: TOTAL_BATCHES }).map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setBatch(i)}
-                aria-label={`Go to batch ${i + 1}`}
-                className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
-                  i === batch
-                    ? 'w-7 bg-konten-cream'
-                    : 'w-1.5 bg-konten-cream/30 hover:bg-konten-cream/55'
-                }`}
-              />
-            ))}
-          </div>
+              </div>
+            );
+          })}
         </div>
 
-        {/* CTA */}
-        <div className="flex justify-center">
-          <Link to="/stories-weve-told">
-            <PillButton variant="outline" tone="light">
-              See all work →
-            </PillButton>
-          </Link>
-        </div>
-
+        {/* Arrows */}
+        <button
+          onClick={() => go(-1)}
+          aria-label="Previous"
+          className="absolute left-5 sm:left-10 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center transition-all duration-200"
+        >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M10 3L5 8L10 13" stroke="#ffffff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
+        <button
+          onClick={() => go(1)}
+          aria-label="Next"
+          className="absolute right-5 sm:right-10 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center transition-all duration-200"
+        >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M6 3L11 8L6 13" stroke="#ffffff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
       </div>
+
+      {/* Dots */}
+      <div className="flex justify-center items-center gap-2 mt-8 mb-12">
+        {workPlaceholders.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => goTo(i)}
+            aria-label={`Go to story ${i + 1}`}
+            className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+              i === active
+                ? 'w-7 bg-white'
+                : 'w-1.5 bg-white/20 hover:bg-white/40'
+            }`}
+          />
+        ))}
+      </div>
+
+      {/* CTA */}
+      <div className="flex justify-center">
+        <Link
+          to="/featured-projects"
+          className="px-8 py-3 border border-white/20 text-white/70 font-spartan font-700 text-[12px] uppercase tracking-widest rounded-full hover:border-white/40 hover:text-white transition-all duration-200"
+        >
+          See all work →
+        </Link>
+      </div>
+
     </section>
   );
 }

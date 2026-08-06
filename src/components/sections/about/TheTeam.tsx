@@ -53,7 +53,7 @@ export default function TheTeam() {
             <br />
             BIG OUTPUT.
           </h2>
-          <p className="font-inter text-[18px] md:text-[20px] leading-body text-konten-cream">
+          <p className="font-inter text-body-lg leading-body text-konten-cream">
             We're a tiny squad of creatives, strategists, and storytellers based in Monrovia. We don't have big titles or ex-google in our bios.<br />
             We have something better. Local Context. Love What We Do. We Learn Fast.
           </p>

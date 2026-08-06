@@ -45,7 +45,7 @@ function DownloadGate({ file }: { file: NonNullable<Resource['downloadFile']> })
       </h3>
       {!submitted ? (
         <form onSubmit={handleSubmit}>
-          <p className="font-inter text-[16px] md:text-[17px] text-konten-cream/75 mb-5">
+          <p className="font-inter text-body-lg text-konten-cream/75 mb-5">
             Drop your email and the template is yours — free, forever, no strings.
           </p>
           <div className="flex flex-col sm:flex-row gap-3">
@@ -70,7 +70,7 @@ function DownloadGate({ file }: { file: NonNullable<Resource['downloadFile']> })
         </form>
       ) : (
         <div>
-          <p className="font-inter text-[16px] md:text-[17px] text-konten-cream/75 mb-5">
+          <p className="font-inter text-body-lg text-konten-cream/75 mb-5">
             You're all set — click below to download.
           </p>
           <a
@@ -90,7 +90,7 @@ function renderBlock(block: ResourceBlock, index: number) {
   switch (block.kind) {
     case 'paragraph':
       return (
-        <p key={index} className="font-inter text-[18px] md:text-[20px] leading-body text-konten-black">
+        <p key={index} className="font-inter text-body-lg leading-body text-konten-black">
           {block.text}
         </p>
       );
@@ -106,7 +106,7 @@ function renderBlock(block: ResourceBlock, index: number) {
           {block.items.map((item, i) => (
             <li key={i} className="flex items-start gap-3">
               <Clapperboard size={14} className="mt-1.5 shrink-0 text-konten-blue" />
-              <span className="font-inter text-[18px] md:text-[20px] leading-body text-konten-black">{item}</span>
+              <span className="font-inter text-body-lg leading-body text-konten-black">{item}</span>
             </li>
           ))}
         </ul>
@@ -114,7 +114,7 @@ function renderBlock(block: ResourceBlock, index: number) {
     case 'callout':
       return (
         <div key={index} className="border-l-4 border-konten-blue bg-konten-blue/8 px-6 py-5">
-          <p className="font-inter text-[17px] md:text-[19px] leading-body text-konten-black italic">
+          <p className="font-inter text-body-lg leading-body text-konten-black italic">
             {block.text}
           </p>
         </div>
