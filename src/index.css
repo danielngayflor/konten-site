@@ -237,6 +237,26 @@ footer.bg-konten-black {
   animation-delay: -8s, -5s;
 }
 
+/* ─── Skeleton shimmer ───────────────────────────────────────────── */
+@keyframes skeleton-shimmer {
+  0%   { background-position: -600px 0; }
+  100% { background-position: 600px 0; }
+}
+
+@utility skeleton-block {
+  background: linear-gradient(
+    90deg,
+    #1C1C1C 0%,
+    #2A2A2A 40%,
+    #323232 50%,
+    #2A2A2A 60%,
+    #1C1C1C 100%
+  );
+  background-size: 1200px 100%;
+  animation: skeleton-shimmer 1.8s ease-in-out infinite;
+  border-radius: 6px;
+}
+
 @utility scrollbar-hide {
   scrollbar-width: none;
   &::-webkit-scrollbar { display: none; }
