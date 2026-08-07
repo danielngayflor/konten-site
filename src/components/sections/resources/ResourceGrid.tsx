@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { resources, TYPE_LABELS, type ResourceType } from '../../../data/resources';
 import Clapperboard from '../../ui/Clapperboard';
+import LazyImage from '../../ui/LazyImage';
 
 type FilterTab = 'all' | ResourceType;
 
@@ -50,12 +51,12 @@ export default function ResourceGrid() {
             >
               {/* Cover image */}
               {resource.coverImage && (
-                <div className="w-full aspect-[16/9] overflow-hidden bg-konten-black/10">
-                  <img
+                <div className="w-full aspect-[16/9] overflow-hidden bg-konten-black/10 transition-transform duration-500 group-hover:scale-105">
+                  <LazyImage
                     src={resource.coverImage}
                     alt={resource.title}
                     loading="lazy"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="object-cover"
                   />
                 </div>
               )}

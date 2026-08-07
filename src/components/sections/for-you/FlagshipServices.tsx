@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import BookingModal from '../../ui/BookingModal';
+import LazyImage from '../../ui/LazyImage';
 
 const serviceImages: Record<string, { src: string; alt: string }[]> = {
   media: [
@@ -21,7 +22,7 @@ function ServiceImages({ id }: { id: string }) {
   if (imgs.length === 1) {
     return (
       <div className="w-full aspect-[4/5] rounded-2xl overflow-hidden">
-        <img src={imgs[0].src} alt={imgs[0].alt} className="w-full h-full object-cover" />
+        <LazyImage src={imgs[0].src} alt={imgs[0].alt} className="object-cover" />
       </div>
     );
   }
@@ -29,12 +30,12 @@ function ServiceImages({ id }: { id: string }) {
   return (
     <div className="w-full aspect-[4/5] grid grid-cols-[2fr_1fr] gap-3">
       <div className="rounded-2xl overflow-hidden">
-        <img src={imgs[0].src} alt={imgs[0].alt} className="w-full h-full object-cover" />
+        <LazyImage src={imgs[0].src} alt={imgs[0].alt} className="object-cover" />
       </div>
       <div className="flex flex-col gap-3">
         {imgs.slice(1).map((img, i) => (
           <div key={i} className="flex-1 rounded-2xl overflow-hidden">
-            <img src={img.src} alt={img.alt} className="w-full h-full object-cover" />
+            <LazyImage src={img.src} alt={img.alt} className="object-cover" />
           </div>
         ))}
       </div>

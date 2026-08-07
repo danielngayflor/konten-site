@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link, useParams } from 'react-router-dom';
-import PageSkeleton from '../components/ui/PageSkeleton';
-import { useReveal } from '../hooks/useReveal';
+import LazyImage from '../components/ui/LazyImage';
 import { resources, TYPE_LABELS, type ResourceBlock, type Resource } from '../data/resources';
 import Clapperboard from '../components/ui/Clapperboard';
 import PillButton from '../components/ui/PillButton';
@@ -137,9 +136,6 @@ function renderBlock(block: ResourceBlock, index: number) {
 export default function ResourceDetail() {
   const { slug } = useParams<{ slug: string }>();
   const resource = resources.find((r) => r.slug === slug) ?? resources[0];
-  const revealed = useReveal();
-
-  if (!revealed) return <PageSkeleton />;
 
   return (
     <>
@@ -205,10 +201,10 @@ export default function ResourceDetail() {
       {/* ── Cover image ───────────────────────────────────────────────── */}
       {resource.coverImage && (
         <div className="w-full aspect-[21/9] overflow-hidden bg-konten-black">
-          <img
+          <LazyImage
             src={resource.coverImage}
             alt={resource.title}
-            className="w-full h-full object-cover"
+            className="object-cover"
           />
         </div>
       )}

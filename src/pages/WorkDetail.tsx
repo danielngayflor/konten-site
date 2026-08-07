@@ -6,8 +6,7 @@ import Polaroid from '../components/ui/Polaroid';
 import FilmMetadata from '../components/ui/FilmMetadata';
 import Clapperboard from '../components/ui/Clapperboard';
 import BookingModal from '../components/ui/BookingModal';
-import PageSkeleton from '../components/ui/PageSkeleton';
-import { useReveal } from '../hooks/useReveal';
+import LazyImage from '../components/ui/LazyImage';
 
 const EASE = [0.25, 0, 0, 1] as const;
 
@@ -16,9 +15,6 @@ export default function WorkDetail() {
   const project = workPlaceholders.find((p) => p.slug === slug) || workPlaceholders[0];
 
   const [modalOpen, setModalOpen] = useState(false);
-  const revealed = useReveal();
-
-  if (!revealed) return <PageSkeleton />;
 
   return (
     <>
@@ -163,10 +159,10 @@ export default function WorkDetail() {
               </div>
               {project.siteScreenshotUrl ? (
                 <a href={project.siteUrl} target="_blank" rel="noopener noreferrer">
-                  <img
+                  <LazyImage
                     src={project.siteScreenshotUrl}
                     alt={`${project.client} website screenshot`}
-                    className="w-full object-cover object-top"
+                    className="object-cover object-top"
                     style={{ height: '600px' }}
                   />
                 </a>

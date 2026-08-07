@@ -4,6 +4,7 @@ import type { WorkProject } from '../../../data/workPlaceholders';
 import type { ServiceSlug } from '../../../lib/icons';
 import Clapperboard from '../../ui/Clapperboard';
 import ServiceIcon from '../../ui/ServiceIcon';
+import LazyImage from '../../ui/LazyImage';
 
 const SERVICE_LABELS: Partial<Record<ServiceSlug, string>> = {
   'media-coverage':   'MEDIA & DOC',
@@ -78,12 +79,12 @@ export default function WorkGallery({ projects }: WorkGalleryProps) {
               className="group block"
             >
               {/* Image */}
-              <div className="relative aspect-[4/5] rounded-2xl overflow-hidden mb-5">
+              <div className="relative aspect-[4/5] rounded-2xl overflow-hidden mb-5 transition-transform duration-500 group-hover:scale-105">
                 {project.coverImage ? (
-                  <img
+                  <LazyImage
                     src={project.coverImage}
                     alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="object-cover"
                   />
                 ) : (
                   <div className="w-full h-full bg-dark-gray flex items-center justify-center">

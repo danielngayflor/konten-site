@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
+import LazyImage from '../../ui/LazyImage';
 
 const AUTO_MS = 8000;
 
@@ -62,7 +63,7 @@ function ServiceImages({ id }: { id: string }) {
   if (imgs.length === 1) {
     return (
       <div className="w-full aspect-video rounded-2xl overflow-hidden">
-        <img src={imgs[0].src} alt={imgs[0].alt} className="w-full h-full object-cover" draggable={false} />
+        <LazyImage src={imgs[0].src} alt={imgs[0].alt} className="object-cover" draggable={false} />
       </div>
     );
   }
@@ -70,12 +71,12 @@ function ServiceImages({ id }: { id: string }) {
   return (
     <div className="w-full aspect-video grid grid-cols-[2fr_1fr] gap-2">
       <div className="rounded-xl overflow-hidden">
-        <img src={imgs[0].src} alt={imgs[0].alt} className="w-full h-full object-cover" draggable={false} />
+        <LazyImage src={imgs[0].src} alt={imgs[0].alt} className="object-cover" draggable={false} />
       </div>
       <div className="flex flex-col gap-2">
         {imgs.slice(1, 3).map((img, i) => (
           <div key={i} className="flex-1 rounded-xl overflow-hidden">
-            <img src={img.src} alt={img.alt} className="w-full h-full object-cover" draggable={false} />
+            <LazyImage src={img.src} alt={img.alt} className="object-cover" draggable={false} />
           </div>
         ))}
       </div>
@@ -117,7 +118,6 @@ export default function WhatWeDo() {
     const bar = tabBarRef.current;
     const btn = tabRefs.current[active];
     if (!bar || !btn) return;
-    const barLeft   = bar.scrollLeft;
     const barWidth  = bar.offsetWidth;
     const btnLeft   = btn.offsetLeft;
     const btnWidth  = btn.offsetWidth;

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { workPlaceholders } from '../../../data/workPlaceholders';
+import LazyImage from '../../ui/LazyImage';
 
 const TOTAL         = workPlaceholders.length;
 const MAX_CARD_W    = 440;
@@ -137,10 +138,10 @@ export default function SelectedWorkPreview() {
                   onClick={e => { if (slot !== 0) e.preventDefault(); }}
                 >
                   {project.coverImage ? (
-                    <img
+                    <LazyImage
                       src={project.coverImage}
                       alt={project.title}
-                      className="w-full h-full object-cover"
+                      className="object-cover"
                     />
                   ) : (
                     <div className="w-full h-full bg-konten-blue" />
