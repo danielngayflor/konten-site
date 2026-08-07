@@ -6,6 +6,8 @@ import Polaroid from '../components/ui/Polaroid';
 import FilmMetadata from '../components/ui/FilmMetadata';
 import Clapperboard from '../components/ui/Clapperboard';
 import BookingModal from '../components/ui/BookingModal';
+import PageSkeleton from '../components/ui/PageSkeleton';
+import { useReveal } from '../hooks/useReveal';
 
 const EASE = [0.25, 0, 0, 1] as const;
 
@@ -14,6 +16,9 @@ export default function WorkDetail() {
   const project = workPlaceholders.find((p) => p.slug === slug) || workPlaceholders[0];
 
   const [modalOpen, setModalOpen] = useState(false);
+  const revealed = useReveal();
+
+  if (!revealed) return <PageSkeleton />;
 
   return (
     <>
