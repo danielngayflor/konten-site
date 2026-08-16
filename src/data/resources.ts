@@ -185,7 +185,7 @@ export const resources: Resource[] = [
     title: 'Steal Our Social Media Brief Template',
     type: 'cheat-sheet',
     summary: 'Five years of scope-creep lessons folded into one doc. A walkthrough of every field that matters — and the exact template we send clients on day one.',
-    coverImage: '/images/articles/social-media-brief-cover.png',
+    coverImage: '/images/articles/social-media-brief-cover.jpg',
     publishedAt: 'April 2026',
     readTime: '9 min read',
     downloadFile: {

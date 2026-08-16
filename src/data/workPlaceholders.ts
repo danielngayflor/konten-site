@@ -162,7 +162,7 @@ export const workPlaceholders: WorkProject[] = [
     ],
     year: '2025',
     location: 'Monrovia, Liberia',
-    coverImage: '/images/work/sos/cover.png',
+    coverImage: '/images/work/sos/cover.jpg',
     heroVideo: 'https://mega.nz/embed/atgxFT4J#nBiDkpPY3wM-C-B5ujuuEw-iJoJgJ4OnCosNPCe-5Yo',
     stats: [
       { value: '7,000+', label: 'Families reached by Hospital on Wheels' },
