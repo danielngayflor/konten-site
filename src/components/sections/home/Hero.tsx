@@ -39,7 +39,7 @@ export default function Hero() {
         <div className="w-full aspect-video rounded-2xl overflow-hidden bg-dark-gray" style={{ boxShadow: '0 32px 80px rgba(0,0,0,0.6), 0 8px 24px rgba(0,0,0,0.4)' }}>
           <video
             ref={videoRef}
-            src="/VIdeos/Background%20.mp4"
+            src="/VIdeos/background.mp4"
             autoPlay
             muted
             loop
