@@ -12,7 +12,7 @@ export default function OurStoryCloser() {
         </p>
         <a
           href="mailto:contact@konten.agency"
-          className="inline-flex items-center px-8 py-3 bg-konten-blue-bright text-white font-spartan font-700 text-[13px] uppercase tracking-widest rounded-full hover:bg-konten-blue-hover transition-colors duration-200"
+          className="inline-flex items-center px-8 py-3 bg-konten-blue text-white font-spartan font-700 text-[13px] uppercase tracking-widest rounded-full hover:bg-konten-blue transition-colors duration-200"
         >
           Get in touch →
         </a>

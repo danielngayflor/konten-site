@@ -31,9 +31,7 @@ Uses **Tailwind v4 via the Vite plugin** (`@tailwindcss/vite`):
 ### Dark-first palette (2026 rebrand)
 | Token | Hex | Use |
 |---|---|---|
-| `konten-blue` | `#00249C` | Logo, brand mark, light surfaces only — **fails on dark** |
-| `konten-blue-bright` | `#4D76FF` | Buttons/links on dark surfaces (WCAG AA cleared) |
-| `konten-blue-hover` | `#3362FF` | Hover state for blue-bright |
+| `konten-blue` | `#00249C` | The one brand blue — used everywhere |
 | `konten-cream` | `#FDFBD4` | Rare warm accent on dark |
 | `konten-black` | `#0A0A0A` | Base page bg |
 | `charcoal` | `#141414` | Alternating section bg |

@@ -48,7 +48,7 @@ export default function OurValues() {
 
   const FlipCard = ({ value }: { value: typeof values[number] }) => (
     <div
-      className={`h-[260px] cursor-pointer rounded-2xl overflow-hidden border border-border-gray transition-colors duration-700 ${flipped[value.name] ? 'border-konten-blue-bright/50' : 'border-border-gray'}`}
+      className={`h-[260px] cursor-pointer rounded-2xl overflow-hidden border border-border-gray transition-colors duration-700 ${flipped[value.name] ? 'border-konten-blue/50' : 'border-border-gray'}`}
       style={{ perspective: '1200px' }}
       onMouseEnter={() => handleMouseEnter(value.name)}
       onMouseLeave={() => handleMouseLeave(value.name)}
@@ -72,7 +72,7 @@ export default function OurValues() {
 
         {/* Back — description */}
         <div
-          className="absolute inset-0 bg-konten-blue-bright flex items-center justify-center p-8"
+          className="absolute inset-0 bg-konten-blue flex items-center justify-center p-8"
           style={{
             backfaceVisibility: 'hidden',
             transform: 'rotateY(180deg)',

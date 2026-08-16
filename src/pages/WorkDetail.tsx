@@ -52,28 +52,28 @@ export default function WorkDetail() {
       <section className="bg-charcoal border-y border-white/10 py-16 px-6 md:px-12">
         <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
           <div>
-            <p className="text-eyebrow text-konten-blue-bright mb-2">CLIENT</p>
+            <p className="text-eyebrow text-konten-blue mb-2">CLIENT</p>
             <p className="font-spartan font-black text-white text-[1.6rem] uppercase tracking-tight leading-tight">
               {project.client}
             </p>
           </div>
           <div>
-            <p className="text-eyebrow text-konten-blue-bright mb-2">YEAR</p>
+            <p className="text-eyebrow text-konten-blue mb-2">YEAR</p>
             <p className="font-spartan font-black text-white text-[1.6rem] uppercase tracking-tight leading-none">
               {project.year}
             </p>
           </div>
           <div>
-            <p className="text-eyebrow text-konten-blue-bright mb-2">LOCATION</p>
+            <p className="text-eyebrow text-konten-blue mb-2">LOCATION</p>
             <p className="font-spartan font-black text-white text-[1.6rem] uppercase tracking-tight leading-tight">
               {project.location}
             </p>
           </div>
           <div>
-            <p className="text-eyebrow text-konten-blue-bright mb-2">SERVICE</p>
+            <p className="text-eyebrow text-konten-blue mb-2">SERVICE</p>
             <Link
               to="/services"
-              className="font-spartan font-black text-white text-[1.6rem] uppercase tracking-tight leading-tight hover:text-konten-blue-bright transition-colors block"
+              className="font-spartan font-black text-white text-[1.6rem] uppercase tracking-tight leading-tight hover:text-konten-blue transition-colors block"
             >
               {project.serviceName}
             </Link>
@@ -127,7 +127,7 @@ export default function WorkDetail() {
           <ul className="max-w-[600px] pt-4 space-y-5">
             {project.goals.map((goal, i) => (
               <li key={i} className="flex items-start gap-3">
-                <Clapperboard size={15} className="mt-1 shrink-0 text-konten-blue-bright" />
+                <Clapperboard size={15} className="mt-1 shrink-0 text-konten-blue" />
                 <span className="font-body text-body-lg leading-[1.65] text-white/80">
                   {goal}
                 </span>
@@ -254,7 +254,7 @@ export default function WorkDetail() {
           </h2>
           <button
             onClick={() => setModalOpen(true)}
-            className="inline-flex items-center px-8 py-4 bg-konten-blue-bright text-white font-spartan font-700 text-[12px] uppercase tracking-widest rounded-full hover:bg-konten-blue-hover transition-colors duration-200 cursor-pointer"
+            className="inline-flex items-center px-8 py-4 bg-konten-blue text-white font-spartan font-700 text-[12px] uppercase tracking-widest rounded-full hover:bg-konten-blue transition-colors duration-200 cursor-pointer"
           >
             Start a project →
           </button>

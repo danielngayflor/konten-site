@@ -212,7 +212,7 @@ export default function BookingModal({ serviceValue, serviceName, onClose }: Boo
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full bg-konten-blue-bright text-white font-spartan font-700 text-[13px] uppercase tracking-widest py-4 rounded-full hover:bg-konten-blue-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full bg-konten-blue text-white font-spartan font-700 text-[13px] uppercase tracking-widest py-4 rounded-full hover:bg-konten-blue transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {loading ? 'Sending…' : 'Book a call →'}
                   </button>

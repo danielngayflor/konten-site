@@ -111,7 +111,7 @@ export default function FlagshipServices() {
                 <div className="flex flex-wrap gap-3">
                   <button
                     onClick={() => setModal({ serviceValue: s.workSlug, serviceName: s.name.replace('\n', ' ') })}
-                    className="inline-flex items-center px-8 py-3 bg-konten-blue-bright text-white font-spartan font-700 text-[12px] uppercase tracking-widest rounded-full hover:bg-konten-blue-hover transition-colors duration-200 cursor-pointer"
+                    className="inline-flex items-center px-8 py-3 bg-konten-blue text-white font-spartan font-700 text-[12px] uppercase tracking-widest rounded-full hover:bg-konten-blue transition-colors duration-200 cursor-pointer"
                   >
                     I want this →
                   </button>

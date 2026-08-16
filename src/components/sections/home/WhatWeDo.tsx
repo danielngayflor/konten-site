@@ -169,7 +169,7 @@ export default function WhatWeDo() {
                   {s.tab}
                   {isActive && (
                     <span
-                      className="absolute bottom-0 left-0 h-[2px] bg-konten-blue-bright transition-none"
+                      className="absolute bottom-0 left-0 h-[2px] bg-konten-blue transition-none"
                       style={{ width: `${progress}%` }}
                     />
                   )}
@@ -209,7 +209,7 @@ export default function WhatWeDo() {
 
               <Link
                 to={service.href}
-                className="w-fit inline-flex items-center gap-2 font-spartan font-700 text-[12px] uppercase tracking-widest text-konten-blue-bright hover:text-white border-b border-konten-blue-bright/40 hover:border-white/40 pb-0.5 transition-colors duration-200"
+                className="w-fit inline-flex items-center gap-2 font-spartan font-700 text-[12px] uppercase tracking-widest text-konten-blue hover:text-white border-b border-konten-blue/40 hover:border-white/40 pb-0.5 transition-colors duration-200"
               >
                 Learn more →
               </Link>

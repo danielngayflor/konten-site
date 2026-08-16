@@ -147,7 +147,7 @@ function FilterPill({
       className={`px-5 py-2 rounded-full font-spartan font-700 text-[12px] uppercase tracking-widest
                   transition-colors duration-200 cursor-pointer ${
                     active
-                      ? 'bg-konten-blue-bright text-white'
+                      ? 'bg-konten-blue text-white'
                       : 'border border-white/20 text-white/50 hover:border-white/40 hover:text-white/80'
                   }`}
     >

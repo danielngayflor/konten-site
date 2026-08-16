@@ -14,11 +14,7 @@
 @theme {
 
   /* ── Brand colors ─────────────────────────────────────────────── */
-  /* Konten Blue (#00249C) — light surfaces only (fails on dark).    */
-  --color-konten-blue:        #00249C;
-  /* Blue Bright — same hue, lightened for WCAG AA on dark surfaces. */
-  --color-konten-blue-bright: #4D76FF;
-  --color-konten-blue-hover:  #3362FF;
+  --color-konten-blue:  #00249C;
   /* Cream — rare warm accent on dark; 18.8:1 on near-black.         */
   --color-konten-cream:       #FDFBD4;
 

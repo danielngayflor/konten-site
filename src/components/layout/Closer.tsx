@@ -104,7 +104,7 @@ export default function Closer() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="px-8 py-[10px] bg-konten-blue-bright text-white font-spartan font-700 text-[12px] uppercase tracking-widest rounded-full hover:bg-konten-blue-hover transition-colors whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-8 py-[10px] bg-konten-blue text-white font-spartan font-700 text-[12px] uppercase tracking-widest rounded-full hover:bg-konten-blue transition-colors whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {loading ? 'Sending…' : 'Submit'}
                 </button>

@@ -62,7 +62,7 @@ export default function Nav() {
 
           <button
             onClick={goToContact}
-            className="px-6 py-[9px] bg-konten-blue-bright text-white font-spartan font-700 text-[12px] uppercase tracking-widest rounded-full hover:bg-konten-blue-hover transition-colors duration-200"
+            className="px-6 py-[9px] bg-konten-blue text-white font-spartan font-700 text-[12px] uppercase tracking-widest rounded-full hover:bg-konten-blue transition-colors duration-200"
           >
             Tell Your Story →
           </button>
@@ -114,7 +114,7 @@ export default function Nav() {
           </div>
           <button
             onClick={(e) => goToContact(e)}
-            className="mt-10 w-full px-8 py-4 bg-konten-blue-bright text-white font-spartan font-700 text-[13px] uppercase tracking-widest rounded-full"
+            className="mt-10 w-full px-8 py-4 bg-konten-blue text-white font-spartan font-700 text-[13px] uppercase tracking-widest rounded-full"
           >
             Tell Your Story →
           </button>

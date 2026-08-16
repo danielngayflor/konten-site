@@ -12,7 +12,7 @@ export default function AlsoAvailable() {
           </p>
           <a
             href="mailto:sales@konten.agency"
-            className="inline-flex items-center gap-1 font-spartan font-700 text-[12px] uppercase tracking-widest text-konten-blue-bright hover:text-white border-b border-konten-blue-bright/40 hover:border-white/40 pb-0.5 transition-colors duration-200"
+            className="inline-flex items-center gap-1 font-spartan font-700 text-[12px] uppercase tracking-widest text-konten-blue hover:text-white border-b border-konten-blue/40 hover:border-white/40 pb-0.5 transition-colors duration-200"
           >
             Ask us about Brand &amp; Comms, Web &amp; Digital, or Training &amp; Capacity →
           </a>
