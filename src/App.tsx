@@ -17,6 +17,7 @@ const Work           = lazy(() => import('./pages/Work'));
 const WorkDetail     = lazy(() => import('./pages/WorkDetail'));
 const Resources      = lazy(() => import('./pages/Resources'));
 const ResourceDetail = lazy(() => import('./pages/ResourceDetail'));
+const Quiz           = lazy(() => import('./pages/Quiz'));
 
 function AppLayout() {
   return (
@@ -32,6 +33,7 @@ function AppLayout() {
             <Route path="/featured-projects/:slug"   element={<WorkDetail />} />
             <Route path="/freebies"                  element={<Resources />} />
             <Route path="/freebies/:slug"            element={<ResourceDetail />} />
+            <Route path="/quiz"                      element={<Quiz />} />
           </Routes>
         </Suspense>
       </main>
