@@ -3,12 +3,20 @@ import { useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import type { FilmType, ToneValue, FilmResult } from '../../data/quiz';
 import { results } from '../../data/quiz';
-import Clapperboard from '../ui/Clapperboard';
 
 const EASE = [0.25, 0, 0, 1] as const;
 
 const WHATSAPP_URL = 'https://wa.me/231776049390';
 const PACKAGE_URL  = '/services'; // update to dedicated package page when live
+
+// Small structural heading — replaces eyebrow styling
+function SectionLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="font-spartan font-700 text-[12px] uppercase tracking-[0.14em] text-white/35 mb-4">
+      {children}
+    </p>
+  );
+}
 
 interface QuizResultProps {
   direction: 1 | -1;
@@ -61,10 +69,6 @@ export default function QuizResult({
           animate="show"
           transition={{ duration: reduced ? 0 : 0.5, delay: reduced ? 0 : 0.15, ease: EASE }}
         >
-          <div className="flex items-center justify-center gap-2 mb-6">
-            <Clapperboard size={13} className="text-white/60" />
-            <span className="text-eyebrow text-white/60">{result.eyebrow}</span>
-          </div>
           <h1
             className="font-spartan font-black text-white uppercase leading-none tracking-tighter mb-4"
             style={{ fontSize: 'clamp(2.5rem, 8vw, 7rem)' }}
@@ -90,19 +94,26 @@ export default function QuizResult({
           transition={{ duration: reduced ? 0 : 0.6, delay: reduced ? 0 : 0.3, ease: EASE }}
         >
 
-          {/* ── What it is ──────────────────────────────────────────────── */}
-          <ResultSection eyebrow="What it is">
-            <p className="font-body text-body-lg text-white/65 leading-[1.7]">
-              {result.definition}
-            </p>
-          </ResultSection>
+          {/* ── Personalized opening: why → what ────────────────────────── */}
+          <section className="space-y-8">
+            {/* "Based on your responses…" lead */}
+            <div>
+              <p className="font-spartan font-700 text-[12px] uppercase tracking-[0.14em] text-white/35 mb-5">
+                Based on your responses, you'll need
+              </p>
+              <p className="font-body text-body-lg text-white leading-[1.7]">
+                {result.whyFit}
+              </p>
+            </div>
 
-          {/* ── Why this is your fit ────────────────────────────────────── */}
-          <ResultSection eyebrow="Why this is your fit">
-            <p className="font-body text-body-lg text-white/65 leading-[1.7]">
-              {result.whyFit}
-            </p>
-          </ResultSection>
+            {/* What it actually is */}
+            <div>
+              <SectionLabel>What {result.title} actually is</SectionLabel>
+              <p className="font-body text-body-lg text-white/65 leading-[1.7]">
+                {result.definition}
+              </p>
+            </div>
+          </section>
 
           {/* ── Offer section (first if tone === 'hire') ─────────────────── */}
           {offerFirst && (
@@ -110,22 +121,21 @@ export default function QuizResult({
           )}
 
           {/* ── DIY guide ───────────────────────────────────────────────── */}
-          <ResultSection
-            eyebrow="Shoot it yourself — a real starting guide"
-            action={
-              tone === 'hire' ? (
+          <section>
+            <div className="flex items-center justify-between mb-5">
+              <SectionLabel>Shoot it yourself — a real guide</SectionLabel>
+              {tone === 'hire' && (
                 <button
                   onClick={() => setDiyOpen(o => !o)}
-                  className="font-spartan font-700 text-[11px] uppercase tracking-widest text-mid-gray
-                             hover:text-white transition-colors duration-200
+                  className="font-spartan font-700 text-[11px] uppercase tracking-widest text-white/30
+                             hover:text-white/60 transition-colors duration-200
                              focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-konten-blue"
                   aria-expanded={diyOpen}
                 >
                   {diyOpen ? 'Hide ↑' : 'Show ↓'}
                 </button>
-              ) : null
-            }
-          >
+              )}
+            </div>
             {diyOpen && (
               <ol className="space-y-5 list-none" aria-label="DIY shooting steps">
                 {result.diySteps.map((step, i) => (
@@ -162,21 +172,22 @@ export default function QuizResult({
                 ))}
               </ol>
             )}
-          </ResultSection>
+          </section>
 
           {/* ── Where this tends to go wrong ────────────────────────────── */}
-          <ResultSection eyebrow="Where this tends to go wrong on your own">
+          <section>
+            <SectionLabel>Where this tends to go wrong on your own</SectionLabel>
             <p className="font-body text-body-lg text-white/65 leading-[1.7]">
               {result.diyGap}
             </p>
-          </ResultSection>
+          </section>
 
           {/* ── One film is a start ──────────────────────────────────────── */}
           <div className="border border-border-gray rounded-2xl p-8">
-            <p className="text-eyebrow text-mid-gray mb-4">
+            <p className="font-spartan font-black text-white/50 text-[14px] uppercase tracking-tight leading-none mb-4">
               One film is a start. It isn't the whole picture.
             </p>
-            <p className="font-body text-[15px] text-white/60 leading-[1.7]">
+            <p className="font-body text-[15px] text-white/55 leading-[1.7]">
               {result.oneFilmNote}
             </p>
           </div>
@@ -204,27 +215,7 @@ export default function QuizResult({
   );
 }
 
-// ── Sub-components ────────────────────────────────────────────────────────────
-
-function ResultSection({
-  eyebrow,
-  action,
-  children,
-}: {
-  eyebrow: string;
-  action?: React.ReactNode;
-  children: React.ReactNode;
-}) {
-  return (
-    <section>
-      <div className="flex items-center justify-between mb-5">
-        <p className="text-eyebrow text-mid-gray">{eyebrow}</p>
-        {action}
-      </div>
-      {children}
-    </section>
-  );
-}
+// ── Offer section ─────────────────────────────────────────────────────────────
 
 function OfferSection({
   result,
@@ -235,12 +226,14 @@ function OfferSection({
   tone: ToneValue;
   onCtaClick: (type: 'whatsapp' | 'package') => void;
 }) {
-  const offerEyebrow =
+  const label =
     tone === 'diy' ? 'If you change your mind about hiring out' : 'The offer';
 
   return (
     <section className="bg-dark-gray rounded-2xl p-8 md:p-10">
-      <p className="text-eyebrow text-mid-gray mb-5">{offerEyebrow}</p>
+      <p className="font-spartan font-700 text-[12px] uppercase tracking-[0.14em] text-white/35 mb-5">
+        {label}
+      </p>
       <p className="font-body text-[15px] text-white/70 leading-[1.7] mb-8">
         {result.offer}
       </p>

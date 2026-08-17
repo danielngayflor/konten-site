@@ -1,6 +1,5 @@
 // src/components/quiz/QuizIntro.tsx
 import { motion, useReducedMotion } from 'framer-motion';
-import Clapperboard from '../ui/Clapperboard';
 
 const EASE = [0.25, 0, 0, 1] as const;
 
@@ -34,12 +33,6 @@ export default function QuizIntro({ onStart, direction }: QuizIntroProps) {
       transition={{ duration: reduced ? 0 : 0.45, ease: EASE }}
       className="flex flex-col items-center justify-center min-h-[calc(100dvh-56px)] sm:min-h-[calc(100dvh-62px)] px-6 py-16 text-center"
     >
-      {/* Eyebrow */}
-      <div className="flex items-center gap-2 mb-8">
-        <Clapperboard size={12} className="text-mid-gray" />
-        <span className="text-eyebrow text-mid-gray">NGO Film Quiz</span>
-      </div>
-
       {/* Headline */}
       <h1
         className="font-spartan font-black text-white uppercase leading-none tracking-tighter mb-6"
@@ -58,7 +51,7 @@ export default function QuizIntro({ onStart, direction }: QuizIntroProps) {
       </p>
 
       {/* Meta line */}
-      <p className="text-eyebrow text-mid-gray mb-10">6 questions · about a minute</p>
+      <p className="font-body text-[13px] text-white/30 mb-10">6 questions · about a minute</p>
 
       {/* CTA */}
       <button

@@ -43,7 +43,6 @@ export default function QuizQuestion({
 
   // Resolve the active question (scored or tone)
   const activeQ = question ?? toneQuestion!;
-  const isTone = question === null;
   const displayNumber = questionIndex + 1;
 
   return (
@@ -57,7 +56,13 @@ export default function QuizQuestion({
       className="flex flex-col min-h-[calc(100dvh-56px)] sm:min-h-[calc(100dvh-62px)] px-6 py-12 md:py-16 max-w-2xl mx-auto w-full"
     >
       {/* Progress dots */}
-      <div className="flex items-center gap-2 mb-10" role="progressbar" aria-valuenow={questionIndex + 1} aria-valuemin={1} aria-valuemax={totalQuestions}>
+      <div
+        className="flex items-center gap-2 mb-10"
+        role="progressbar"
+        aria-valuenow={questionIndex + 1}
+        aria-valuemin={1}
+        aria-valuemax={totalQuestions}
+      >
         {Array.from({ length: totalQuestions }).map((_, i) => {
           const isPast    = i < questionIndex;
           const isCurrent = i === questionIndex;
@@ -79,11 +84,6 @@ export default function QuizQuestion({
           {displayNumber} / {totalQuestions}
         </span>
       </div>
-
-      {/* Question label */}
-      <p className="text-eyebrow text-mid-gray mb-4">
-        {isTone ? 'One last thing' : `Question ${displayNumber}`}
-      </p>
 
       {/* Question text */}
       <h2
@@ -111,9 +111,10 @@ export default function QuizQuestion({
                               : 'bg-dark-gray border-border-gray text-white/70 hover:border-white/30 hover:text-white hover:bg-dark-gray/80'
                           }`}
             >
-              <span className={`mr-3 inline-block w-5 h-5 rounded-full border flex-shrink-0 align-middle
-                               transition-all duration-200
-                               ${isSelected ? 'border-white bg-white' : 'border-white/30'}`}
+              <span
+                className={`mr-3 inline-block w-5 h-5 rounded-full border flex-shrink-0 align-middle
+                             transition-all duration-200
+                             ${isSelected ? 'border-white bg-white' : 'border-white/30'}`}
               />
               {option.label}
             </button>
