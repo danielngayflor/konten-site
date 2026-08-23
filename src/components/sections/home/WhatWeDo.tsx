@@ -26,8 +26,8 @@ export default function WhatWeDo() {
   const [active, setActive]     = useState(0);
   const [dir, setDir]           = useState<1 | -1>(1);
   const [progress, setProgress] = useState(0); // 0–100
-  const timerRef                = useRef<ReturnType<typeof setInterval>>();
-  const rafRef                  = useRef<number>();
+  const timerRef = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
+  const rafRef   = useRef<number | undefined>(undefined);
   const startRef                = useRef<number>(Date.now());
   const count                   = featuredServices.length;
 
@@ -54,7 +54,7 @@ export default function WhatWeDo() {
       rafRef.current = requestAnimationFrame(tick);
     };
     rafRef.current = requestAnimationFrame(tick);
-    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
+    return () => { if (rafRef.current !== undefined) cancelAnimationFrame(rafRef.current); };
   }, []);
 
   const goTo = (i: number) => {
