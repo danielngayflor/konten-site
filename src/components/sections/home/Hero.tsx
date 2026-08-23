@@ -43,11 +43,11 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 0.4, ease: EASE }}
         >
           <p
-            className="font-body text-white/70 leading-[1.2] max-w-3xl"
-            style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)' }}
+            className="font-body text-white/70 leading-[1.35]"
+            style={{ fontSize: 'clamp(1.25rem, 2.4vw, 2.4rem)' }}
           >
-            Moves donors to fund. Moves customers to buy.
-            Moves audiences to trust and act.
+            <span className="block">Moves donors to fund. Moves customers to buy.</span>
+            <span className="block">Moves audiences to trust and act.</span>
           </p>
         </motion.div>
       </div>

@@ -5,7 +5,6 @@ import Positioning from '../components/sections/home/Positioning';
 import WhatWeDo from '../components/sections/home/WhatWeDo';
 import SelectedWorkPreview from '../components/sections/home/SelectedWorkPreview';
 import ContactForm from '../components/sections/home/ContactForm';
-import NewsletterSignup from '../components/sections/home/NewsletterSignup';
 
 // Section rhythm (Dynasty-inspired):
 //   Hero       → bg-konten-blue   (full viewport)
@@ -34,7 +33,6 @@ export default function Home() {
       <WhatWeDo />
       <SelectedWorkPreview />
       <ContactForm />
-      <NewsletterSignup />
     </div>
   );
 }
