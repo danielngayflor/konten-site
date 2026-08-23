@@ -1,15 +1,17 @@
 // WhatWeDo.tsx
-//   • One service card at a time (full-width snap)
-//   • Three featured services with photos
-//   • Card: bg-konten-blue wraps around the image as a frame; text fills the right side
-import { useRef, useState, useEffect } from 'react';
+//   • Heading sticks to top of viewport while the section is in view
+//   • One service card at a time, auto-advances every 10 s with a slide transition
+//   • Dots double as manual controls; progress bar shows time until next slide
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { services } from '../../../data/services';
 import { workPlaceholders } from '../../../data/workPlaceholders';
 
 const FOLD = 40;
+const INTERVAL = 10_000; // ms
+const EASE = [0.25, 0, 0, 1] as const;
 
-// Three featured services shown here (those with representative photos)
 const FEATURED = ['media-coverage', 'social-and-story', 'creator-studio'];
 
 const featuredServices = FEATURED
@@ -21,148 +23,188 @@ function getServiceImage(slug: string): string | undefined {
 }
 
 export default function WhatWeDo() {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [active, setActive]     = useState(0);
+  const [dir, setDir]           = useState<1 | -1>(1);
+  const [progress, setProgress] = useState(0); // 0–100
+  const timerRef                = useRef<ReturnType<typeof setInterval>>();
+  const rafRef                  = useRef<number>();
+  const startRef                = useRef<number>(Date.now());
+  const count                   = featuredServices.length;
 
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const onScroll = () => {
-      // Each slide = viewport width (w-screen)
-      const slideW = el.clientWidth;
-      setActiveIndex(Math.round(el.scrollLeft / slideW));
-    };
-    el.addEventListener('scroll', onScroll, { passive: true });
-    return () => el.removeEventListener('scroll', onScroll);
-  }, []);
-
-  const scrollTo = (i: number) => {
-    const el = scrollRef.current;
-    if (!el) return;
-    el.scrollTo({ left: el.clientWidth * i, behavior: 'smooth' });
+  // Auto-advance
+  const advance = (next: number, direction: 1 | -1) => {
+    setDir(direction);
+    setActive(next);
+    setProgress(0);
+    startRef.current = Date.now();
   };
 
+  useEffect(() => {
+    timerRef.current = setInterval(() => {
+      advance((active + 1) % count, 1);
+    }, INTERVAL);
+    return () => clearInterval(timerRef.current);
+  }, [active, count]);
+
+  // Progress bar via rAF
+  useEffect(() => {
+    const tick = () => {
+      const pct = Math.min(100, ((Date.now() - startRef.current) / INTERVAL) * 100);
+      setProgress(pct);
+      rafRef.current = requestAnimationFrame(tick);
+    };
+    rafRef.current = requestAnimationFrame(tick);
+    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
+  }, []);
+
+  const goTo = (i: number) => {
+    clearInterval(timerRef.current);
+    advance(i, i > active ? 1 : -1);
+    // restart interval
+    timerRef.current = setInterval(() => {
+      setActive(prev => {
+        const next = (prev + 1) % count;
+        advance(next, 1);
+        return next;
+      });
+    }, INTERVAL);
+  };
+
+  const service    = featuredServices[active];
+  const coverImage = getServiceImage(service.slug);
+
   return (
-    <section
-      className="text-white py-8 md:py-10"
-    >
+    <section className="text-white py-8 md:py-10">
 
-      {/* ── Section heading ──────────────────────────────────────── */}
-      <div className="px-6 sm:px-10 mb-10 max-w-[1600px] mx-auto">
-        <h2
-          className="font-spartan font-black uppercase leading-none tracking-tighter text-white mb-6"
-          style={{ fontSize: 'clamp(2.5rem, 7vw, 6rem)' }}
-        >
-          What We Do
-        </h2>
-        <p
-          className="font-body text-white/50 leading-[1.7] max-w-3xl"
-          style={{ fontSize: 'clamp(1.15rem, 2.2vw, 1.5rem)' }}
-        >
-          We have executed projects in three countries and in all 15 counties
-          across Liberia sitting with beneficiaries, embassies, founders, and
-          boards, understanding <em>why</em> before we ever picked up a camera.
-          That's how we know what a real story looks like versus a staged one.
-        </p>
-      </div>
-
-      {/* ── Snap scroll one card per viewport width ────────────── */}
+      {/* ── Sticky heading — stays at top while section is in view ── */}
       <div
-        ref={scrollRef}
-        className="w-full flex overflow-x-auto snap-x snap-mandatory scrollbar-hide"
-        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        className="sticky z-10 px-6 sm:px-10 pt-6 pb-4"
+        style={{
+          top: 64, // nav height
+          background: 'linear-gradient(to bottom, #0A0A0A 80%, transparent)',
+        }}
       >
-        {featuredServices.map((service) => {
-          const coverImage = getServiceImage(service.slug);
-
-          return (
-            // Slide: full viewport width
-            <div
-              key={service.slug}
-              className="shrink-0 snap-start w-full flex px-6 sm:px-10"
+        <div className="max-w-[1600px] mx-auto">
+          <div className="flex items-end justify-between gap-6 mb-4">
+            <h2
+              className="font-spartan font-black uppercase leading-none tracking-tighter text-white"
+              style={{ fontSize: 'clamp(2.5rem, 7vw, 6rem)' }}
             >
-              {/* ── Card: blue bg frames the image ─────────────── */}
-              {/* explicit height so h-full on image resolves correctly */}
-              <div className="flex-1 bg-konten-blue flex flex-col md:flex-row p-3 gap-3 h-auto md:h-[460px]">
+              What We Do
+            </h2>
 
-                {/* LEFT: image inside blue frame (p-3 on card creates the frame) */}
-                <div
-                  className="w-full md:w-[44%] shrink-0 overflow-hidden h-48 md:h-full"
-                  style={{
-                    clipPath: `polygon(${FOLD}px 0, 100% 0, 100% 100%, 0 100%, 0 ${FOLD}px)`,
-                  }}
-                >
-                  {coverImage ? (
-                    <img
-                      src={coverImage}
-                      alt={service.name}
-                      className="w-full h-full object-cover grayscale"
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-konten-blue/50 flex flex-col justify-end p-5 gap-1">
-                      {service.taglineLines.map((line, j) => (
-                        <p key={j}
-                           className="font-spartan font-black uppercase text-white/40 leading-none text-sm">
-                          {line}
-                        </p>
-                      ))}
-                    </div>
-                  )}
-                </div>
-
-                {/* RIGHT: name + description + CTA all filling the panel */}
-                <div className="flex-1 flex flex-col px-5 py-5 md:px-8 md:py-7">
-
-                  {/* Service name dominant headline */}
-                  <h3
-                    className="font-spartan font-black uppercase leading-none tracking-tighter text-white mb-5"
-                    style={{ fontSize: 'clamp(2rem, 5.5vw, 4rem)' }}
-                  >
-                    {service.name}
-                  </h3>
-
-                  {/* Description grows to fill available space */}
-                  <p
-                    className="font-body text-white/60 leading-[1.7] flex-1"
-                    style={{ fontSize: 'clamp(1.15rem, 2.2vw, 1.5rem)' }}
-                  >
-                    {service.intro}
-                  </p>
-
-                  {/* CTA pushed to bottom */}
-                  <Link
-                    to={`/services#${service.slug}`}
-                    className="mt-6 inline-flex items-center gap-2 self-start
-                               text-konten-cream font-spartan font-bold
-                               text-[11px] uppercase tracking-widest
-                               hover:opacity-70 transition-opacity duration-200"
-                  >
-                    Explore service
-                    <svg width="18" height="18" viewBox="0 0 28 28" fill="none" aria-hidden="true">
-                      <circle cx="14" cy="14" r="13" stroke="currentColor" strokeOpacity="0.4" strokeWidth="1.5" />
-                      <path d="M10 14h8M15 10l4 4-4 4" stroke="currentColor" strokeWidth="1.5"
-                            strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </Link>
-
-                </div>
-
-              </div>
+            {/* Dots — desktop, aligned with heading baseline */}
+            <div className="hidden sm:flex shrink-0 gap-2 pb-1">
+              {featuredServices.map((_, i) => (
+                <button
+                  key={i}
+                  aria-label={`Go to service ${i + 1}`}
+                  onClick={() => goTo(i)}
+                  className={[
+                    'rounded-full transition-all duration-300',
+                    i === active
+                      ? 'w-6 h-2.5 bg-white'
+                      : 'w-2.5 h-2.5 bg-white/25 hover:bg-white/50',
+                  ].join(' ')}
+                />
+              ))}
             </div>
-          );
-        })}
+          </div>
+
+          {/* Progress bar */}
+          <div className="h-[2px] w-full bg-white/10 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-white/50 rounded-full transition-none"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+        </div>
       </div>
 
-      {/* ── Navigation dots (3) ──────────────────────────────────── */}
-      <div className="flex justify-center gap-2 mt-7">
+      {/* ── Card — slides in/out ───────────────────────────────────── */}
+      <div className="mt-6 px-6 sm:px-10 overflow-hidden">
+        <AnimatePresence mode="wait" custom={dir}>
+          <motion.div
+            key={active}
+            custom={dir}
+            variants={{
+              enter: (d: number) => ({ x: d > 0 ? '105%' : '-105%', opacity: 0 }),
+              center: { x: 0, opacity: 1 },
+              exit:  (d: number) => ({ x: d > 0 ? '-105%' : '105%', opacity: 0 }),
+            }}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ duration: 0.55, ease: EASE }}
+            className="bg-konten-blue flex flex-col md:flex-row p-3 gap-3 md:h-[460px]"
+          >
+            {/* Image */}
+            <div
+              className="w-full md:w-[44%] shrink-0 overflow-hidden h-48 md:h-full"
+              style={{
+                clipPath: `polygon(${FOLD}px 0, 100% 0, 100% 100%, 0 100%, 0 ${FOLD}px)`,
+              }}
+            >
+              {coverImage ? (
+                <img
+                  src={coverImage}
+                  alt={service.name}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <div className="w-full h-full bg-white/10 flex flex-col justify-end p-5 gap-1">
+                  {service.taglineLines?.map((line: string, j: number) => (
+                    <p key={j} className="font-spartan font-black uppercase text-white/40 leading-none text-sm">
+                      {line}
+                    </p>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Text */}
+            <div className="flex-1 flex flex-col px-5 py-5 md:px-8 md:py-7">
+              <h3
+                className="font-spartan font-black uppercase leading-none tracking-tighter text-white mb-5"
+                style={{ fontSize: 'clamp(2rem, 5.5vw, 4rem)' }}
+              >
+                {service.name}
+              </h3>
+              <p
+                className="font-body text-white/60 leading-[1.7] flex-1"
+                style={{ fontSize: 'clamp(1.15rem, 2.2vw, 1.5rem)' }}
+              >
+                {service.intro}
+              </p>
+              <Link
+                to={`/services`}
+                className="mt-6 inline-flex items-center gap-2 self-start
+                           text-konten-cream font-spartan font-bold
+                           text-[11px] uppercase tracking-widest
+                           hover:opacity-70 transition-opacity duration-200"
+              >
+                Explore service
+                <svg width="18" height="18" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+                  <circle cx="14" cy="14" r="13" stroke="currentColor" strokeOpacity="0.4" strokeWidth="1.5"/>
+                  <path d="M10 14h8M15 10l4 4-4 4" stroke="currentColor" strokeWidth="1.5"
+                        strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </Link>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      {/* Mobile dots */}
+      <div className="flex sm:hidden justify-center gap-2 mt-6">
         {featuredServices.map((_, i) => (
           <button
             key={i}
             aria-label={`Go to service ${i + 1}`}
-            onClick={() => scrollTo(i)}
+            onClick={() => goTo(i)}
             className={[
               'rounded-full transition-all duration-300',
-              i === activeIndex
+              i === active
                 ? 'w-6 h-2.5 bg-white'
                 : 'w-2.5 h-2.5 bg-white/25 hover:bg-white/50',
             ].join(' ')}
@@ -170,7 +212,7 @@ export default function WhatWeDo() {
         ))}
       </div>
 
-      {/* ── Bottom CTA ───────────────────────────────────────────── */}
+      {/* CTA */}
       <div className="px-6 sm:px-10 mt-10 max-w-[1600px] mx-auto">
         <Link
           to="/services"
@@ -181,7 +223,6 @@ export default function WhatWeDo() {
           See everything we do
         </Link>
       </div>
-
 
     </section>
   );
