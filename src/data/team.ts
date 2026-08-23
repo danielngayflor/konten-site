@@ -9,7 +9,7 @@ export const team: TeamMember[] = [
   {
     role: 'Creative Director',
     name: 'Daniel',
-    bio: 'The vision behind everything you see. Has spent the better part of a decade building Konten LR from a single camera and a clear belief — that African stories deserve to be told with the same craft and intention as any story in the world.',
+    bio: 'The vision behind everything you see. Has spent the better part of a decade building Konten LR from a single camera and a clear belief that African stories deserve to be told with the same craft and intention as any story in the world.',
     metadataStrip: 'FRAME 01 · CREATIVE DIRECTOR · MONROVIA',
   },
   {

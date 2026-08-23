@@ -10,7 +10,7 @@ export default function Opening() {
         </p>
         <p className="font-body text-body-lg text-white/60 leading-[1.7]">
           Founded by Daniel N. Gayflor, Konten has since worked in all 15
-          counties of Liberia, and beyond — Sierra Leone, Côte d'Ivoire — for
+          counties of Liberia, and beyond Sierra Leone, Côte d'Ivoire for
           NGOs, embassies, development organisations, brands, and creators who
           have something true to say and need it said well.
         </p>

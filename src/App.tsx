@@ -8,7 +8,7 @@ import ScrollToHash from './components/ui/ScrollToHash';
 import PageSkeleton from './components/ui/PageSkeleton';
 
 // Lazy-load each page so it gets its own chunk.
-// Suspense shows <PageSkeleton> while the chunk is fetching —
+// Suspense shows <PageSkeleton> while the chunk is fetching 
 // no more pitch-black flash on first load or first visit to a route.
 const Home           = lazy(() => import('./pages/Home'));
 const About          = lazy(() => import('./pages/About'));
@@ -23,7 +23,8 @@ function AppLayout() {
   return (
     <>
       <Nav />
-      <main>
+      {/* pt-4/6 creates dark-canvas gap between liquid-glass nav and first floating section */}
+      <main className="pt-4 sm:pt-6">
         <Suspense fallback={<PageSkeleton />}>
           <Routes>
             <Route path="/"                          element={<Home />} />
@@ -37,8 +38,11 @@ function AppLayout() {
           </Routes>
         </Suspense>
       </main>
-      <Closer />
-      <LegalFooter />
+      {/* Footer floats as a single rounded unit on the dark canvas */}
+      <div className="mx-4 sm:mx-6 mt-4 sm:mt-6 mb-4 sm:mb-6 rounded-t-xl overflow-hidden">
+        <Closer />
+        <LegalFooter />
+      </div>
     </>
   );
 }

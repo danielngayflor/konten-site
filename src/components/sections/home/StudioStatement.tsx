@@ -98,7 +98,7 @@ export default function StudioStatement() {
             Konten is a creative agency specialising in video production, brand
             storytelling, social content, web development and creative
             direction. We work with brands, NGOs, startups, and creators who
-            have something worth saying — and need a team that helps them say
+            have something worth saying and need a team that helps them say
             it well.
           </p>
         </div>
@@ -119,7 +119,7 @@ export default function StudioStatement() {
                 onMouseLeave={handleMouseLeave}
                 onClick={() => handleClick(service.slug)}
               >
-                {/* Main row — always visible */}
+                {/* Main row always visible */}
                 <div className="flex items-center justify-between py-6 md:py-8">
                   <h3 className="font-spartan font-black text-konten-black uppercase text-[clamp(2rem,7.5vw,6.5rem)] leading-none tracking-tight">
                     {service.name}

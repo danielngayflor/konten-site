@@ -24,7 +24,7 @@ export const services: Service[] = [
     tags: 'PROJECT-BASED · TRAVELS REGIONALLY 🎬',
     taglineLines: ['YOU DO THE WORK.', 'WE MAKE SURE THE WORLD SEES IT.'],
     intro:
-      "Some of the most important work happening in Liberia and across West Africa never gets seen. Not because it isn't compelling — but because no one was there to capture it properly. We fix that.",
+      "Some of the most important work happening in Liberia and across West Africa never gets seen. Not because it isn't compelling but because no one was there to capture it properly. We fix that.",
     whatsIncluded: [
       {
         lead: 'Event coverage',
@@ -48,7 +48,7 @@ export const services: Service[] = [
       },
     ],
     whoItsFor:
-      'NGOs, embassies, development organisations, and government agencies with stories happening in the field. If your work touches communities and you need the world to see it — this is where we start.',
+      'NGOs, embassies, development organisations, and government agencies with stories happening in the field. If your work touches communities and you need the world to see it this is where we start.',
     howWeEngage:
       "Project-based. We quote per event, per project, or per campaign depending on scope, duration, and location. We operate across Liberia's seven counties and travel regionally for the right project.",
     // Film (film-canister) + Audio (boom-mic)
@@ -108,7 +108,7 @@ export const services: Service[] = [
     tags: 'PROJECT-BASED · PHASED 🎬',
     taglineLines: ['LOOK AND SOUND', 'LIKE WHAT YOU ACTUALLY ARE.'],
     intro:
-      "A brand isn't a logo. It's everything — the way you look, the way you speak, the story you tell about yourself, and the strategy behind how you tell it. We help organisations build all of it from the ground up, or rebuild it when what they have no longer fits who they've become.",
+      "A brand isn't a logo. It's everything the way you look, the way you speak, the story you tell about yourself, and the strategy behind how you tell it. We help organisations build all of it from the ground up, or rebuild it when what they have no longer fits who they've become.",
     whatsIncluded: [
       {
         lead: 'Brand strategy',
@@ -153,7 +153,7 @@ export const services: Service[] = [
     tags: 'PROJECT-BASED · OPTIONAL RETAINER 🎬',
     taglineLines: ['A WEBSITE THAT TELLS YOUR STORY', 'BEFORE YOU SAY A WORD.'],
     intro:
-      'Your website is usually the first thing a serious client, partner, or funder looks at before they decide whether to reach out. It needs to work hard. It needs to be fast, clear, and built around your story — not just your services. We design and build websites that do exactly that.',
+      'Your website is usually the first thing a serious client, partner, or funder looks at before they decide whether to reach out. It needs to work hard. It needs to be fast, clear, and built around your story not just your services. We design and build websites that do exactly that.',
     whatsIncluded: [
       {
         lead: 'Website strategy',
@@ -198,7 +198,7 @@ export const services: Service[] = [
     tags: 'WORKSHOP · RETAINER 🎬',
     taglineLines: ['THE BEST PERSON TO TELL YOUR STORY MIGHT ALREADY BE ON YOUR', 'PAYROLL.'],
     intro:
-      "Not every organisation needs to outsource their communications forever. Some teams just need the skills, the frameworks, and the confidence to do it themselves. We teach that. From media training for spokespeople to hands-on content creation workshops for comms teams — we build capability that stays long after we've left the room.",
+      "Not every organisation needs to outsource their communications forever. Some teams just need the skills, the frameworks, and the confidence to do it themselves. We teach that. From media training for spokespeople to hands-on content creation workshops for comms teams we build capability that stays long after we've left the room.",
     whatsIncluded: [
       {
         lead: 'Media training',
@@ -244,7 +244,7 @@ export const services: Service[] = [
     tags: 'RETAINER · LIMITED SPOTS 🎬',
     taglineLines: ["YOU'VE GOT SOMETHING TO SAY.", 'WE HELP YOU SAY IT RIGHT.'],
     intro:
-      "Building a personal brand online is harder than it looks. The hook has to land in the first two seconds. The script has to sound natural but be structured. The lighting, the framing, the edit — all of it matters. We work with founders, investors, professionals, and public figures who are serious about their content and need a team that treats it with the same craft as any brand project.",
+      "Building a personal brand online is harder than it looks. The hook has to land in the first two seconds. The script has to sound natural but be structured. The lighting, the framing, the edit all of it matters. We work with founders, investors, professionals, and public figures who are serious about their content and need a team that treats it with the same craft as any brand project.",
     whatsIncluded: [
       {
         lead: 'Content strategy',

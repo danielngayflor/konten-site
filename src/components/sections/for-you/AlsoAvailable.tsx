@@ -1,22 +1,30 @@
+// AlsoAvailable.tsx — matches WorkCloser style: blue bg, large headline, cream button
 export default function AlsoAvailable() {
   return (
-    <section className="bg-konten-black text-white py-32 md:py-40 px-6 md:px-12">
-      <div className="max-w-4xl mx-auto">
-        <div className="border-t border-border-gray pt-16">
-          <p className="text-eyebrow text-mid-gray mb-10">Also Available, On Request</p>
-          <p className="font-body text-body-lg text-white/60 leading-[1.65] mb-10">
-            We also work in brand identity and communications, web and digital
-            design, and media training and capacity building — for clients who
-            need those specifically. These aren't front-of-house services, but
-            they're very much part of what we do.
-          </p>
-          <a
-            href="mailto:sales@konten.agency"
-            className="inline-flex items-center gap-1 font-spartan font-700 text-[12px] uppercase tracking-widest text-konten-blue hover:text-white border-b border-konten-blue/40 hover:border-white/40 pb-0.5 transition-colors duration-200"
-          >
-            Ask us about Brand &amp; Comms, Web &amp; Digital, or Training &amp; Capacity →
-          </a>
-        </div>
+    <section className="bg-konten-blue text-white py-16 md:py-20 px-6 sm:px-10">
+      <div className="max-w-5xl mx-auto text-center">
+        <h2
+          className="font-spartan font-black uppercase leading-none tracking-tighter text-white mb-10"
+          style={{ fontSize: 'clamp(2.5rem, 7vw, 7rem)' }}
+        >
+          Brand, Web &amp;<br />Training too.
+        </h2>
+        <p
+          className="font-body text-white/60 leading-[1.7] max-w-2xl mx-auto mb-12"
+          style={{ fontSize: 'clamp(1.15rem, 2.2vw, 1.5rem)' }}
+        >
+          We also work in brand identity and communications, web and digital design,
+          and media training and capacity building. These aren't front-of-house services,
+          but they're very much part of what we do.
+        </p>
+        <a
+          href="mailto:sales@konten.agency"
+          className="inline-flex items-center px-8 py-4 bg-konten-cream text-konten-black
+                     font-spartan font-bold text-[12px] uppercase tracking-widest rounded-xl
+                     hover:opacity-90 active:scale-[0.98] transition-all duration-200"
+        >
+          Start a conversation →
+        </a>
       </div>
     </section>
   );

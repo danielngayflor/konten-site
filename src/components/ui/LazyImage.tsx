@@ -53,7 +53,7 @@ export default function LazyImage({ className = '', style, onLoad, ...props }: P
 
   return (
     <div className="relative w-full h-full" style={style}>
-      {/* Shimmer skeleton — present until the cross-fade finishes */}
+      {/* Shimmer skeleton present until the cross-fade finishes */}
       {phase !== 'ready' && (
         <div
           className="absolute inset-0 skeleton-block pointer-events-none"

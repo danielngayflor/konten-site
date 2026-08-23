@@ -2,7 +2,7 @@ import type { ServiceSlug } from '../lib/icons';
 
 export interface WorkGalleryImage {
   src?: string;        // static image path
-  embedUrl?: string;   // Instagram / YouTube embed URL — renders an iframe instead
+  embedUrl?: string;   // Instagram / YouTube embed URL renders an iframe instead
   alt?: string;
   metadata: string;
   rotation: number;
@@ -11,30 +11,30 @@ export interface WorkGalleryImage {
 export interface WorkProject {
   slug: string;
   projectNumber: string;
-  /** Short punchy title — all caps, used as the card heading */
+  /** Short punchy title all caps, used as the card heading */
   title: string;
   client: string;
   serviceSlug: ServiceSlug;
   serviceName: string;
-  /** One-sentence card tagline — shown in the gallery hover overlay */
+  /** One-sentence card tagline shown in the gallery hover overlay */
   description: string;
   /** Full paragraphs for the detail page "THE BRIEF" section */
   descriptionParagraphs: string[];
-  /** Goals & Objectives bullet points — rendered in "WHAT WE DID" */
+  /** Goals & Objectives bullet points rendered in "WHAT WE DID" */
   goals: string[];
   year: string;
   location: string;
-  /** Cover image path — shown on the gallery card and detail hero */
+  /** Cover image path shown on the gallery card and detail hero */
   coverImage?: string;
-  /** Gallery images for the detail page — falls back to placeholders if absent */
+  /** Gallery images for the detail page falls back to placeholders if absent */
   galleryImages?: WorkGalleryImage[];
-  /** YouTube embed URL (optional) — shown as a video section on the detail page */
+  /** YouTube embed URL (optional) shown as a video section on the detail page */
   heroVideo?: string;
-  /** Performance stats — only render "THE NUMBERS" if this is present */
+  /** Performance stats only render "THE NUMBERS" if this is present */
   stats?: { value: string; label: string }[];
-  /** Instagram Reel URLs — renders a "Watch the Work" link grid on the detail page */
+  /** Instagram Reel URLs renders a "Watch the Work" link grid on the detail page */
   reels?: string[];
-  /** Live URL for web projects — replaces the gallery with a cover + visit link */
+  /** Live URL for web projects replaces the gallery with a cover + visit link */
   siteUrl?: string;
   /** When the live site blocks iframes, provide a screenshot URL to display instead */
   siteScreenshotUrl?: string;
@@ -56,8 +56,8 @@ export const workPlaceholders: WorkProject[] = [
     description:
       "A morning of recognition for the partner organisations behind Ireland's women's-rights work in Liberia.",
     descriptionParagraphs: [
-      "For St Brigid's Day, the Irish Embassy brought together the women-led organisations they partner with across Liberia — a morning of speeches, conversation, and recognition for the collective work being done to advance women's rights and participation. The brief was simple to say and harder to do: capture the day in a way that honoured both the embassy's role and the partners who make the work possible. Not \"look at us.\" More \"look at what we've built together.\"",
-      'We covered the event end to end — guest arrivals, speeches, the unscripted moments between sessions, the activities — and turned it around as a full image bank plus a recap video that kept the partners at the centre of the story.',
+      "For St Brigid's Day, the Irish Embassy brought together the women-led organisations they partner with across Liberia a morning of speeches, conversation, and recognition for the collective work being done to advance women's rights and participation. The brief was simple to say and harder to do: capture the day in a way that honoured both the embassy's role and the partners who make the work possible. Not \"look at us.\" More \"look at what we've built together.\"",
+      'We covered the event end to end guest arrivals, speeches, the unscripted moments between sessions, the activities and turned it around as a full image bank plus a recap video that kept the partners at the centre of the story.',
     ],
     goals: [
       'Document the event as a story of partnership, not a single-org showcase',
@@ -85,10 +85,10 @@ export const workPlaceholders: WorkProject[] = [
     serviceSlug: 'media-coverage',
     serviceName: 'MEDIA COVERAGE & DOCUMENTARY',
     description:
-      'A cinematic documentary that put rural farmers — not the boardroom — at the centre of the investment pitch.',
+      'A cinematic documentary that put rural farmers not the boardroom at the centre of the investment pitch.',
     descriptionParagraphs: [
       "The CEO of SCRC was heading to the US to make the case for investment, and he didn't want to stand in front of investors talking numbers. He wanted the farmers to do the talking. The ask: a cinematic documentary putting the lens on the rural communities whose livelihoods SCRC is actually changing.",
-      'We pre-produced everything before leaving Monrovia — script, storyboard, shot list, interview questions. Two days on the ground in Bong County, then back to the edit suite. The film travelled with the CEO. SCRC and the investors were happy with the result — but the bar we cared more about was whether the farmers felt seen in their own story. They did.',
+      'We pre-produced everything before leaving Monrovia script, storyboard, shot list, interview questions. Two days on the ground in Bong County, then back to the edit suite. The film travelled with the CEO. SCRC and the investors were happy with the result but the bar we cared more about was whether the farmers felt seen in their own story. They did.',
     ],
     goals: [
       'Produce a cinematic-quality documentary that could carry the SCRC story to US investors',
@@ -119,7 +119,7 @@ export const workPlaceholders: WorkProject[] = [
       "Four days of media coverage and event design for one of Africa's most important adolescent-girls convenings.",
     descriptionParagraphs: [
       "The Adolescent Girls Summit is one of the most important convenings on the continent for adolescent girls' leadership, SRHE, technology, and gender equality. Global Fund for Children was hosting the third edition, and the storytelling brief was unambiguous: every frame had to earn its place in the case being made to funders, partners, and the stakeholders who'd decide if AGS keeps growing.",
-      'We brought a moodboard before we brought a camera. Once GFC approved the visual direction, we spent four days on the ground — interviews with adolescents and partner organisations, hours of b-roll, daily recap videos turned around in-country, and a deep image bank from every session. Alongside the coverage, we handled event design: banners, merch, on-screen animations. Magic, on schedule, for four days.',
+      'We brought a moodboard before we brought a camera. Once GFC approved the visual direction, we spent four days on the ground interviews with adolescents and partner organisations, hours of b-roll, daily recap videos turned around in-country, and a deep image bank from every session. Alongside the coverage, we handled event design: banners, merch, on-screen animations. Magic, on schedule, for four days.',
     ],
     goals: [
       'Deliver storytelling strong enough to justify continued investment in AGS to funders and partners',
@@ -149,13 +149,13 @@ export const workPlaceholders: WorkProject[] = [
     serviceSlug: 'media-coverage',
     serviceName: 'MEDIA COVERAGE & DOCUMENTARY',
     description:
-      "A full organisational documentary spanning all aspects of SOS Children's Village work in Liberia — Family strengthening, youth programmes, and a mobile health unit that has reached 7,000+ families.",
+      "A full organisational documentary spanning all aspects of SOS Children's Village work in Liberia Family strengthening, youth programmes, and a mobile health unit that has reached 7,000+ families.",
     descriptionParagraphs: [
-      "SOS Children's Villages Liberia has been in the country for over 40 years. They needed a film that could hold the full weight of that presence — not a highlight reel, not a donor promo, but a documentary showing the real breadth of their work: caregiver family life inside the SOS Village, education and vocational training for young people, family strengthening programmes supporting vulnerable households in the community, and the Hospital on Wheels initiative — a mobile community health outreach project that has reached over 7,000 families across Liberia with lifesaving health education, maternal care, and community health services.",
-      'Titled "Building Futures, Restoring Hope," the production required multi-scene filming across the SOS Village compound and surrounding community settings. We conducted professional on-camera interviews with clinical staff — a Head Nurse and Midwife speaking to health outcomes and community impact — alongside caregiver and youth testimonies and a senior leadership interview with the National Director. Drone aerials of the village and surrounding community provided the visual scale the organisation needed. All footage was captured to broadcast quality and delivered for organisational, fundraising, and advocacy use.',
+      "SOS Children's Villages Liberia has been in the country for over 40 years. They needed a film that could hold the full weight of that presence not a highlight reel, not a donor promo, but a documentary showing the real breadth of their work: caregiver family life inside the SOS Village, education and vocational training for young people, family strengthening programmes supporting vulnerable households in the community, and the Hospital on Wheels initiative a mobile community health outreach project that has reached over 7,000 families across Liberia with lifesaving health education, maternal care, and community health services.",
+      'Titled "Building Futures, Restoring Hope," the production required multi-scene filming across the SOS Village compound and surrounding community settings. We conducted professional on-camera interviews with clinical staff a Head Nurse and Midwife speaking to health outcomes and community impact alongside caregiver and youth testimonies and a senior leadership interview with the National Director. Drone aerials of the village and surrounding community provided the visual scale the organisation needed. All footage was captured to broadcast quality and delivered for organisational, fundraising, and advocacy use.',
     ],
     goals: [
-      'Document the full breadth of SOS programming — Village life, education, family strengthening, and Hospital on Wheels',
+      'Document the full breadth of SOS programming Village life, education, family strengthening, and Hospital on Wheels',
       'Conduct broadcast-quality on-camera interviews with clinical staff, caregivers, youth, and the National Director',
       'Capture drone aerials of the SOS Village compound and surrounding community',
       'Deliver a film suitable for organisational, fundraising, and advocacy use',
@@ -184,7 +184,7 @@ export const workPlaceholders: WorkProject[] = [
       "First-ever social presence for a resort betting on travellers willing to drive beyond Monrovia.",
     descriptionParagraphs: [
       "Jackie's Resort sits in Ganta City, a stretch of Liberia people in Monrovia talk about but rarely make the drive to see. New management came in, decided the resort needed a real social presence for the first time, and gave us the job of showing people what was waiting for them outside the capital.",
-      'We batch-produced content covering every part of the property — rooms, food, grounds, the small details that sell a stay — across high-quality images, reels, and supporting graphics. Some videos pulled thousands of views; one came close to 50k. More importantly, people started planning the trip up.',
+      'We batch-produced content covering every part of the property rooms, food, grounds, the small details that sell a stay across high-quality images, reels, and supporting graphics. Some videos pulled thousands of views; one came close to 50k. More importantly, people started planning the trip up.',
     ],
     goals: [
       "Build Jackie's Resort's first social media presence from scratch",
@@ -217,7 +217,7 @@ export const workPlaceholders: WorkProject[] = [
     description:
       "A month of product photography and short-form video to shift Monvie's social from catalogue to story.",
     descriptionParagraphs: [
-      "Monvie's Collection wanted the product imagery to match the brand they were building — elegant, considered, not just another catalogue. We came in for a month of dedicated product photography and short-form video for reels.",
+      "Monvie's Collection wanted the product imagery to match the brand they were building elegant, considered, not just another catalogue. We came in for a month of dedicated product photography and short-form video for reels.",
       "We planned the shoots in detail, ran them in batches, and delivered on schedule. The work shifted Monvie's social feed from \"product photos\" to product story.",
     ],
     goals: [
@@ -249,8 +249,8 @@ export const workPlaceholders: WorkProject[] = [
     description:
       'Full personal-brand build for an investment analyst speaking directly to Gen-Z founders.',
     descriptionParagraphs: [
-      "An investment analyst with smart things to say to Gen-Z founders — but the original scripts were reading like research memos, not social content. We came in for the full personal-brand build: rewriting scripts so they'd actually land in feed, setting up the shoot environment, running batch shoots so a single day produced weeks of content, and editing every piece through to delivery.",
-      "Personal-brand work is its own discipline. The voice has to sound like the person — just better-organised.",
+      "An investment analyst with smart things to say to Gen-Z founders but the original scripts were reading like research memos, not social content. We came in for the full personal-brand build: rewriting scripts so they'd actually land in feed, setting up the shoot environment, running batch shoots so a single day produced weeks of content, and editing every piece through to delivery.",
+      "Personal-brand work is its own discipline. The voice has to sound like the person just better-organised.",
     ],
     goals: [
       'Translate research-style content into social-ready scripting that lands with a Gen-Z founder audience',

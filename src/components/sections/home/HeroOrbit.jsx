@@ -19,7 +19,7 @@ const CARDS = [
 ];
 
 // Sine ease-in-out: integrates to exactly 2π per loop with zero velocity at both endpoints.
-// θ(t) = π·(1 − cos(π·t)) → dθ/dt = π²·sin(π·t) — naturally breathes slow→fast→slow.
+// θ(t) = π·(1 − cos(π·t)) → dθ/dt = π²·sin(π·t) naturally breathes slow→fast→slow.
 function sineAngle(t) {
   return Math.PI * (1 - Math.cos(Math.PI * t));
 }

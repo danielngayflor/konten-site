@@ -2,7 +2,7 @@
 // Route: /quiz
 // 7-question interactive quiz that recommends one of Konten's three NGO films.
 // Q1–Q6 are scored (donor / beneficiary / mission weights).
-// Q7 is unscored — captures intent (diy / hire / balanced) and shapes result page layout.
+// Q7 is unscored captures intent (diy / hire / balanced) and shapes result page layout.
 
 import { useState, useCallback, useRef } from 'react';
 import { AnimatePresence } from 'framer-motion';
@@ -37,7 +37,7 @@ export default function Quiz() {
   const [filmType, setFilmType] = useState<FilmType>('donor');
   const [tone,     setTone]     = useState<ToneValue>('balanced');
 
-  // Pending auto-advance timer — cancelled if user presses Back before it fires
+  // Pending auto-advance timer cancelled if user presses Back before it fires
   const advanceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // ── Start ────────────────────────────────────────────────────────────────
@@ -63,7 +63,7 @@ export default function Quiz() {
         if (currentQ < TOTAL_QUESTIONS - 1) {
           setCurrentQ(currentQ + 1);
         } else {
-          // All questions answered — compute result
+          // All questions answered compute result
           const ft = computeFilmType(newAnswers);
           const t  = computeTone(newAnswers);
           setFilmType(ft);

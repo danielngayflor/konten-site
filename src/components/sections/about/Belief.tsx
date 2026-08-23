@@ -7,7 +7,7 @@ export default function Belief() {
           className="font-display leading-[1.1] tracking-tight text-white"
           style={{ fontSize: 'clamp(2.2rem, 5.5vw, 6rem)' }}
         >
-          Stories — real ones, told well — have the power to move people to
+          Stories real ones, told well have the power to move people to
           action.
         </blockquote>
       </div>

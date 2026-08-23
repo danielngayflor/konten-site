@@ -1,14 +1,12 @@
+// Hero.tsx Dynasty Africa-inspired: full-viewport konten-blue, massive headline
 import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 
 const EASE = [0.25, 0, 0, 1] as const;
 
 export default function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  // React doesn't reliably write the muted attribute to the DOM element,
-  // which blocks autoplay. Force both via ref after mount.
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
@@ -17,55 +15,55 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative bg-konten-black text-white overflow-hidden min-h-[calc(100dvh-56px)] sm:min-h-[calc(100dvh-62px)] flex flex-col items-center justify-center px-6 py-16 gap-8">
+    <section className="relative bg-konten-blue text-white overflow-hidden min-h-[calc(100dvh-64px)] flex flex-col justify-between px-6 sm:px-10 pt-12 pb-10">
 
-      {/* Headline — New Spirit display */}
-      <motion.h1
-        className="font-display text-center leading-[1.05] tracking-tight text-[clamp(3rem,8vw,9rem)] px-4"
-        initial={{ opacity: 0, y: 32 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.1, ease: EASE }}
-      >
-        Storytelling that <span className="uppercase italic">moves.</span>
-      </motion.h1>
+      {/* ── Main content ─────────────────────────────────────────── */}
+      <div className="flex-1 flex flex-col justify-center">
 
-      {/* Hero video */}
+        {/* Headline */}
+        <motion.h1
+          className="font-spartan font-black uppercase leading-[0.95] tracking-tighter"
+          style={{ fontSize: 'clamp(3.5rem, 11vw, 12rem)' }}
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.1, ease: EASE }}
+        >
+          Story&shy;telling
+          <br />
+          <span className="text-white/30">that</span>
+          <br />
+          moves.
+        </motion.h1>
+
+        {/* Subtitle */}
+        <motion.div
+          className="mt-10"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.4, ease: EASE }}
+        >
+          <p
+            className="font-body text-white/70 leading-[1.2] max-w-3xl"
+            style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)' }}
+          >
+            Moves donors to fund. Moves customers to buy.
+            Moves audiences to trust and act.
+          </p>
+        </motion.div>
+      </div>
+
+      {/* ── Bottom ticker line ────────────────────────────────────── */}
       <motion.div
-        className="w-full max-w-4xl px-4 sm:px-6"
-        initial={{ opacity: 0, scale: 0.97 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.9, delay: 0.3, ease: EASE }}
+        className="mt-12 flex items-center gap-4"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, delay: 0.8, ease: EASE }}
       >
-        <div className="w-full aspect-video rounded-2xl overflow-hidden bg-dark-gray" style={{ boxShadow: '0 32px 80px rgba(0,0,0,0.6), 0 8px 24px rgba(0,0,0,0.4)' }}>
-          <video
-            ref={videoRef}
-            src="/VIdeos/background.mp4"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            className="w-full h-full object-cover"
-          />
-        </div>
-      </motion.div>
-
-      {/* Subtitle + CTAs */}
-      <motion.div
-        className="flex flex-col items-center gap-6 text-center px-4"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 0.5, ease: EASE }}
-      >
-        <p className="font-body text-body-lg text-white/60 leading-[1.65] max-w-[480px]">
-          Moves donors to fund. Moves customers to buy. Moves audiences to trust.
-        </p>
-
-        <Link to="/featured-projects">
-          <button className="px-8 py-3 border border-white/20 text-white/80 font-spartan font-600 text-[13px] uppercase tracking-widest rounded-full hover:border-white/50 hover:text-white transition-all duration-200">
-            See our work
-          </button>
-        </Link>
+        <div className="flex-1 h-[1px] bg-white/20" />
+        <span className="font-spartan font-700 text-[11px] uppercase tracking-[0.18em] text-white/35">
+          Based in Liberia · Working across Africa
+        </span>
+        <div className="flex-1 h-[1px] bg-white/20" />
       </motion.div>
 
     </section>

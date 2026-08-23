@@ -92,7 +92,7 @@ export default function ResourceGrid() {
 
         {filtered.length === 0 && (
           <p className="font-inter text-konten-black/40 text-[16px] text-center py-20">
-            Nothing here yet — check back soon.
+            Nothing here yet check back soon.
           </p>
         )}
 

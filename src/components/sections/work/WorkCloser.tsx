@@ -1,16 +1,18 @@
 export default function WorkCloser() {
   return (
-    <section className="bg-konten-black text-white py-32 px-6 md:px-12 border-t border-border-gray">
-      <div className="max-w-3xl mx-auto">
-        <p className="font-body text-body-lg text-white/60 leading-[1.65] mb-8">
+    <section className="bg-konten-blue text-white py-16 md:py-20 px-6 sm:px-10">
+      <div className="max-w-5xl mx-auto text-center">
+        <h2
+          className="font-spartan font-black uppercase leading-none tracking-tighter text-white mb-10"
+          style={{ fontSize: 'clamp(3rem, 9vw, 9rem)' }}
+        >
           Got a story like these waiting to be told properly?
-        </p>
-        <p className="font-display leading-[1.05] tracking-tight text-white mb-10" style={{ fontSize: 'clamp(2rem, 4.5vw, 5rem)' }}>
-          Tell Your Story.
-        </p>
+        </h2>
         <a
           href="mailto:sales@konten.agency"
-          className="inline-flex items-center px-8 py-3 bg-konten-blue text-white font-spartan font-700 text-[12px] uppercase tracking-widest rounded-full hover:bg-konten-blue transition-colors duration-200"
+          className="inline-flex items-center px-8 py-4 bg-konten-cream text-konten-black
+                     font-spartan font-bold text-[12px] uppercase tracking-widest rounded-xl
+                     hover:opacity-90 active:scale-[0.98] transition-all duration-200"
         >
           Start a conversation →
         </a>

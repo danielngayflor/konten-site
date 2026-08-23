@@ -1,212 +1,135 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+// SelectedWorkPreview.tsx Dynasty Africa card spec:
+//   • ALL frames: white at rest
+//   • Hover: frame turns konten-cream, image goes grayscale → color simultaneously
+//   • 10px uniform padding, top-left diagonal clip (fold), ~4:3 image ratio
+//   • Section: plain black, no grid texture
+import { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { workPlaceholders } from '../../../data/workPlaceholders';
-import LazyImage from '../../ui/LazyImage';
 
-const TOTAL         = workPlaceholders.length;
-const MAX_CARD_W    = 440;
-const AUTO_MS       = 3500;
-const TRANSITION_MS = 550;
-const SIDE_SCALE    = +(1 / 1.5).toFixed(4); // 0.6667
-
-function mod(n: number, m: number) {
-  return ((n % m) + m) % m;
-}
-
-function getSlot(cardIdx: number, active: number): number {
-  let s = mod(cardIdx - active, TOTAL);
-  if (s > Math.floor(TOTAL / 2)) s -= TOTAL;
-  return Math.max(-2, Math.min(2, s));
-}
-
-function slotTransform(slot: number, cardW: number): string {
-  const sideOffset = cardW / 2;
-  switch (slot) {
-    case  0: return `translateX(0px) scale(1)`;
-    case -1: return `translateX(-${sideOffset}px) scale(${SIDE_SCALE})`;
-    case  1: return `translateX(${sideOffset}px) scale(${SIDE_SCALE})`;
-    case -2: return `translateX(-${cardW * 2}px) scale(${SIDE_SCALE})`;
-    default:  return `translateX(${cardW * 2}px) scale(${SIDE_SCALE})`;
-  }
-}
-
-// Z-index is driven by `zActive` — updated at the midpoint of the transition
-// (when both cards are at ~equal scale) so the swap is imperceptible.
-function slotZIndex(slot: number): number {
-  if (slot === 0)  return 2;
-  if (slot === -1 || slot === 1) return 1;
-  return 0;
-}
-
-function slotOpacity(slot: number): number {
-  return Math.abs(slot) <= 1 ? 1 : 0;
-}
+const FOLD = 40; // px size of the top-left dog-ear cut
 
 export default function SelectedWorkPreview() {
-  const [active,  setActive]  = useState(0);
-  const [zActive, setZActive] = useState(0);
-  const [cardW,   setCardW]   = useState(MAX_CARD_W);
-  const activeRef        = useRef(0);
-  const transitioningRef = useRef(false);
-  const hoveredRef       = useRef(false);
-  const containerRef     = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [activeDot, setActiveDot] = useState(0);
 
-  // Resize: cap card width to container width minus padding
+  const projects = workPlaceholders.slice(0, 6);
+  const dotCount = 2;
+
   useEffect(() => {
-    const measure = () => {
-      if (!containerRef.current) return;
-      const w = containerRef.current.offsetWidth;
-      setCardW(Math.min(MAX_CARD_W, w - 48));
+    const el = scrollRef.current;
+    if (!el) return;
+    const onScroll = () => {
+      const progress = el.scrollLeft / (el.scrollWidth - el.clientWidth);
+      setActiveDot(progress > 0.5 ? 1 : 0);
     };
-    measure();
-    window.addEventListener('resize', measure);
-    return () => window.removeEventListener('resize', measure);
+    el.addEventListener('scroll', onScroll, { passive: true });
+    return () => el.removeEventListener('scroll', onScroll);
   }, []);
-
-  const go = useCallback((dir: 1 | -1) => {
-    if (transitioningRef.current) return;
-    const next = mod(activeRef.current + dir, TOTAL);
-    transitioningRef.current = true;
-    activeRef.current = next;
-    setActive(next);                                                     // transform fires now
-    setTimeout(() => setZActive(next), Math.round(TRANSITION_MS * 0.5)); // z-index at midpoint
-    setTimeout(() => { transitioningRef.current = false; }, TRANSITION_MS);
-  }, []);
-
-  const goTo = useCallback((idx: number) => {
-    if (transitioningRef.current || idx === activeRef.current) return;
-    transitioningRef.current = true;
-    activeRef.current = idx;
-    setActive(idx);
-    setTimeout(() => setZActive(idx), Math.round(TRANSITION_MS * 0.5));
-    setTimeout(() => { transitioningRef.current = false; }, TRANSITION_MS);
-  }, []);
-
-  useEffect(() => {
-    const id = setInterval(() => {
-      if (!hoveredRef.current) go(1);
-    }, AUTO_MS);
-    return () => clearInterval(id);
-  }, [go]);
 
   return (
-    <section className="bg-charcoal text-white py-24">
+    <section
+      className="text-white py-8 md:py-10"
+    >
 
-      {/* Heading */}
-      <div className="text-center mb-16 px-6">
-        <h2 className="font-spartan font-black text-white uppercase leading-none tracking-tighter text-[clamp(2rem,7.5vw,6.5rem)]">
-          STORIES WE'VE TOLD.
+      {/* ── Heading ─────────────────────────────────────────────────── */}
+      <div className="px-6 sm:px-10 mb-10 max-w-[1600px] mx-auto">
+        <h2
+          className="font-spartan font-black uppercase leading-none tracking-tighter text-white"
+          style={{ fontSize: 'clamp(2.5rem, 7vw, 6rem)' }}
+        >
+          Our Work
         </h2>
       </div>
 
-      {/* ── Carousel ── */}
+      {/* ── Horizontal scroll ───────────────────────────────────────── */}
       <div
-        ref={containerRef}
-        className="relative overflow-hidden"
-        onMouseEnter={() => { hoveredRef.current = true;  }}
-        onMouseLeave={() => { hoveredRef.current = false; }}
+        ref={scrollRef}
+        className="flex gap-3 overflow-x-auto snap-x snap-mandatory scrollbar-hide px-6 sm:px-10"
+        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
-        <div
-          className="relative mx-auto"
-          style={{ height: cardW, width: '100%' }}
-        >
-          {workPlaceholders.map((project, i) => {
-            const slot  = getSlot(i, active);
-            const zSlot = getSlot(i, zActive);
+        {projects.map((project) => (
+          <Link
+            key={project.slug}
+            to={`/featured-projects/${project.slug}`}
+            // group → enables group-hover on children (image grayscale-0)
+            // bg-white at rest → hover:bg-konten-cream simultaneously with image colour
+            className="group shrink-0 snap-start flex flex-col
+                       bg-white hover:bg-konten-cream
+                       transition-all duration-500 ease-out
+                       hover:-translate-y-1 hover:shadow-[0_12px_32px_rgba(0,0,0,0.2)]"
+            style={{ width: 'clamp(260px, 28vw, 400px)', padding: '10px' }}
+          >
+            {/* Image top-left corner clipped (dog-ear fold) */}
+            <div
+              className="w-full overflow-hidden"
+              style={{
+                aspectRatio: '4 / 3',
+                clipPath: `polygon(${FOLD}px 0, 100% 0, 100% 100%, 0 100%, 0 ${FOLD}px)`,
+              }}
+            >
+              {project.coverImage ? (
+                <img
+                  src={project.coverImage}
+                  alt={project.title}
+                  className="w-full h-full object-cover transition-all duration-500
+                             grayscale group-hover:grayscale-0
+                             scale-100 group-hover:scale-[1.03]"
+                />
+              ) : (
+                <div className="w-full h-full bg-konten-blue" />
+              )}
+            </div>
 
-            return (
-              <div
-                key={project.slug}
-                style={{
-                  position:   'absolute',
-                  left:       '50%',
-                  top:        0,
-                  width:      cardW,
-                  height:     cardW,
-                  marginLeft: -(cardW / 2),
-                  transform:  slotTransform(slot, cardW),
-                  zIndex:     slotZIndex(zSlot),
-                  opacity:    slotOpacity(slot),
-                  pointerEvents: slot === 0 ? 'auto' : 'none',
-                  transition: `transform ${TRANSITION_MS}ms ease-in-out`,
-                }}
+            {/* Text transparent, inherits card bg (white → cream on hover) */}
+            <div className="pt-4 pb-2 px-1">
+              <p
+                className="font-spartan font-semibold text-konten-black leading-tight"
+                style={{ fontSize: 'clamp(0.95rem, 1.8vw, 1.2rem)' }}
               >
-                <Link
-                  to={`/featured-projects/${project.slug}`}
-                  className="block w-full h-full rounded-xl overflow-hidden relative"
-                  tabIndex={slot === 0 ? 0 : -1}
-                  onClick={e => { if (slot !== 0) e.preventDefault(); }}
-                >
-                  {project.coverImage ? (
-                    <LazyImage
-                      src={project.coverImage}
-                      alt={project.title}
-                      className="object-cover"
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-konten-blue" />
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent flex flex-col justify-end p-7">
-                    <p className="font-inter text-[10px] uppercase tracking-[0.18em] text-white/55 mb-1.5">
-                      {project.serviceName}
-                    </p>
-                    <h3 className="font-spartan font-black text-white uppercase text-[1.35rem] leading-tight tracking-tight">
-                      {project.title}
-                    </h3>
-                    <p className="font-inter text-white/65 text-[13px] mt-1">
-                      {project.client}
-                    </p>
-                  </div>
-                </Link>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Arrows */}
-        <button
-          onClick={() => go(-1)}
-          aria-label="Previous"
-          className="absolute left-5 sm:left-10 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center transition-all duration-200"
-        >
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M10 3L5 8L10 13" stroke="#ffffff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </button>
-        <button
-          onClick={() => go(1)}
-          aria-label="Next"
-          className="absolute right-5 sm:right-10 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center transition-all duration-200"
-        >
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M6 3L11 8L6 13" stroke="#ffffff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </button>
+                {project.client}
+              </p>
+              <p className="font-body text-black/40 text-[13px] mt-1 leading-snug line-clamp-1">
+                {project.description}
+              </p>
+            </div>
+          </Link>
+        ))}
       </div>
 
-      {/* Dots */}
-      <div className="flex justify-center items-center gap-2 mt-8 mb-12">
-        {workPlaceholders.map((_, i) => (
+      {/* ── Scroll dots ─────────────────────────────────────────────── */}
+      <div className="flex justify-center gap-2 mt-7">
+        {Array.from({ length: dotCount }).map((_, i) => (
           <button
             key={i}
-            onClick={() => goTo(i)}
-            aria-label={`Go to story ${i + 1}`}
-            className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
-              i === active
-                ? 'w-7 bg-white'
-                : 'w-1.5 bg-white/20 hover:bg-white/40'
-            }`}
+            aria-label={`Go to page ${i + 1}`}
+            onClick={() => {
+              const el = scrollRef.current;
+              if (!el) return;
+              el.scrollTo({
+                left: i === 0 ? 0 : el.scrollWidth - el.clientWidth,
+                behavior: 'smooth',
+              });
+            }}
+            className={[
+              'rounded-full transition-all duration-300',
+              i === activeDot
+                ? 'w-6 h-2 bg-white'
+                : 'w-2 h-2 bg-white/25 hover:bg-white/50',
+            ].join(' ')}
           />
         ))}
       </div>
 
-      {/* CTA */}
-      <div className="flex justify-center">
+      {/* ── CTA ─────────────────────────────────────────────────────── */}
+      <div className="px-6 sm:px-10 mt-10 max-w-[1600px] mx-auto">
         <Link
           to="/featured-projects"
-          className="px-8 py-3 border border-white/20 text-white/70 font-spartan font-700 text-[12px] uppercase tracking-widest rounded-full hover:border-white/40 hover:text-white transition-all duration-200"
+          className="inline-block bg-konten-cream text-konten-black font-spartan font-bold
+                     uppercase tracking-wide text-[13px] px-7 py-4 rounded-lg
+                     hover:opacity-90 active:scale-[0.98] transition-all duration-200"
         >
-          See all work →
+          View all works
         </Link>
       </div>
 

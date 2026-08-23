@@ -1,15 +1,15 @@
+// WorkGallery.tsx — grid of home-style polaroid cards on dark canvas
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import type { WorkProject } from '../../../data/workPlaceholders';
 import type { ServiceSlug } from '../../../lib/icons';
-import Clapperboard from '../../ui/Clapperboard';
-import ServiceIcon from '../../ui/ServiceIcon';
-import LazyImage from '../../ui/LazyImage';
+
+const FOLD = 40;
 
 const SERVICE_LABELS: Partial<Record<ServiceSlug, string>> = {
-  'media-coverage':   'MEDIA & DOC',
-  'social-and-story': 'SOCIAL & STORY',
-  'creator-studio':   'CREATOR STUDIO',
+  'media-coverage':   'Media & Doc',
+  'social-and-story': 'Social & Story',
+  'creator-studio':   'Creator Studio',
 };
 
 const SERVICE_ORDER: ServiceSlug[] = [
@@ -54,80 +54,70 @@ export default function WorkGallery({ projects }: WorkGalleryProps) {
     active === 'all' ? projects : projects.filter((p) => p.serviceSlug === active);
 
   return (
-    <section className="bg-charcoal py-24 md:py-32 px-6 md:px-12">
-      <div className="max-w-7xl mx-auto">
+    <section className="text-white py-10 md:py-14 px-6 sm:px-10">
 
-        {/* Filter pills */}
-        <div className="flex flex-wrap gap-2 mb-16">
-          <FilterPill label="ALL" active={active === 'all'} onClick={() => handleFilter('all')} />
-          {services.map((slug) => (
-            <FilterPill
-              key={slug}
-              label={SERVICE_LABELS[slug] ?? slug}
-              active={active === slug}
-              onClick={() => handleFilter(slug)}
-            />
-          ))}
-        </div>
-
-        {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-14">
-          {filtered.map((project) => (
-            <Link
-              key={project.slug}
-              to={`/featured-projects/${project.slug}`}
-              className="group block"
-            >
-              {/* Image */}
-              <div className="relative aspect-[4/5] rounded-2xl overflow-hidden mb-5 transition-transform duration-500 group-hover:scale-105">
-                {project.coverImage ? (
-                  <LazyImage
-                    src={project.coverImage}
-                    alt={project.title}
-                    className="object-cover"
-                  />
-                ) : (
-                  <div className="w-full h-full bg-dark-gray flex items-center justify-center">
-                    <ServiceIcon
-                      slug={project.serviceSlug}
-                      size={64}
-                      className="text-mid-gray opacity-40"
-                    />
-                  </div>
-                )}
-
-                {/* Hover overlay */}
-                <div
-                  className="absolute inset-0 bg-konten-blue/90 flex flex-col justify-end p-6
-                             opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                >
-                  <p className="text-eyebrow text-konten-cream/70 mb-3 flex items-center gap-2">
-                    {project.serviceName} <Clapperboard size={10} />
-                  </p>
-                  <h3 className="font-spartan font-black text-konten-cream uppercase leading-none tracking-tighter text-[clamp(1.4rem,2.5vw,2rem)] mb-3">
-                    {project.title}
-                  </h3>
-                  <p className="font-body text-konten-cream/75 text-[14px] leading-snug mb-5 line-clamp-2">
-                    {project.description}
-                  </p>
-                  <span className="font-spartan font-700 text-[12px] uppercase tracking-widest text-konten-cream border-b border-konten-cream/40 pb-0.5 self-start">
-                    View project →
-                  </span>
-                </div>
-              </div>
-
-              {/* Caption */}
-              <p className="text-eyebrow text-mid-gray mb-2">
-                {project.client} · {project.year}
-              </p>
-              <h3 className="font-spartan font-black text-white uppercase leading-none tracking-tighter text-[clamp(1.1rem,2vw,1.5rem)]">
-                {project.title}
-              </h3>
-            </Link>
-          ))}
-        </div>
-
+      {/* Filter pills */}
+      <div className="flex flex-wrap gap-2 mb-10 max-w-[1400px] mx-auto">
+        <FilterPill label="All" active={active === 'all'} onClick={() => handleFilter('all')} />
+        {services.map((slug) => (
+          <FilterPill
+            key={slug}
+            label={SERVICE_LABELS[slug] ?? slug}
+            active={active === slug}
+            onClick={() => handleFilter(slug)}
+          />
+        ))}
       </div>
+
+      {/* Card grid — same card as home SelectedWorkPreview */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-8 max-w-[1400px] mx-auto">
+        {filtered.map((project) => (
+          <Link
+            key={project.slug}
+            to={`/featured-projects/${project.slug}`}
+            className="group flex flex-col
+                       bg-white hover:bg-konten-cream
+                       transition-all duration-500 ease-out
+                       hover:-translate-y-1 hover:shadow-[0_12px_32px_rgba(0,0,0,0.2)]"
+            style={{ padding: '10px' }}
+          >
+            {/* Image — 4:3, top-left dog-ear fold */}
+            <div
+              className="w-full overflow-hidden"
+              style={{
+                aspectRatio: '4 / 3',
+                clipPath: `polygon(${FOLD}px 0, 100% 0, 100% 100%, 0 100%, 0 ${FOLD}px)`,
+              }}
+            >
+              {project.coverImage ? (
+                <img
+                  src={project.coverImage}
+                  alt={project.client}
+                  className="w-full h-full object-cover transition-all duration-500
+                             grayscale group-hover:grayscale-0
+                             scale-100 group-hover:scale-[1.03]"
+                />
+              ) : (
+                <div className="w-full h-full bg-konten-blue" />
+              )}
+            </div>
+
+            {/* Caption — inherits card bg (white → cream on hover) */}
+            <div className="pt-4 pb-2 px-1">
+              <p
+                className="font-spartan font-semibold text-konten-black leading-tight"
+                style={{ fontSize: 'clamp(0.95rem, 1.8vw, 1.2rem)' }}
+              >
+                {project.client}
+              </p>
+              <p className="font-body text-black/40 text-[13px] mt-1 leading-snug line-clamp-1">
+                {project.description}
+              </p>
+            </div>
+          </Link>
+        ))}
+      </div>
+
     </section>
   );
 }

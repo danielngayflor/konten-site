@@ -144,7 +144,7 @@ export default function ServiceAccordionRow({ service }: ServiceAccordionRowProp
                             <span className="w-[6px] h-[6px] rounded-full bg-konten-blue flex-shrink-0 mt-[6px]" />
                             <span>
                               <strong>{item.lead}</strong>
-                              <span className={muted}> — {item.description}</span>
+                              <span className={muted}> {item.description}</span>
                             </span>
                           </motion.li>
                         ))}

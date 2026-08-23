@@ -12,7 +12,7 @@ const testimonials = [
   },
   {
     quote:
-      'Strategy first, always. They asked questions no other team had — and the work was sharper for it.',
+      'Strategy first, always. They asked questions no other team had and the work was sharper for it.',
     name: '[Name]',
     role: '[Role]',
     org: '[Organisation]',

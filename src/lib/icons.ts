@@ -7,7 +7,7 @@ export type ServiceSlug =
   | 'training-and-capacity'
   | 'creator-studio';
 
-// Collage element types — re-exported from the CollageElement component
+// Collage element types re-exported from the CollageElement component
 // so there's one source of truth for which illustrations exist.
 export type { CollageElementType } from '../components/ui/CollageElement';
 

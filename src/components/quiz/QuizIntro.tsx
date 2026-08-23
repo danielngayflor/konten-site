@@ -46,7 +46,7 @@ export default function QuizIntro({ onStart, direction }: QuizIntroProps) {
       {/* Subhead */}
       <p className="font-body text-body-lg text-white/55 leading-[1.65] max-w-[540px] mb-4">
         Answer 6 quick questions about your goal, your audience, and how you're planning to use it.
-        We'll tell you exactly which film fits, what it actually is, and how to shoot it — whether
+        We'll tell you exactly which film fits, what it actually is, and how to shoot it whether
         that's us or you.
       </p>
 

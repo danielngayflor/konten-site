@@ -15,11 +15,11 @@ export default function PageSkeleton() {
         {/* Eyebrow */}
         <Skeleton className="h-3 w-36" />
 
-        {/* Big headline — two lines */}
+        {/* Big headline two lines */}
         <Skeleton className="h-14 sm:h-20 md:h-28 w-full" />
         <Skeleton className="h-14 sm:h-20 md:h-28 w-2/3" />
 
-        {/* Body copy — two lines */}
+        {/* Body copy two lines */}
         <div className="pt-2 space-y-3 max-w-lg">
           <Skeleton className="h-4 w-full" />
           <Skeleton className="h-4 w-4/5" />

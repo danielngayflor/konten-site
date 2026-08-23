@@ -66,7 +66,7 @@ export default function TheTeam() {
           onTouchEnd={onTouchEnd}
           style={{ touchAction: 'pan-y' }}
         >
-          {/* Card — identical structure to desktop */}
+          {/* Card identical structure to desktop */}
           <div className="flex flex-col cursor-pointer" onClick={handleCardTap}>
             <div className="mb-6">
               <Polaroid rotation={rotations[mobileIdx]}>
@@ -75,7 +75,7 @@ export default function TheTeam() {
                   <span className="font-spartan font-black text-konten-cream/40 text-[3rem]">
                     0{mobileIdx + 1}
                   </span>
-                  {/* Tap-to-reveal overlay — mirrors desktop hover overlay */}
+                  {/* Tap-to-reveal overlay mirrors desktop hover overlay */}
                   <div
                     className={`absolute inset-0 bg-konten-black/75 transition-opacity duration-300 flex flex-col items-center justify-center p-5 text-center ${
                       overlayVisible ? 'opacity-100' : 'opacity-0'
@@ -92,7 +92,7 @@ export default function TheTeam() {
               </Polaroid>
             </div>
 
-            {/* Name only — same as desktop */}
+            {/* Name only same as desktop */}
             <h3 className="font-spartan font-black text-konten-cream uppercase text-[1.75rem] tracking-tight leading-none">
               {mobileMember.name}
             </h3>
@@ -117,12 +117,12 @@ export default function TheTeam() {
           </div>
         </div>
 
-        {/* ── Desktop grid (md and above) — unchanged ─────────────── */}
+        {/* ── Desktop grid (md and above) unchanged ─────────────── */}
         <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-16">
           {team.map((member, i) => (
             <div key={member.role} className="flex flex-col group cursor-default">
 
-              {/* Polaroid — scales up on hover */}
+              {/* Polaroid scales up on hover */}
               <div className="mb-6 transition-transform duration-500 ease-in-out group-hover:scale-[1.04] origin-center">
                 <Polaroid rotation={rotations[i]}>
                   <div className="relative w-full h-full bg-gradient-to-br from-konten-blue/40 to-konten-black/30 flex items-center justify-center">

@@ -1,5 +1,5 @@
 /**
- * SectionTransition — Apple-style scroll-driven icon.
+ * SectionTransition Apple-style scroll-driven icon.
  *
  * Place between two <section> elements. The component creates a scroll zone
  * (default 50 vh tall) with a matching background; the icon is fixed to the
@@ -16,7 +16,7 @@ import type { ReactNode } from 'react';
 
 interface SectionTransitionProps {
   icon: ReactNode;
-  /** Tailwind bg class for the scroll zone — should match the incoming section */
+  /** Tailwind bg class for the scroll zone should match the incoming section */
   bg?: string;
   /** Tailwind text-color class applied to the icon */
   iconColor?: string;
@@ -53,7 +53,7 @@ export default function SectionTransition({
   if (shouldReduceMotion) return null;
 
   return (
-    /* Scroll zone — creates the travel distance for the animation */
+    /* Scroll zone creates the travel distance for the animation */
     <div
       ref={ref}
       className={`relative ${bg}`}

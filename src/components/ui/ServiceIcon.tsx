@@ -12,7 +12,7 @@ export default function ServiceIcon({
   className = '',
 }: ServiceIconProps) {
   // strokeWidth '4' on a 100-unit viewBox produces ~2.2 px of actual stroke at
-  // size 56 — the same visual weight as lucide strokeWidth={1} at size 56 px
+  // size 56 the same visual weight as lucide strokeWidth={1} at size 56 px
   // (lucide uses a 24-unit viewBox: 56/24 × 1 ≈ 2.3 px).
   const s = {
     fill: 'none',
@@ -31,18 +31,18 @@ export default function ServiceIcon({
         <rect x="14" y="35" width="72" height="46" rx="4" />
         {/* Pentaprism hump (SLR top) */}
         <path d="M 34 35 L 34 24 Q 34 20 38 20 L 56 20 Q 60 20 60 24 L 60 35" />
-        {/* Lens — outer ring */}
+        {/* Lens outer ring */}
         <circle cx="50" cy="58" r="16" />
-        {/* Lens — inner element */}
+        {/* Lens inner element */}
         <circle cx="50" cy="58" r="8" />
         {/* Shutter button */}
         <circle cx="72" cy="33" r="4" />
         {/* Film advance / top trim */}
         <line x1="14" y1="35" x2="34" y2="35" />
         <line x1="60" y1="35" x2="86" y2="35" />
-        {/* Strap lug — left */}
+        {/* Strap lug left */}
         <rect x="10" y="42" width="4" height="9" rx="1.5" />
-        {/* Strap lug — right */}
+        {/* Strap lug right */}
         <rect x="86" y="42" width="4" height="9" rx="1.5" />
       </svg>
     ),
@@ -66,11 +66,11 @@ export default function ServiceIcon({
     // ── Two overlapping speech bubbles (conversation / brand voice) ───────────
     'brand-and-comms': (
       <svg viewBox="0 0 100 100" {...s}>
-        {/* Back bubble — bottom-right */}
+        {/* Back bubble bottom-right */}
         <rect x="36" y="40" width="52" height="38" rx="5" />
         {/* Back bubble tail */}
         <path d="M 58 78 L 54 88 L 66 78" />
-        {/* Front bubble — top-left (drawn on top) */}
+        {/* Front bubble top-left (drawn on top) */}
         <rect x="12" y="16" width="52" height="38" rx="5" />
         {/* Front bubble tail */}
         <path d="M 34 54 L 30 64 L 44 54" />
@@ -125,9 +125,9 @@ export default function ServiceIcon({
     // ── Studio broadcast mic on yoke with pop filter ──────────────────────────
     'creator-studio': (
       <svg viewBox="0 0 100 100" {...s}>
-        {/* Yoke arm — left */}
+        {/* Yoke arm left */}
         <path d="M 30 30 L 30 60 Q 30 70 40 70" />
-        {/* Yoke arm — right */}
+        {/* Yoke arm right */}
         <path d="M 70 30 L 70 60 Q 70 70 60 70" />
         {/* Mic body */}
         <rect x="40" y="20" width="20" height="40" rx="3" />

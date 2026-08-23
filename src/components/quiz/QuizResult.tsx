@@ -9,7 +9,7 @@ const EASE = [0.25, 0, 0, 1] as const;
 const WHATSAPP_URL = 'https://wa.me/231776049390';
 const PACKAGE_URL  = '/services'; // update to dedicated package page when live
 
-// Small structural heading — replaces eyebrow styling
+// Small structural heading replaces eyebrow styling
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
     <p className="font-spartan font-700 text-[12px] uppercase tracking-[0.14em] text-white/35 mb-4">
@@ -123,7 +123,7 @@ export default function QuizResult({
           {/* ── DIY guide ───────────────────────────────────────────────── */}
           <section>
             <div className="flex items-center justify-between mb-5">
-              <SectionLabel>Shoot it yourself — a real guide</SectionLabel>
+              <SectionLabel>Shoot it yourself a real guide</SectionLabel>
               {tone === 'hire' && (
                 <button
                   onClick={() => setDiyOpen(o => !o)}

@@ -60,7 +60,7 @@ export default function OurValues() {
           transform: flipped[value.name] ? 'rotateY(180deg)' : 'rotateY(0deg)',
         }}
       >
-        {/* Front — value name */}
+        {/* Front value name */}
         <div
           className="absolute inset-0 bg-dark-gray flex items-center justify-center p-8"
           style={{ backfaceVisibility: 'hidden' }}
@@ -70,7 +70,7 @@ export default function OurValues() {
           </h3>
         </div>
 
-        {/* Back — description */}
+        {/* Back description */}
         <div
           className="absolute inset-0 bg-konten-blue flex items-center justify-center p-8"
           style={{

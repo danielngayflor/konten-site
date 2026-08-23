@@ -135,7 +135,7 @@ export default function DiscoveryForm() {
           </h2>
           <p className="font-inter text-body-lg leading-body text-konten-cream max-w-[500px] mb-12">
             Tell us a bit about your project. We'll get back within 48 hours
-            to set up a free 30-minute discovery call — no obligation, no
+            to set up a free 30-minute discovery call no obligation, no
             pitch deck. Just a real conversation about what you need and how
             we can help.
           </p>
@@ -299,7 +299,7 @@ export default function DiscoveryForm() {
         </form>
       </div>
 
-      {/* Contact + socials — below the form */}
+      {/* Contact + socials below the form */}
       <div className="max-w-7xl mx-auto mt-16 pt-12 border-t-[1.5px] border-konten-cream/20 flex flex-col gap-5">
         <span className="text-eyebrow text-konten-cream inline-flex items-center gap-2">
           PREFER TO TALK? <Clapperboard size={14} />

@@ -6,7 +6,7 @@ const EASE = [0.25, 0, 0, 1] as const;
 export default function PageHeader() {
   return (
     <section className="relative bg-konten-blue text-konten-cream py-32 md:py-48 px-6 md:px-12 overflow-hidden">
-      {/* Two collage elements — Production (directors-chair) + Audio (studio-mic). */}
+      {/* Two collage elements Production (directors-chair) + Audio (studio-mic). */}
       <div className="absolute inset-0 pointer-events-none">
         <CollageElement
           type="directors-chair"

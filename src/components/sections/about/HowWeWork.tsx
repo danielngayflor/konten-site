@@ -8,19 +8,19 @@ const steps: { number: string; name: string; body: string; Icon: StepIcon }[] = 
   {
     number: '01',
     name: 'DISCOVER',
-    body: "We start by listening. Before we pitch a concept or frame a shot, we need to understand your world — your audience, your objectives, your constraints, and what success actually looks like for you. This is where most agencies skip ahead. We don't.",
+    body: "We start by listening. Before we pitch a concept or frame a shot, we need to understand your world your audience, your objectives, your constraints, and what success actually looks like for you. This is where most agencies skip ahead. We don't.",
     Icon: Search,
   },
   {
     number: '02',
     name: 'STRATEGISE',
-    body: 'Every piece of content we produce is built on a clear strategic foundation. We define your narrative, identify your platforms, set measurable goals, and build a plan that connects everything together. The creative comes from the strategy — not the other way around.',
+    body: 'Every piece of content we produce is built on a clear strategic foundation. We define your narrative, identify your platforms, set measurable goals, and build a plan that connects everything together. The creative comes from the strategy not the other way around.',
     Icon: Target,
   },
   {
     number: '03',
     name: 'CREATE',
-    body: "This is where we do what we love. From concept to camera to edit suite — our in-house team handles every stage of production with craft and intention. We bring our full toolkit to bear: film, photography, motion, design, audio. And we never stop asking whether what we're making is actually good.",
+    body: "This is where we do what we love. From concept to camera to edit suite our in-house team handles every stage of production with craft and intention. We bring our full toolkit to bear: film, photography, motion, design, audio. And we never stop asking whether what we're making is actually good.",
     Icon: Wand2,
   },
   {
@@ -97,7 +97,7 @@ export default function HowWeWork() {
               whileInView="visible"
               viewport={{ once: true, margin: '-80px' }}
             >
-              {/* Rule — draws left → right */}
+              {/* Rule draws left → right */}
               <motion.div
                 className="h-[1.5px] bg-konten-black"
                 variants={ruleAnim}
@@ -116,7 +116,7 @@ export default function HowWeWork() {
                     </span>
                   </motion.div>
 
-                  {/* Icon — mobile only, top-right opposite the number */}
+                  {/* Icon mobile only, top-right opposite the number */}
                   <motion.div className="md:hidden flex-shrink-0" variants={iconAnim}>
                     <step.Icon size={72} strokeWidth={1} className="text-konten-blue" />
                   </motion.div>
@@ -140,7 +140,7 @@ export default function HowWeWork() {
                     </motion.p>
                   </div>
 
-                  {/* Icon — desktop only, to the right of text */}
+                  {/* Icon desktop only, to the right of text */}
                   <motion.div
                     className="hidden md:flex flex-shrink-0 items-center justify-end"
                     variants={iconAnim}
@@ -151,7 +151,7 @@ export default function HowWeWork() {
                 </div>
               </div>
 
-              {/* Connector — line draws down then arrow drops */}
+              {/* Connector line draws down then arrow drops */}
               {i < steps.length - 1 && (
                 <div className="flex flex-col md:flex-row md:gap-16 py-2">
                   <div className="md:w-40 flex-shrink-0 flex justify-start md:justify-center">

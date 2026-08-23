@@ -108,7 +108,7 @@ export default function ServiceSpread({
                       }`}
                     >
                       <strong className="font-600">{item.lead}</strong>
-                      <span className={subheadColor}> — {item.description}</span>
+                      <span className={subheadColor}> {item.description}</span>
                     </span>
                   </li>
                 ))}

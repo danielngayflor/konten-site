@@ -47,7 +47,7 @@ function DownloadGate({ file }: { file: NonNullable<Resource['downloadFile']> })
       {!submitted ? (
         <form onSubmit={handleSubmit}>
           <p className="font-inter text-body-lg text-konten-cream/75 mb-5">
-            Drop your email and the template is yours — free, forever, no strings.
+            Drop your email and the template is yours free, forever, no strings.
           </p>
           <div className="flex flex-col sm:flex-row gap-3">
             <input
@@ -72,7 +72,7 @@ function DownloadGate({ file }: { file: NonNullable<Resource['downloadFile']> })
       ) : (
         <div>
           <p className="font-inter text-body-lg text-konten-cream/75 mb-5">
-            You're all set — click below to download.
+            You're all set click below to download.
           </p>
           <a
             href={file.path}
