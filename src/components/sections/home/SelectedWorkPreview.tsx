@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { workPlaceholders } from '../../../data/workPlaceholders';
 
 const FOLD     = 40;
-const INTERVAL = 10_000; // ms
+const INTERVAL = 6_000; // ms
 const PER_PAGE = 3;
 const EASE     = [0.25, 0, 0, 1] as const;
 
