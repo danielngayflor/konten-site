@@ -8,7 +8,7 @@ import ScrollToHash from './components/ui/ScrollToHash';
 import PageSkeleton from './components/ui/PageSkeleton';
 
 // Lazy-load each page so it gets its own chunk.
-// Suspense shows <PageSkeleton> while the chunk is fetching 
+// Suspense shows <PageSkeleton> while the chunk is fetching
 // no more pitch-black flash on first load or first visit to a route.
 const Home           = lazy(() => import('./pages/Home'));
 const About          = lazy(() => import('./pages/About'));
@@ -18,6 +18,8 @@ const WorkDetail     = lazy(() => import('./pages/WorkDetail'));
 const Resources      = lazy(() => import('./pages/Resources'));
 const ResourceDetail = lazy(() => import('./pages/ResourceDetail'));
 const Quiz           = lazy(() => import('./pages/Quiz'));
+// Discovery is full-screen (no Nav/Closer/Footer) — loaded outside AppLayout.
+const Discovery      = lazy(() => import('./pages/Discovery'));
 
 function AppLayout() {
   return (
@@ -52,7 +54,15 @@ function App() {
     <Router>
       <ScrollToTop />
       <ScrollToHash />
-      <AppLayout />
+      <Routes>
+        {/* Full-screen, no Nav/Footer — feels like a Typeform */}
+        <Route path="/discovery" element={
+          <Suspense fallback={null}>
+            <Discovery />
+          </Suspense>
+        } />
+        <Route path="/*" element={<AppLayout />} />
+      </Routes>
     </Router>
   );
 }
